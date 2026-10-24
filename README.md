@@ -98,3 +98,5 @@ keeps its own terms, listed in
 
 Use of the Fluxer name and logo is covered by the
 [name and marks policy](./.github/GOVERNANCE.md#name-and-marks).
+
+NekoChat logo designed by FerrisNya. [Wonderful Fonty Cure!](https://www.fontspace.com/wonderful-fonty-cure-font-f114117) designed by [heaven castro](https://www.fontspace.com/heaven-castro).
