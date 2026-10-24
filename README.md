@@ -1,6 +1,37 @@
-# NekoChat — An independent fork of Fluxer
+<p align="center">
+  <img src="NCBanner.png" alt="NekoChat Banner" width="1200">
+</p>
+ 
+<p align="center">
+  <a href="https://discord.gg/NxnRjM7aTQ">
+    <img src="https://img.shields.io/badge/Join%20NekoChat%20Dev%20Server-join%20now-purple" alt="Join NekoChat Discord" /></a>
+  <a href="https://docs.fluxer.app">
+    <img src="https://img.shields.io/badge/Docs-docs.fluxer.app-blue" alt="Documentation" /></a>
+  <a href="https://fluxer.app/donate">
+    <img src="https://img.shields.io/badge/Donate-fluxer.app%2Fdonate-brightgreen" alt="Donate" /></a>
+  <a href="./LICENSE">
+    <img src="https://img.shields.io/badge/License-AGPLv3-purple" alt="AGPLv3 License" /></a>
+  <a href="https://fluxer.app">
+    <img src="https://img.shields.io/badge/Official%20Site-fluxer.app-blue" alt="Official Fluxer Site" /></a>
+</p>
+ 
+<p align="center">
+  <a href="https://flathub.org/apps/app.fluxer.Fluxer">
+    <img src="https://dl.flathub.org/assets/badges/flathub-badge-en.svg" alt="Get it on Flathub" height="60" /></a>
+</p>
 
 ---
+ 
+# NekoChat
+ 
+> [!IMPORTANT]
+> NekoChat is an **independent fork** of [Fluxer](https://fluxer.app). Bug reports and feature requests for Fluxer have moved to [feedback.fluxer.com](https://feedback.fluxer.com). Sign in with your Fluxer account to post, vote and follow updates. Fluxer GitHub Issues and Discussions are closed. Fluxer security vulnerabilities should be reported privately through [fluxer.app/security](https://fluxer.app/security).
+ 
+NekoChat is a free and open source instant messaging and VoIP chat app built for friends, groups, and communities.
+ 
+<p align="center">
+  <img src="https://fluxer.app/static/img/screenshots-desktop-readme-1920w.70cb6ce340007e0a.png" alt="NekoChat running side by side on a desktop monitor and a phone" width="640">
+</p>
 
 ## 📖 About NekoChat
 
@@ -11,15 +42,6 @@
 - **NekoChat-specific enhancements** - Unique blend of original Fluxer features and custom improvements
 - **Community-driven improvements** - Built with feedback from active users
 - **Independent development path** - Maintains a separate development trajectory
-
----
-
-## 🚀 Quick Links
-
-- 📖 [Documentation](https://docs.fluxer.app)
-- 🎁 [Downloads](https://docs.fluxer.app/downloads/overview/)
-- 🖥️ [Self-hosting](https://docs.fluxer.app/operator/get-started/)
-- 💬 [Join the NekoChat Development Server](https://discord.gg/NxnRjM7aTQ)
 
 ---
 
@@ -61,3 +83,17 @@ The package is `fluxer` for stable and `fluxer-canary` for canary. `apt` and `dn
 ### Flatpak
 
 Stable is on [Flathub](https://flathub.org/apps/app.fluxer.Fluxer), the easiest route on most desktops:
+
+---
+
+## License
+
+The source is licensed under the [AGPL-3.0-or-later](./LICENSE) license.
+
+Fluxer artwork, such as the logo, icons, badges and default avatars, is
+licensed under [CC BY-SA 4.0](./fluxer_static/LICENSE). Third-party material
+keeps its own terms, listed in
+[fluxer_static/THIRD_PARTY_LICENSES.md](./fluxer_static/THIRD_PARTY_LICENSES.md).
+
+Use of the Fluxer name and logo is covered by the
+[name and marks policy](./.github/GOVERNANCE.md#name-and-marks).
