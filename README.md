@@ -1,10 +1,11 @@
 <p align="center">
   <img src="NCBanner.png" alt="NekoChat Banner" width="1200">
+  An Independent Fluxer Fork
 </p>
  
 <p align="center">
   <a href="https://discord.gg/NxnRjM7aTQ">
-    <img src="https://img.shields.io/badge/Join%20NekoChat%20Dev%20Server-join%20now-purple" alt="Join NekoChat Discord" /></a>
+    <img src="https://img.shields.io/badge/NekoChat%20Dev%20Server-join%20now-purple" alt="Join NekoChat Discord" /></a>
   <a href="https://docs.fluxer.app">
     <img src="https://img.shields.io/badge/Docs-docs.fluxer.app-blue" alt="Documentation" /></a>
   <a href="https://fluxer.app/donate">
