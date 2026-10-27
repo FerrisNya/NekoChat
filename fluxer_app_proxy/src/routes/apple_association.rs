@@ -10,12 +10,8 @@ use serde_json::json;
 pub async fn apple_app_site_association() -> Response {
     let body = json!({
         "webcredentials": {
-            "apps": [
-                "3G5837T29K.app.fluxer",
-                "3G5837T29K.app.fluxer.canary",
-                "3G5837T29K.com.fluxer",
-                "3G5837T29K.com.fluxer.canary"
-            ]
+            // NekoChat has no signed Apple app yet; list "<TEAM_ID>.<bundle id>" entries here once it does.
+            "apps": []
         }
     });
 

@@ -651,8 +651,8 @@ mod tests {
             notification: NotificationFields {
                 title: "Elias".to_owned(),
                 body: "see you tomorrow".to_owned(),
-                icon: "https://media.fluxer.app/avatars/1/a.webp".to_owned(),
-                badge: Some("https://media.fluxer.app/badge.png".to_owned()),
+                icon: "https://media.nekochat.example/avatars/1/a.webp".to_owned(),
+                badge: Some("https://media.nekochat.example/badge.png".to_owned()),
                 tag: format!("channel:{CHANNEL_ID}:{MESSAGE_ID}"),
                 notification_tag: format!("channel:{CHANNEL_ID}"),
                 url: format!("/channels/@me/{CHANNEL_ID}"),
@@ -699,7 +699,7 @@ mod tests {
     #[test]
     fn a_message_with_an_image_still_runs_the_notification_service_extension() {
         assert_eq!(
-            apns_for(Some("https://media.fluxer.app/proxy/attachment.webp"))["aps"]["mutable-content"],
+            apns_for(Some("https://media.nekochat.example/proxy/attachment.webp"))["aps"]["mutable-content"],
             json!(1)
         );
     }
@@ -732,11 +732,11 @@ mod tests {
         let envelope = web_push_message(&message_job(None), USER_ID, 3);
         assert_eq!(
             envelope["badge"],
-            json!("https://media.fluxer.app/badge.png")
+            json!("https://media.nekochat.example/badge.png")
         );
         assert_eq!(
             envelope["notification"]["badge"],
-            json!("https://media.fluxer.app/badge.png")
+            json!("https://media.nekochat.example/badge.png")
         );
     }
 

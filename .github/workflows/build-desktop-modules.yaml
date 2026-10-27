@@ -69,7 +69,7 @@ jobs:
         with:
           client-id: ${{ vars.FLUXER_CI_APP_ID }}
           private-key: ${{ secrets.FLUXER_CI_APP_KEY }}
-          owner: fluxerapp
+          owner: FerrisNya
           repositories: fluxer
           permission-contents: read
       - name: Set metadata
@@ -261,7 +261,7 @@ jobs:
         with:
           client-id: ${{ vars.FLUXER_CI_APP_ID }}
           private-key: ${{ secrets.FLUXER_CI_APP_KEY }}
-          owner: fluxerapp
+          owner: FerrisNya
           repositories: fluxer
           permission-contents: read
       - name: Check which shells run these modules
@@ -329,7 +329,7 @@ jobs:
         with:
           client-id: ${{ vars.FLUXER_CI_APP_ID }}
           private-key: ${{ secrets.FLUXER_CI_APP_KEY }}
-          owner: fluxerapp
+          owner: FerrisNya
           repositories: fluxer
           permission-contents: write
       - name: Publish GitHub modules-only release

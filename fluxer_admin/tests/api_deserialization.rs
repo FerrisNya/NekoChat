@@ -199,9 +199,9 @@ fn deserialize_instance_config_response_with_unknown_keys() {
             "client_id": "fluxer-admin",
             "client_secret_set": true,
             "scope": "openid profile email",
-            "allowed_domains": ["fluxer.com"],
+            "allowed_domains": ["nekochat-site.example"],
             "auto_provision": true,
-            "redirect_uri": "https://fluxer.com/sso/callback"
+            "redirect_uri": "https://nekochat-site.example/sso/callback"
         },
         "gateway_rollout": {
             "session_rollout_percentage": 100,
@@ -280,8 +280,8 @@ fn deserialize_instance_config_response_with_unknown_keys() {
             },
             "setup": {"configured": true},
             "legal": {
-                "terms_url": "https://fluxer.com/terms",
-                "privacy_url": "https://fluxer.com/privacy"
+                "terms_url": "https://nekochat-site.example/terms",
+                "privacy_url": "https://nekochat-site.example/privacy"
             },
             "registration": {"collect_date_of_birth": true}
         },
@@ -313,7 +313,7 @@ fn deserialize_instance_config_response_with_unknown_keys() {
                 "effective_enabled": true,
                 "provider": "smtp",
                 "effective_provider": "smtp",
-                "from_email": "noreply@fluxer.com",
+                "from_email": "noreply@nekochat-site.example",
                 "from_name": "Fluxer",
                 "smtp": {
                     "host": "smtp.example.com",
@@ -330,10 +330,10 @@ fn deserialize_instance_config_response_with_unknown_keys() {
                 "enabled": false,
                 "effective_enabled": false,
                 "client_name": "Fluxer",
-                "client_uri": "https://fluxer.com",
+                "client_uri": "https://nekochat-site.example",
                 "logo_uri": "https://cdn.example.com/logo.svg",
-                "tos_uri": "https://fluxer.com/terms",
-                "policy_uri": "https://fluxer.com/privacy",
+                "tos_uri": "https://nekochat-site.example/terms",
+                "policy_uri": "https://nekochat-site.example/privacy",
                 "key_count": 0
             }
         },

@@ -20,7 +20,7 @@ writeFileSync(
 );
 writeFileSync(path.join(rendererRoot, 'assets', 'deadbeefdeadbeef.js'), 'console.log(1)');
 
-const INSTANCE_KEY = 'https://api.fluxer.app';
+const INSTANCE_KEY = 'https://api.nekochat.example';
 const ENCODED_KEY = encodeURIComponent(INSTANCE_KEY);
 const SECRET = 'test-secret';
 const REACTION_BURST_SIZE = 300;
@@ -30,10 +30,10 @@ const PLAN = {
 	document: {},
 	selfHosted: false,
 	endpoints: {
-		apiEndpoint: 'https://api.fluxer.app',
-		apiPublicEndpoint: 'https://api.fluxer.app',
-		webAppEndpoint: 'https://web.fluxer.app',
-		mediaEndpoint: 'https://media.fluxer.app',
+		apiEndpoint: 'https://api.nekochat.example',
+		apiPublicEndpoint: 'https://api.nekochat.example',
+		webAppEndpoint: 'https://web.nekochat.example',
+		mediaEndpoint: 'https://media.nekochat.example',
 		staticCdnEndpoint: null,
 		uploadRelayEndpoint: null,
 		gatewayEndpoint: null,
@@ -102,7 +102,7 @@ describe('an unauthorized request is indistinguishable from nothing being there'
 			'fluxer-app://app/',
 			'fluxer-app://app/channels/@me',
 			`fluxer-app://app/api/${ENCODED_KEY}/v1/users/@me`,
-			`fluxer-app://app/proxy/${ENCODED_KEY}?url=https%3A%2F%2Fmedia.fluxer.app%2Fx.png`,
+			`fluxer-app://app/proxy/${ENCODED_KEY}?url=https%3A%2F%2Fmedia.nekochat.example%2Fx.png`,
 		]) {
 			const response = await handler.handle(
 				new Request(url, {headers: {'X-Fluxer-Desktop-Protocol-Authorization': 'wrong'}}),
@@ -158,7 +158,7 @@ describe('the document gate keeps a hostile instance out of the privileged origi
 
 	test('a framed /proxy request is 404ed before any outbound fetch is attempted', async () => {
 		const response = await createHandler().handle(
-			authorized(`fluxer-app://app/proxy/${ENCODED_KEY}?url=https%3A%2F%2Fmedia.fluxer.app%2Fx.png`, {
+			authorized(`fluxer-app://app/proxy/${ENCODED_KEY}?url=https%3A%2F%2Fmedia.nekochat.example%2Fx.png`, {
 				headers: {'Upgrade-Insecure-Requests': '1'},
 			}),
 		);
@@ -170,7 +170,7 @@ describe('the document gate keeps a hostile instance out of the privileged origi
 		const handler = createHandler();
 		for (const url of [
 			`fluxer-app://app/api/${ENCODED_KEY}/v1/users/@me`,
-			`fluxer-app://app/proxy/${ENCODED_KEY}?url=https%3A%2F%2Fmedia.fluxer.app%2Fx.png`,
+			`fluxer-app://app/proxy/${ENCODED_KEY}?url=https%3A%2F%2Fmedia.nekochat.example%2Fx.png`,
 		]) {
 			const response = await handler.handle(authorized(url, {headers: {'Sec-Fetch-Dest': 'document'}}));
 			assert.equal(response.status, 404, url);
@@ -203,7 +203,7 @@ describe('the document gate keeps a hostile instance out of the privileged origi
 		const response = await createHandler().handle(authorized(`fluxer-app://app/api/${ENCODED_KEY}/v1/users/@me`));
 		assert.equal(response.status, 200);
 		assert.equal(proxyCalls.length, 1);
-		assert.equal(proxyCalls[0].targetURL, 'https://api.fluxer.app/v1/users/@me');
+		assert.equal(proxyCalls[0].targetURL, 'https://api.nekochat.example/v1/users/@me');
 	});
 });
 
@@ -212,7 +212,7 @@ describe('runtime key routing', () => {
 		const handler = createHandler();
 		for (const url of [
 			'fluxer-app://app/api/https%3A%2F%2Fevil.example/v1/users/@me',
-			'fluxer-app://app/proxy/https%3A%2F%2Fevil.example?url=https%3A%2F%2Fmedia.fluxer.app%2Fx.png',
+			'fluxer-app://app/proxy/https%3A%2F%2Fevil.example?url=https%3A%2F%2Fmedia.nekochat.example%2Fx.png',
 		]) {
 			const response = await handler.handle(authorized(url));
 			assert.equal(response.status, 404, url);
@@ -230,15 +230,15 @@ describe('runtime key routing', () => {
 
 	test('a remote target inside the active plan is proxied', async () => {
 		const response = await createHandler().handle(
-			authorized(`fluxer-app://app/proxy/${ENCODED_KEY}?url=https%3A%2F%2Fmedia.fluxer.app%2Fx.png`),
+			authorized(`fluxer-app://app/proxy/${ENCODED_KEY}?url=https%3A%2F%2Fmedia.nekochat.example%2Fx.png`),
 		);
 		assert.equal(response.status, 200);
-		assert.equal(proxyCalls[0].targetURL, 'https://media.fluxer.app/x.png');
+		assert.equal(proxyCalls[0].targetURL, 'https://media.nekochat.example/x.png');
 	});
 
 	test('a POST on the remote resource route is refused', async () => {
 		const response = await createHandler().handle(
-			authorized(`fluxer-app://app/proxy/${ENCODED_KEY}?url=https%3A%2F%2Fmedia.fluxer.app%2Fx.png`, {
+			authorized(`fluxer-app://app/proxy/${ENCODED_KEY}?url=https%3A%2F%2Fmedia.nekochat.example%2Fx.png`, {
 				method: 'POST',
 			}),
 		);

@@ -28,22 +28,22 @@ type DomainMovedPresentation = 'install' | 'browser' | 'apple' | 'generic';
 const INSTALL_MESSAGE_DESCRIPTOR = msg({
 	message: '{productName} has moved to {host}. Install the new app and you will already be signed in.',
 	comment:
-		'Banner in an installed desktop web app after the account moved to the new domain. productName is the app name. host is the new domain, for example fluxer.com.',
+		'Banner in an installed desktop web app after the account moved to the new domain. productName is the app name. host is the new domain, for example nekochat-site.example.',
 });
 const BROWSER_MESSAGE_DESCRIPTOR = msg({
 	message: '{productName} has moved to {host}. Open it in your browser to install the new app.',
 	comment:
-		'Banner in an installed Android web app. productName is the app name. host is the new domain, for example fluxer.com.',
+		'Banner in an installed Android web app. productName is the app name. host is the new domain, for example nekochat-site.example.',
 });
 const APPLE_MESSAGE_DESCRIPTOR = msg({
 	message: '{productName} has moved to {host}. Add it to your Home Screen or Dock, then sign in with this app.',
 	comment:
-		'Banner in a web app installed on iPhone, iPad or Mac. productName is the app name. host is the new domain, for example fluxer.com. Home Screen and Dock are Apple names.',
+		'Banner in a web app installed on iPhone, iPad or Mac. productName is the app name. host is the new domain, for example nekochat-site.example. Home Screen and Dock are Apple names.',
 });
 const GENERIC_MESSAGE_DESCRIPTOR = msg({
 	message: '{productName} has moved to {host}. Install it from your browser, then sign in with this app.',
 	comment:
-		'Banner in an installed web app on other browsers. productName is the app name. host is the new domain, for example fluxer.com.',
+		'Banner in an installed web app on other browsers. productName is the app name. host is the new domain, for example nekochat-site.example.',
 });
 const INSTALL_NEW_APP_DESCRIPTOR = msg({
 	message: 'Install the new app',

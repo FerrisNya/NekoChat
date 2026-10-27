@@ -13,7 +13,7 @@ describe('ErrorI18n', () => {
 	describe('global IP block messages', () => {
 		const HOSTED = {
 			ipAddress: '203.0.113.20',
-			appealEmail: 'support@fluxer.com',
+			appealEmail: 'support@nekochat-site.example',
 			expiresAt: 'Jan 12, 2027, 9:00 AM UTC',
 			reason: 'none',
 			product_name: 'Fluxer',
@@ -30,7 +30,7 @@ describe('ErrorI18n', () => {
 					expect(neutral, `${locale} ${code}`).toContain('chat.example.org');
 					expect(neutral, `${locale} ${code}`).not.toContain('Fluxer');
 					const hosted = getErrorMessageUnsafe(code, locale, HOSTED);
-					expect(hosted, `${locale} ${code}`).toContain('support@fluxer.com');
+					expect(hosted, `${locale} ${code}`).toContain('support@nekochat-site.example');
 					expect(hosted, `${locale} ${code}`).toContain('203.0.113.20');
 					expect(hosted, `${locale} ${code}`).toContain('Fluxer');
 				}
@@ -40,7 +40,7 @@ describe('ErrorI18n', () => {
 		it('leads with the shared-network advice and never blames the reader', () => {
 			const permanent = getErrorMessageUnsafe('GLOBAL_IP_BANNED', 'en-US', HOSTED);
 			expect(permanent).toBe(
-				`Fluxer blocked access from this network. ${SHARED_NETWORK} If you think this block is a mistake, email support@fluxer.com and include your IP address, 203.0.113.20.`,
+				`Fluxer blocked access from this network. ${SHARED_NETWORK} If you think this block is a mistake, email support@nekochat-site.example and include your IP address, 203.0.113.20.`,
 			);
 			expect(getErrorMessageUnsafe('GLOBAL_IP_TEMPORARILY_BANNED', 'en-US', SELF_HOSTED)).toBe(
 				`chat.example.org blocked access from this network. The block ends on Jan 12, 2027, 9:00 AM UTC. ${SHARED_NETWORK}`,
@@ -54,7 +54,7 @@ describe('ErrorI18n', () => {
 		});
 	});
 	describe('payment processing error', () => {
-		const HOSTED = {supportEmail: 'support@fluxer.com'};
+		const HOSTED = {supportEmail: 'support@nekochat-site.example'};
 		const SELF_HOSTED = {supportEmail: null};
 		const ENGLISH_NEUTRAL =
 			'Payment processing encountered an error. Please try again or contact the administrators of this instance.';

@@ -97,7 +97,7 @@ async function createMessageLinks(harness: ApiTestHarness, count: number): Promi
 	const links: Array<string> = [];
 	for (let index = 0; index < count; index++) {
 		const message = await sendChannelMessage(harness, members[0].token, channel.id, `DSA notice target ${index}`);
-		links.push(`https://web.fluxer.app/channels/${guild.id}/${channel.id}/${message.id}`);
+		links.push(`https://web.nekochat.example/channels/${guild.id}/${channel.id}/${message.id}`);
 	}
 	return links;
 }
@@ -270,7 +270,7 @@ describe('DSA verification codes and tickets', () => {
 	test('a rejected notice keeps the ticket', async () => {
 		const ticket = await issueTicket(harness);
 		const [link] = await createMessageLinks(harness, 1);
-		await submitNotice(harness, ticket, 'https://web.fluxer.app/channels/1/2/3')
+		await submitNotice(harness, ticket, 'https://web.nekochat.example/channels/1/2/3')
 			.expect(HTTP_STATUS.NOT_FOUND)
 			.execute();
 		await submitNotice(harness, ticket, link).expect(HTTP_STATUS.OK).execute();

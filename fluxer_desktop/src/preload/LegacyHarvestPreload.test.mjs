@@ -60,7 +60,7 @@ function fakeDatabase(name, stores) {
 function installHarvestDocument(
 	stores,
 	localStorage,
-	location = {protocol: 'https:', hostname: 'web.fluxer.app', pathname: '/__fluxer-desktop-storage-harvest'},
+	location = {protocol: 'https:', hostname: 'web.nekochat.example', pathname: '/__fluxer-desktop-storage-harvest'},
 ) {
 	const submissions = [];
 	let settle = () => undefined;
@@ -140,7 +140,7 @@ describe('which origins the harvest will read storage from', () => {
 
 	test('https is trusted, whatever the host', async () => {
 		assert.equal(
-			await harvestRuns('https-remote', {protocol: 'https:', hostname: 'web.fluxer.app', pathname: sentinel}),
+			await harvestRuns('https-remote', {protocol: 'https:', hostname: 'web.nekochat.example', pathname: sentinel}),
 			true,
 		);
 	});
@@ -156,7 +156,7 @@ describe('which origins the harvest will read storage from', () => {
 	});
 
 	test('http off loopback is refused, so storage is never read over a plaintext network origin', async () => {
-		for (const hostname of ['web.fluxer.app', 'example.com', '10.0.0.1']) {
+		for (const hostname of ['web.nekochat.example', 'example.com', '10.0.0.1']) {
 			assert.equal(
 				await harvestRuns(`http-remote-${hostname}`, {protocol: 'http:', hostname, pathname: sentinel}),
 				false,

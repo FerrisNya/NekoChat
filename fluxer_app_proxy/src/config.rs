@@ -595,9 +595,12 @@ mod tests {
         assert_eq!(
             parse_same_origin_hosts(
                 "TEST_SAME_ORIGIN_HOSTS",
-                " web.fluxer.app, Fluxer.COM,fluxer.com. ,fluxer.com"
+                " web.nekochat.example, NekoChat-Site.EXAMPLE,nekochat-site.example. ,nekochat-site.example"
             ),
-            vec!["web.fluxer.app".to_owned(), "fluxer.com".to_owned()]
+            vec![
+                "web.nekochat.example".to_owned(),
+                "nekochat-site.example".to_owned()
+            ]
         );
     }
 
@@ -606,9 +609,9 @@ mod tests {
         assert_eq!(
             parse_same_origin_hosts(
                 "TEST_SAME_ORIGIN_HOSTS",
-                "https://fluxer.com,fluxer.com:443,fluxer.com/api,user@fluxer.com,canary.fluxer.com"
+                "https://nekochat-site.example,nekochat-site.example:443,nekochat-site.example/api,user@nekochat-site.example,canary.nekochat-site.example"
             ),
-            vec!["canary.fluxer.com".to_owned()]
+            vec!["canary.nekochat-site.example".to_owned()]
         );
     }
 
@@ -632,11 +635,11 @@ mod tests {
         assert_eq!(
             parse_manifest_scope_extensions(
                 "TEST_SCOPE_EXTENSIONS",
-                " https://Fluxer.COM, https://fluxer.com/ ,https://canary.fluxer.com:443"
+                " https://NekoChat-Site.EXAMPLE, https://nekochat-site.example/ ,https://canary.nekochat-site.example:443"
             ),
             vec![
-                "https://fluxer.com".to_owned(),
-                "https://canary.fluxer.com".to_owned()
+                "https://nekochat-site.example".to_owned(),
+                "https://canary.nekochat-site.example".to_owned()
             ]
         );
     }
@@ -646,9 +649,9 @@ mod tests {
         assert_eq!(
             parse_manifest_scope_extensions(
                 "TEST_SCOPE_EXTENSIONS",
-                "fluxer.com,http://fluxer.com,https://fluxer.com/app,https://fluxer.com/?a=1,https://user@fluxer.com,https://canary.fluxer.com"
+                "nekochat-site.example,http://nekochat-site.example,https://nekochat-site.example/app,https://nekochat-site.example/?a=1,https://user@nekochat-site.example,https://canary.nekochat-site.example"
             ),
-            vec!["https://canary.fluxer.com".to_owned()]
+            vec!["https://canary.nekochat-site.example".to_owned()]
         );
     }
 }

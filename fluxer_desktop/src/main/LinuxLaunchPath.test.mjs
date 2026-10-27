@@ -120,7 +120,7 @@ describe('AppImage relaunch script', () => {
 					replacement,
 					root,
 					'--fluxer-portable',
-					'fluxer://invite/a b',
+					'nekochat://invite/a b',
 				],
 				{cwd: root, detached: true, stdio: 'ignore'},
 			);
@@ -134,7 +134,7 @@ describe('AppImage relaunch script', () => {
 			assert.equal(existsSync(marker), true, 'the replacement never started');
 			assert.deepEqual(readFileSync(marker, 'utf8').split('\n').slice(0, 2), [
 				'--fluxer-portable',
-				'fluxer://invite/a b',
+				'nekochat://invite/a b',
 			]);
 			chmodSync(replacement, 0o755);
 		});
@@ -162,7 +162,7 @@ describe('AppImage relaunch', () => {
 	});
 
 	test('waits for this process to exit before starting the replacement, and keeps its arguments', () => {
-		const updater = loadLaunchPath({argv: ['--fluxer-portable', 'fluxer://invite/a b']});
+		const updater = loadLaunchPath({argv: ['--fluxer-portable', 'nekochat://invite/a b']});
 
 		updater.relaunchStableLaunchPath();
 
@@ -174,7 +174,7 @@ describe('AppImage relaunch', () => {
 		assert.equal(pid, '13274');
 		assert.equal(target, APPIMAGE_PATH);
 		assert.equal(home, '/home/hampus');
-		assert.deepEqual(forwarded, ['--fluxer-portable', 'fluxer://invite/a b']);
+		assert.deepEqual(forwarded, ['--fluxer-portable', 'nekochat://invite/a b']);
 	});
 
 	test('hands the replacement a clean descriptor table', () => {

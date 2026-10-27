@@ -3,7 +3,7 @@
 const HTTP_PREFIX = 'http://';
 const HTTPS_PREFIX = 'https://';
 const APP_PROTOCOL_SCHEME = 'fluxer:';
-const APP_PROTOCOL_PREFIX = 'fluxer://';
+const APP_PROTOCOL_PREFIX = 'nekochat://';
 
 export function startsWithUrl(text: string): boolean {
 	if (text.length < HTTPS_PREFIX.length) return false;

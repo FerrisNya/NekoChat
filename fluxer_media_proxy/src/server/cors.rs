@@ -136,8 +136,8 @@ mod tests {
     };
     use axum::body::to_bytes;
 
-    const WEB: &str = "https://web.fluxer.app";
-    const CANARY: &str = "https://web.canary.fluxer.app";
+    const WEB: &str = "https://web.nekochat.example";
+    const CANARY: &str = "https://web.canary.nekochat.example";
 
     fn allowlist() -> Vec<HeaderValue> {
         vec![
@@ -185,11 +185,11 @@ mod tests {
         for refused in [
             "null",
             "https://evil.example",
-            "https://web.fluxer.app/",
-            "HTTPS://WEB.FLUXER.APP",
-            "https://web.fluxer.app:443",
-            "http://web.fluxer.app",
-            "https://web.fluxer.app.evil.example",
+            "https://web.nekochat.example/",
+            "HTTPS://WEB.NEKOCHAT.EXAMPLE",
+            "https://web.nekochat.example:443",
+            "http://web.nekochat.example",
+            "https://web.nekochat.example.evil.example",
             "",
         ] {
             assert_eq!(

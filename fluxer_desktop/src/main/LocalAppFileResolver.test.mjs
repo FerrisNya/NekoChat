@@ -148,7 +148,7 @@ describe('renderer file resolution refuses to leave the bundle', () => {
 	});
 
 	test('a request that is not on the local app origin is blocked', async () => {
-		assert.equal((await files.resolve('https://web.fluxer.app/')).reason, 'invalid-origin');
+		assert.equal((await files.resolve('https://web.nekochat.example/')).reason, 'invalid-origin');
 		assert.equal((await files.resolve('data:text/html,x')).reason, 'invalid-origin');
 		assert.equal((await files.resolve('fluxer-app://evil/')).reason, 'invalid-origin');
 		assert.equal((await files.resolve('fluxer-app://app:8080/')).reason, 'invalid-origin');

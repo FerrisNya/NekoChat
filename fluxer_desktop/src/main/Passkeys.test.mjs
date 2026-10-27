@@ -73,13 +73,13 @@ registerPasskeyHandlers();
 
 const REQUEST_OPTIONS = {
 	challenge: 'Y2hhbGxlbmdl',
-	rpId: 'fluxer.app',
+	rpId: 'nekochat.example',
 	allowCredentials: [],
 };
 
 const REGISTRATION_OPTIONS = {
 	challenge: 'Y2hhbGxlbmdl',
-	rp: {id: 'fluxer.app', name: 'Fluxer'},
+	rp: {id: 'nekochat.example', name: 'Fluxer'},
 	user: {id: 'dXNlcg', name: 'user', displayName: 'user'},
 	pubKeyCredParams: [{type: 'public-key', alg: -7}],
 };
@@ -124,9 +124,9 @@ async function register(requestContext) {
 
 describe('passkey ceremony origin', () => {
 	test('an instance may only sign a ceremony for its own registrable site', async () => {
-		protocolState.activePlan = plan('https://api.fluxer.app', 'https://web.fluxer.app');
+		protocolState.activePlan = plan('https://api.nekochat.example', 'https://web.nekochat.example');
 		await authenticate();
-		assert.equal(ceremonyState.calls[0]?.origin, 'https://web.fluxer.app');
+		assert.equal(ceremonyState.calls[0]?.origin, 'https://web.nekochat.example');
 
 		protocolState.activePlan = plan('http://localhost:8088/api', 'http://localhost:8088');
 		await authenticate();
@@ -134,7 +134,7 @@ describe('passkey ceremony origin', () => {
 	});
 
 	test('an instance may not name another site as the ceremony origin', async () => {
-		protocolState.activePlan = plan('https://evil.example', 'https://web.fluxer.app');
+		protocolState.activePlan = plan('https://evil.example', 'https://web.nekochat.example');
 		await assert.rejects(authenticate(), /UntrustedPasskeyCeremonyOriginError/u);
 		assert.deepEqual(ceremonyState.calls, []);
 	});
@@ -143,7 +143,7 @@ describe('passkey ceremony origin', () => {
 		protocolState.activePlan = plan('https://10.0.0.1', 'https://20.0.0.1');
 		await assert.rejects(authenticate(), /UntrustedPasskeyCeremonyOriginError/u);
 
-		protocolState.activePlan = plan('https://api.fluxer.app', 'https://web.fluxer.app.');
+		protocolState.activePlan = plan('https://api.nekochat.example', 'https://web.nekochat.example.');
 		await assert.rejects(authenticate(), /UntrustedPasskeyCeremonyOriginError/u);
 
 		assert.deepEqual(ceremonyState.calls, []);
@@ -155,7 +155,7 @@ describe('passkey ceremony origin', () => {
 			['https://evil.github.io', 'https://victim.github.io'],
 			['https://evil.vercel.app', 'https://victim.vercel.app'],
 			['https://evil.pages.dev', 'https://victim.pages.dev'],
-			['https://evil.fluxer.app', 'https://web.fluxer.app'],
+			['https://evil.nekochat.example', 'https://web.nekochat.example'],
 		]) {
 			protocolState.activePlan = plan(api, webApp);
 			await assert.rejects(authenticate(), /UntrustedPasskeyCeremonyOriginError/u);
@@ -171,27 +171,27 @@ describe('passkey ceremony origin', () => {
 
 	test('a signed-out ceremony uses the plan of the instance that issued the options', async () => {
 		protocolState.activePlan = null;
-		const official = plan('https://api.fluxer.app', 'https://web.fluxer.app');
+		const official = plan('https://api.nekochat.example', 'https://web.nekochat.example');
 		protocolState.cachedPlans = new Map([[official.instanceKey, official]]);
 		await authenticate({instanceKey: official.instanceKey});
-		assert.equal(ceremonyState.calls[0]?.origin, 'https://web.fluxer.app');
+		assert.equal(ceremonyState.calls[0]?.origin, 'https://web.nekochat.example');
 		await register({instanceKey: official.instanceKey, pin: '1234'});
-		assert.equal(ceremonyState.calls[0]?.origin, 'https://web.fluxer.app');
+		assert.equal(ceremonyState.calls[0]?.origin, 'https://web.nekochat.example');
 		assert.equal(ceremonyState.calls[0]?.pin, '1234');
 		protocolState.cachedPlans = new Map();
 	});
 
 	test('the named instance wins over the active plan of another instance', async () => {
 		protocolState.activePlan = plan('http://localhost:8088/api', 'http://localhost:8088');
-		const official = plan('https://api.fluxer.app', 'https://web.fluxer.app');
+		const official = plan('https://api.nekochat.example', 'https://web.nekochat.example');
 		protocolState.cachedPlans = new Map([[official.instanceKey, official]]);
 		await authenticate({instanceKey: official.instanceKey});
-		assert.equal(ceremonyState.calls[0]?.origin, 'https://web.fluxer.app');
+		assert.equal(ceremonyState.calls[0]?.origin, 'https://web.nekochat.example');
 		protocolState.cachedPlans = new Map();
 	});
 
 	test('an unknown instance never falls back to the active plan', async () => {
-		protocolState.activePlan = plan('https://api.fluxer.app', 'https://web.fluxer.app');
+		protocolState.activePlan = plan('https://api.nekochat.example', 'https://web.nekochat.example');
 		protocolState.cachedPlans = new Map();
 		await assert.rejects(
 			authenticate({instanceKey: 'https://unknown.example/api'}),
@@ -202,7 +202,7 @@ describe('passkey ceremony origin', () => {
 
 	test('a keyed plan is still held to its own site', async () => {
 		protocolState.activePlan = null;
-		const hostile = plan('https://evil.example', 'https://web.fluxer.app');
+		const hostile = plan('https://evil.example', 'https://web.nekochat.example');
 		protocolState.cachedPlans = new Map([[hostile.instanceKey, hostile]]);
 		await assert.rejects(authenticate({instanceKey: hostile.instanceKey}), /UntrustedPasskeyCeremonyOriginError/u);
 		assert.deepEqual(ceremonyState.calls, []);

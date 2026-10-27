@@ -14,9 +14,9 @@ export const APP_STORE_NAME = 'App Store';
 export const GOOGLE_PLAY_NAME = 'Google Play';
 export const PIX_PAYMENT_METHOD = 'Pix';
 export const UPI_PAYMENT_METHOD = 'UPI';
-export const SUPPORT_EMAIL = 'support@fluxer.com';
+export const SUPPORT_EMAIL = 'support@nekochat-site.example';
 export const SUPPORT_EMAIL_MAILTO = `mailto:${SUPPORT_EMAIL}`;
-export const I18N_WEBLATE_DOMAIN = 'weblate.fluxer.tools';
+export const I18N_WEBLATE_DOMAIN = 'translate.nekochat.example';
 export const I18N_WEBLATE_URL = `https://${I18N_WEBLATE_DOMAIN}`;
 export const EXAMPLE_DOMAIN = 'example.com';
 export const EXAMPLE_URL = `https://${EXAMPLE_DOMAIN}`;
@@ -37,20 +37,20 @@ export const EXAMPLE_USERNAME_MENTION = '@username';
 export const EXAMPLE_FLUXER_TAG_FULL = 'Username#0000';
 export const EXAMPLE_USERNAME = 'Username';
 export const VISIONARY_LIFETIME_BADGE_LABEL = 'Visionary #42';
-export const LINK_PREVIEW_EXAMPLE_URL = 'https://fluxer.app';
+export const LINK_PREVIEW_EXAMPLE_URL = 'https://nekochat.example';
 export const EXAMPLE_GIF_URLS = `${EXAMPLE_URL}/gif1.gif\n${EXAMPLE_URL}/gif2.gif`;
 export const THE_OTHER_PLATFORM_TEMPLATE_EXAMPLE_URL = `https://${THE_OTHER_PLATFORM.toLowerCase()}.new/abcd1234`;
 const DESKTOP_DOWNLOAD_URLS: Record<string, string> = {
-	stable: 'https://fluxer.app/download',
-	canary: 'https://canary.fluxer.app/download',
+	stable: 'https://nekochat.example/download',
+	canary: 'https://canary.nekochat.example/download',
 	development: 'http://localhost:8088/download',
 };
 
 export const DESKTOP_DOWNLOAD_URL =
 	DESKTOP_DOWNLOAD_URLS[Config.PUBLIC_RELEASE_CHANNEL] ?? DESKTOP_DOWNLOAD_URLS.stable;
-export const FLUXER_DOCS_DOMAIN = 'fluxer.dev';
+export const FLUXER_DOCS_DOMAIN = 'docs.nekochat.example';
 export const FLUXER_DOCS_URL = `https://${FLUXER_DOCS_DOMAIN}`;
-export const FLUXER_BLUESKY_HANDLE = '@fluxer.app';
+export const FLUXER_BLUESKY_HANDLE = '@nekochat.example';
 export const YOUTUBE_PROVIDER_NAME = 'YouTube';
 export const EVERYONE_MENTION = '@everyone';
 export const HERE_MENTION = '@here';

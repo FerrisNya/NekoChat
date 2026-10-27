@@ -2,7 +2,7 @@
 
 import {Config} from '@app/api/Config';
 
-const UPSTREAM_PRODUCT_NAME = 'Fluxer';
+const UPSTREAM_PRODUCT_NAME = 'NekoChat';
 
 let cachedProductName: string | null = null;
 

@@ -57,7 +57,7 @@ describe('DesktopRuntimeSecurity', () => {
 			requestHeaders: {Accept: '*/*'},
 		});
 
-		assert.deepEqual({...settlement.requestHeaders}, {Accept: '*/*', Referer: 'https://web.fluxer.app/'});
+		assert.deepEqual({...settlement.requestHeaders}, {Accept: '*/*', Referer: 'https://web.nekochat.example/'});
 	});
 
 	test('never invents a referrer for anything but the YouTube embed frame', () => {
@@ -86,7 +86,7 @@ describe('DesktopRuntimeSecurity', () => {
 			requestHeaders: {Accept: '*/*', referer: 'fluxer-app://app/'},
 		});
 
-		assert.deepEqual({...settlement.requestHeaders}, {Accept: '*/*', Referer: 'https://web.fluxer.app/'});
+		assert.deepEqual({...settlement.requestHeaders}, {Accept: '*/*', Referer: 'https://web.nekochat.example/'});
 	});
 
 	test('emits request header values Electron will actually send rather than response-shaped arrays', () => {
@@ -127,7 +127,7 @@ describe('DesktopRuntimeSecurity', () => {
 			requestHeaders: {Accept: '*/*', 'X-Fluxer-Desktop-Protocol-Authorization': 'secret'},
 		});
 
-		assert.deepEqual({...settlement.requestHeaders}, {Accept: '*/*', Referer: 'https://web.fluxer.app/'});
+		assert.deepEqual({...settlement.requestHeaders}, {Accept: '*/*', Referer: 'https://web.nekochat.example/'});
 	});
 
 	test('leaves a request it has no reason to touch alone', () => {
@@ -136,7 +136,7 @@ describe('DesktopRuntimeSecurity', () => {
 		assert.deepEqual(
 			settleRequest(session, {
 				resourceType: 'mainFrame',
-				url: 'https://web.fluxer.app/channels/@me',
+				url: 'https://web.nekochat.example/channels/@me',
 				requestHeaders: {Accept: '*/*'},
 			}),
 			{},

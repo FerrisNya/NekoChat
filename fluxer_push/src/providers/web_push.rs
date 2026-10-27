@@ -307,12 +307,12 @@ mod retry_tests {
     const TOKEN: &str = "3dbc5a5ef1a1c1666afc26f466e1b3ebaaf4c66d92dddeb0fd1b69c49641d4cd";
 
     fn managed_hosts() -> Vec<String> {
-        vec!["push.fluxer.com".to_owned()]
+        vec!["push.nekochat-site.example".to_owned()]
     }
 
     #[test]
     fn a_relay_over_its_device_quota_is_not_retried() {
-        let endpoint = format!("https://push.fluxer.com/relay/v1/fcm/stable/{TOKEN}");
+        let endpoint = format!("https://push.nekochat-site.example/relay/v1/fcm/stable/{TOKEN}");
         assert!(is_relay_quota_refusal(
             TOO_MANY_REQUESTS,
             &endpoint,
@@ -333,7 +333,7 @@ mod retry_tests {
 
     #[test]
     fn an_unavailable_relay_is_still_retried() {
-        let endpoint = format!("https://push.fluxer.com/relay/v1/fcm/stable/{TOKEN}");
+        let endpoint = format!("https://push.nekochat-site.example/relay/v1/fcm/stable/{TOKEN}");
         assert!(!is_relay_quota_refusal(503, &endpoint, &managed_hosts()));
     }
 

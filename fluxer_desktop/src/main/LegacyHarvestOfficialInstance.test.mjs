@@ -32,8 +32,8 @@ function legacyAccount(origin, userId) {
 		instance: {
 			apiEndpoint: `${origin}/api`,
 			webAppEndpoint: origin,
-			gatewayEndpoint: 'wss://gateway.fluxer.app',
-			mediaEndpoint: 'https://fluxerusercontent.com',
+			gatewayEndpoint: 'wss://gateway.nekochat.example',
+			mediaEndpoint: 'https://nekochat-usercontent.example',
 		},
 	};
 }
@@ -48,8 +48,8 @@ function appStorageRow(scope, key, value) {
 
 describe('a harvest taken from the migrated official domain', () => {
 	for (const [migrated, official] of [
-		['https://fluxer.com', 'https://web.fluxer.app'],
-		['https://canary.fluxer.com', 'https://web.canary.fluxer.app'],
+		['https://nekochat-site.example', 'https://web.nekochat.example'],
+		['https://canary.nekochat-site.example', 'https://web.canary.nekochat.example'],
 	]) {
 		test(`an old client account stored on ${migrated} is staged on the official instance`, () => {
 			const harvest = harvestFrom(migrated, {
@@ -69,8 +69,8 @@ describe('a harvest taken from the migrated official domain', () => {
 			for (const record of staged.stores[0].records) {
 				assert.equal(record.value.instance.apiEndpoint, `${official}/api`);
 				assert.equal(record.value.instance.webAppEndpoint, official);
-				assert.equal(record.value.instance.gatewayEndpoint, 'wss://gateway.fluxer.app');
-				assert.equal(record.value.instance.mediaEndpoint, 'https://fluxerusercontent.com');
+				assert.equal(record.value.instance.gatewayEndpoint, 'wss://gateway.nekochat.example');
+				assert.equal(record.value.instance.mediaEndpoint, 'https://nekochat-usercontent.example');
 			}
 			assert.equal(staged.stores[0].records[0].value.token, `token-${USER_ID}`);
 			assert.equal(harvest.stores[0].records[0].value.instance.apiEndpoint, `${migrated}/api`);
@@ -127,7 +127,7 @@ describe('a harvest taken from the migrated official domain', () => {
 	test('values that are not plain data survive the rekey untouched', () => {
 		const savedAt = new Date(5);
 		const bytes = new Uint8Array([1, 2, 3]);
-		const harvest = harvestFrom('https://canary.fluxer.com', {
+		const harvest = harvestFrom('https://canary.nekochat-site.example', {
 			stores: [
 				{
 					database: 'FluxerCustomSounds',
@@ -148,7 +148,7 @@ describe('a harvest taken from the migrated official domain', () => {
 
 	test('an account on another instance keeps its own identity', () => {
 		const selfHosted = legacyAccount('https://chat.example.test', OTHER_USER_ID);
-		const harvest = harvestFrom('https://canary.fluxer.com', {
+		const harvest = harvestFrom('https://canary.nekochat-site.example', {
 			localStorage: {[`fluxer:app-storage-mirror:https://chat.example.test/api::${OTHER_USER_ID}::Drafts`]: '{}'},
 			stores: [accountStore([{key: null, value: selfHosted}])],
 		});
@@ -161,7 +161,7 @@ describe('a harvest taken from the migrated official domain', () => {
 });
 
 describe('a harvest taken from the legacy official web origin', () => {
-	for (const origin of ['https://web.fluxer.app', 'https://web.canary.fluxer.app']) {
+	for (const origin of ['https://web.nekochat.example', 'https://web.canary.nekochat.example']) {
 		test(`${origin} already is the official instance and is staged as harvested`, () => {
 			const harvest = harvestFrom(origin, {
 				localStorage: {'fluxer:auth:active-account-key': `${origin}/api::${USER_ID}`},

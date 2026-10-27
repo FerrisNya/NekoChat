@@ -10,6 +10,11 @@ branding files. It also covers the same Fluxer artwork wherever
 else it appears in this repository, for example the desktop app icons, the app
 logo SVGs and the docs logo.
 
+The NekoChat logo has replaced the Fluxer logo, symbol, wordmark, favicons and
+app icons throughout this repository. Those NekoChat files are copyright
+NekoChat contributors and are not covered by this license. The remaining
+Fluxer artwork, such as the badges and default avatars, still is.
+
 Third-party files keep their own licenses. See THIRD_PARTY_LICENSES.md and the
 license or notice files in the relevant directories.
 

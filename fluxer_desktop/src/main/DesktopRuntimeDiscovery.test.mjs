@@ -11,10 +11,10 @@ const {DEPLOYED_OFFICIAL_DOCUMENT} = await import('@fluxer/instance_bootstrap/sr
 describe('runtime plans from a served discovery document', () => {
 	test('a document served by its own API origin builds a plan keyed on that origin', () => {
 		const built = runtimePlanFromServedDiscovery(
-			'https://api.fluxer.app/.well-known/fluxer',
+			'https://api.nekochat.example/.well-known/fluxer',
 			DEPLOYED_OFFICIAL_DOCUMENT,
 		);
-		assert.equal(built.instanceKey, 'https://api.fluxer.app');
+		assert.equal(built.instanceKey, 'https://api.nekochat.example');
 		assert.equal(built.document, DEPLOYED_OFFICIAL_DOCUMENT);
 	});
 
@@ -40,7 +40,7 @@ describe('runtime plans from a served discovery document', () => {
 			endpoints: {
 				...DEPLOYED_OFFICIAL_DOCUMENT.endpoints,
 				api: 'https://evil.example',
-				api_client: 'https://api.fluxer.app',
+				api_client: 'https://api.nekochat.example',
 			},
 		};
 		assert.throws(() => runtimePlanFromServedDiscovery('https://evil.example/.well-known/fluxer', spoofed), {

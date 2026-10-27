@@ -29,8 +29,8 @@ describe('local app URL recognition', () => {
 		assert.equal(isLocalAppURL('about:blank'), false);
 		assert.equal(isLocalAppURL('blob:fluxer-app://app/1234'), false);
 		assert.equal(isLocalAppURL('file:///etc/passwd'), false);
-		assert.equal(isLocalAppURL('https://web.fluxer.app/'), false);
-		assert.equal(isLocalAppURL('fluxer://guild/channel'), false);
+		assert.equal(isLocalAppURL('https://web.nekochat.example/'), false);
+		assert.equal(isLocalAppURL('nekochat://guild/channel'), false);
 		assert.equal(isLocalAppURL('not a url'), false);
 		assert.equal(isLocalAppURL(''), false);
 		assert.equal(isLocalAppURL(null), false);
@@ -69,7 +69,7 @@ describe('renderer document URLs', () => {
 	});
 
 	test('an untrusted origin is never a renderer document', () => {
-		assert.equal(isLocalAppRendererDocumentURL('https://web.fluxer.app/channels/@me'), false);
+		assert.equal(isLocalAppRendererDocumentURL('https://web.nekochat.example/channels/@me'), false);
 		assert.equal(isLocalAppRendererDocumentURL('data:text/html,x'), false);
 		assert.equal(isLocalAppRendererDocumentURL('about:blank'), false);
 	});

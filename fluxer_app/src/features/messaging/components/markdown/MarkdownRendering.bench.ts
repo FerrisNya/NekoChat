@@ -6,7 +6,7 @@ import {parseMarkdownContent as parse} from '@app/features/messaging/utils/markd
 import type {Node} from '@app/features/messaging/utils/markdown/parser/Nodes';
 import {test} from 'vitest';
 
-const SIMPLE_CONTENT = 'hello **world** with <@1234567890> and https://fluxer.app';
+const SIMPLE_CONTENT = 'hello **world** with <@1234567890> and https://nekochat.example';
 const RICH_CONTENT = [
 	'# Release notes',
 	'This is **bold**, *italic*, __underlined__, ~~removed~~, and ||spoilered||.',

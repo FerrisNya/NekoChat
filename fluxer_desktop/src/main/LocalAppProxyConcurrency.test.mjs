@@ -22,7 +22,7 @@ function tick() {
 
 function avatarRequest(index, signal) {
 	return {
-		targetURL: `https://media.fluxer.app/avatars/${index}.webp`,
+		targetURL: `https://media.nekochat.example/avatars/${index}.webp`,
 		method: 'GET',
 		headers: new Headers(),
 		body: null,

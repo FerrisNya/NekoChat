@@ -17,8 +17,8 @@ use std::path::{Path, PathBuf};
 use std::thread;
 use std::time::Duration;
 
-pub(crate) const RELEASE_REPOSITORY: &str = "fluxerapp/fluxer";
-const RELEASE_COMPARE_URL: &str = "https://github.com/fluxerapp/fluxer/compare";
+pub(crate) const RELEASE_REPOSITORY: &str = "FerrisNya/NekoChat";
+const RELEASE_COMPARE_URL: &str = "https://github.com/FerrisNya/NekoChat/compare";
 pub(crate) const DESKTOP_RELEASE_DESCRIPTOR_SCHEMA_VERSION: u8 = 2;
 const DESKTOP_RELEASE_ARCHES: [&str; 2] = ["x64", "arm64"];
 
@@ -271,7 +271,7 @@ pub(crate) fn desktop_module_package_release_asset_name(
 pub(crate) fn desktop_release_product(channel: &str) -> Result<&'static str> {
     match channel {
         "stable" => Ok("Fluxer"),
-        "canary" => Ok("Fluxer-Canary"),
+        "canary" => Ok("NekoChat-Canary"),
         other => bail!("Unsupported desktop release channel {other:?}"),
     }
 }
@@ -1762,8 +1762,8 @@ mod tests {
             asset_for("darwin/x64/releases.json")
         );
         assert_eq!(
-            asset_for("darwin/x64/Fluxer-Canary-2026.913.210037-mac-universal.dmg"),
-            asset_for("darwin/arm64/Fluxer-Canary-2026.913.210037-mac-universal.dmg")
+            asset_for("darwin/x64/NekoChat-Canary-2026.913.210037-mac-universal.dmg"),
+            asset_for("darwin/arm64/NekoChat-Canary-2026.913.210037-mac-universal.dmg")
         );
         assert_ne!(
             asset_for("darwin/x64/RELEASES.json"),
@@ -1801,7 +1801,7 @@ mod tests {
         assert_eq!(
             desktop_module_manifest_release_asset_name("canary", SAMPLE_VERSION, "win32", "x64")
                 .unwrap(),
-            "Fluxer-Canary-2026.913.210037-win-x64-modules.json"
+            "NekoChat-Canary-2026.913.210037-win-x64-modules.json"
         );
         assert_eq!(
             desktop_module_manifest_release_asset_name("stable", SAMPLE_VERSION, "darwin", "arm64")
@@ -1820,7 +1820,7 @@ mod tests {
                 &sha256
             )
             .unwrap(),
-            format!("Fluxer-Canary-2026.913.210037-module-fluxer_renderer-{sha256}.br")
+            format!("NekoChat-Canary-2026.913.210037-module-fluxer_renderer-{sha256}.br")
         );
         assert_eq!(
             desktop_module_package_storage_key("stable", "fluxer_renderer", &sha256),
@@ -1930,7 +1930,7 @@ mod tests {
         );
 
         let mut descriptor = sample_descriptor();
-        descriptor.modules[0].release_asset = "Fluxer-Canary-2026.913.210037-modules.json".into();
+        descriptor.modules[0].release_asset = "NekoChat-Canary-2026.913.210037-modules.json".into();
         assert!(
             validate_sample(&descriptor)
                 .unwrap_err()

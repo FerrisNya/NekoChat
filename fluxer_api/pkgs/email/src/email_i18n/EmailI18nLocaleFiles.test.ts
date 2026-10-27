@@ -11,16 +11,16 @@ const TEMPLATE_KEYS = Object.keys(EMAIL_I18N_MESSAGES) as Array<EmailTemplateKey
 const DATE = new Date('2026-10-01T23:30:00Z');
 
 const FIXTURE: {[K in EmailTemplateKey]: EmailTemplateVariables[K]} = {
-	account_deletion_cancelled: {username: 'testuser', safety_email: 'safety@fluxer.com'},
+	account_deletion_cancelled: {username: 'testuser', safety_email: 'safety@nekochat-site.example'},
 	account_deletion_scheduled_inactivity: {
 		username: 'testuser',
 		deletion_date: 'Dec 1, 2026',
-		support_email: 'support@fluxer.com',
+		support_email: 'support@nekochat-site.example',
 	},
 	account_deletion_scheduled_requested: {
 		username: 'testuser',
 		deletion_date: 'Dec 14, 2026',
-		safety_email: 'safety@fluxer.com',
+		safety_email: 'safety@nekochat-site.example',
 	},
 	donation_confirmation: {amount: '$5.00', currency: 'USD', interval: 'month', manageUrl: 'https://example.com/m'},
 	donation_magic_link: {manageUrl: 'https://example.com/m', expiresAt: DATE},
@@ -29,14 +29,14 @@ const FIXTURE: {[K in EmailTemplateKey]: EmailTemplateVariables[K]} = {
 		publicComment: 'Thanks',
 		hasComment: 'yes',
 		outcome: 'removed',
-		appeals_email: 'appeals@fluxer.com',
+		appeals_email: 'appeals@nekochat-site.example',
 	},
 	dsa_report_verification: {code: '123456', expiresAt: DATE},
 	email_change_new: {username: 'testuser', code: '123456', expiresAt: DATE},
 	email_change_original: {username: 'testuser', code: '123456', expiresAt: DATE},
 	email_change_revert: {username: 'testuser', newEmail: 'new@example.com', revertUrl: 'https://example.com/r'},
 	email_verification: {username: 'testuser', verifyUrl: 'https://example.com/verify'},
-	gift_chargeback_notification: {username: 'testuser', support_email: 'support@fluxer.com'},
+	gift_chargeback_notification: {username: 'testuser', support_email: 'support@nekochat-site.example'},
 	enforcement_ended: {
 		username: 'testuser',
 		outcome: 'reversed',
@@ -56,7 +56,7 @@ const FIXTURE: {[K in EmailTemplateKey]: EmailTemplateVariables[K]} = {
 		facts: 'We found spam.',
 		statement: null,
 		how_we_decided: 'A person decided.',
-		appeals_email: 'appeals@fluxer.com',
+		appeals_email: 'appeals@nekochat-site.example',
 		appeal_deadline: 'Dec 1, 2026',
 		redress: null,
 		decision_id: '123',
@@ -67,14 +67,14 @@ const FIXTURE: {[K in EmailTemplateKey]: EmailTemplateVariables[K]} = {
 		totalMessages: 1200,
 		fileSizeMB: 3.5,
 		expiresAt: DATE,
-		support_email: 'support@fluxer.com',
+		support_email: 'support@nekochat-site.example',
 	},
 	inactivity_warning: {
 		username: 'testuser',
 		deletionDate: DATE,
 		lastActiveDate: DATE,
 		loginUrl: 'https://example.com/login',
-		support_email: 'support@fluxer.com',
+		support_email: 'support@nekochat-site.example',
 	},
 	ip_authorization: {
 		username: 'testuser',
@@ -92,7 +92,7 @@ const FIXTURE: {[K in EmailTemplateKey]: EmailTemplateVariables[K]} = {
 		publicComment: 'Thanks',
 		hasComment: 'yes',
 		outcome: 'restricted',
-		appeals_email: 'appeals@fluxer.com',
+		appeals_email: 'appeals@nekochat-site.example',
 	},
 	self_deletion_scheduled: {username: 'testuser', deletionDate: DATE},
 };

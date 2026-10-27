@@ -13,14 +13,14 @@ import {ChannelTypes, GUILD_TEXT_BASED_CHANNEL_TYPES, Permissions} from '@fluxer
 import {compareChannelOrdering} from '@fluxer/schema/src/domains/channel/GuildChannelOrdering';
 
 const OFFICIAL_INVITE_URL_BASES = Object.freeze([
-	'https://fluxer.app/invite',
-	'https://canary.fluxer.app/invite',
-	'https://web.fluxer.app/invite',
-	'https://web.canary.fluxer.app/invite',
-	'https://fluxer.com/invite',
-	'https://canary.fluxer.com/invite',
-	'https://fluxer.gg',
-	'https://fluxer.gg/invite',
+	'https://nekochat.example/invite',
+	'https://canary.nekochat.example/invite',
+	'https://web.nekochat.example/invite',
+	'https://web.canary.nekochat.example/invite',
+	'https://nekochat-site.example/invite',
+	'https://canary.nekochat-site.example/invite',
+	'https://nekochat-invite.example',
+	'https://nekochat-invite.example/invite',
 ]);
 const INVITE_CONFIG: CodeLinkUtils.CodeLinkConfig = {
 	path: 'invite',

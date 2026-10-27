@@ -387,7 +387,7 @@ describe('Enforcement network blocks', () => {
 			expect(response.status).toBe(HTTP_STATUS.FORBIDDEN);
 			expect(json.code).toBe(APIErrorCodes.GLOBAL_IP_TEMPORARILY_BANNED);
 			expect(json.reason?.title).toBe('Spam');
-			expect(json.appeal_email).toBe('appeals@fluxer.com');
+			expect(json.appeal_email).toBe('appeals@nekochat-site.example');
 			expect(json.appeals_supported).toBe(true);
 			expect(json.message).toMatch(
 				/^Fluxer blocked access from this network because of activity that broke its rules\. The block ends on /,
@@ -417,7 +417,7 @@ describe('Enforcement network blocks', () => {
 
 			expect(withheld.text).toBe(plain.text);
 			expect(withheld.json.reason).toBeNull();
-			expect(withheld.json.appeal_email).toBe('support@fluxer.com');
+			expect(withheld.json.appeal_email).toBe('support@nekochat-site.example');
 		});
 
 		test('self-hosted blocks give no contact and do not support appeals', async () => {

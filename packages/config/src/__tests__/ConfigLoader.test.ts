@@ -209,11 +209,11 @@ describe('ConfigLoader', () => {
 		stubMinimalEnv();
 		const config = await loadConfig();
 		expect(config.auth.passkeys.additional_allowed_origins).toEqual([
-			'https://fluxer.app',
-			'https://web.fluxer.app',
-			'https://web.canary.fluxer.app',
-			'https://fluxer.com',
-			'https://canary.fluxer.com',
+			'https://nekochat.example',
+			'https://web.nekochat.example',
+			'https://web.canary.nekochat.example',
+			'https://nekochat-site.example',
+			'https://canary.nekochat-site.example',
 			'android:apk-key-hash:keSY4bimyLqZQV7bKXgpa2xYuqXi0qZJzsYtp6gpx7w',
 			'http://localhost:8088',
 		]);
@@ -228,17 +228,17 @@ describe('ConfigLoader', () => {
 	test('normalizes and deduplicates app origin aliases', async () => {
 		stubMinimalEnv({
 			FLUXER_APP_ORIGIN_ALIASES:
-				'https://Web.Fluxer.App/, https://fluxer.com,https://fluxer.com:443,http://localhost:3000',
+				'https://Web.NekoChat.EXAMPLE/, https://nekochat-site.example,https://nekochat-site.example:443,http://localhost:3000',
 		});
 		const config = await loadConfig();
 		expect(config.services.api.app_origin_aliases).toEqual([
-			'https://web.fluxer.app',
-			'https://fluxer.com',
+			'https://web.nekochat.example',
+			'https://nekochat-site.example',
 			'http://localhost:3000',
 		]);
 	});
 
-	test.each(['fluxer.com', 'https://fluxer.com/app', 'ftp://fluxer.com', 'https://user@fluxer.com'])(
+	test.each(['nekochat-site.example', 'https://nekochat-site.example/app', 'ftp://nekochat-site.example', 'https://user@nekochat-site.example'])(
 		'rejects the app origin alias %s',
 		async (alias) => {
 			stubMinimalEnv({FLUXER_APP_ORIGIN_ALIASES: alias});
@@ -273,7 +273,7 @@ describe('ConfigLoader', () => {
 
 		const config = await loadConfig();
 
-		expect(config.auth.passkeys.additional_allowed_origins).toContain('https://web.fluxer.app');
+		expect(config.auth.passkeys.additional_allowed_origins).toContain('https://web.nekochat.example');
 		expect(config.auth.passkeys.additional_allowed_origins).toContain('https://chat.example.com');
 	});
 

@@ -33,7 +33,7 @@ function loadOpenExternal() {
 		URL,
 		require: (specifier) => {
 			if (specifier === '@electron/common/Constants') {
-				return {APP_PROTOCOL: 'fluxer'};
+				return {APP_PROTOCOL: 'nekochat'};
 			}
 			if (specifier === 'electron') {
 				return {
@@ -55,11 +55,11 @@ describe('OpenExternal URL validation', () => {
 	test('allows standard and custom external protocols', () => {
 		const {shouldOpenExternalUrl} = loadOpenExternal();
 
-		assert.equal(shouldOpenExternalUrl('https://fluxer.app'), true);
-		assert.equal(shouldOpenExternalUrl('http://fluxer.app'), true);
-		assert.equal(shouldOpenExternalUrl('mailto:support@fluxer.com'), true);
+		assert.equal(shouldOpenExternalUrl('https://nekochat.example'), true);
+		assert.equal(shouldOpenExternalUrl('http://nekochat.example'), true);
+		assert.equal(shouldOpenExternalUrl('mailto:support@nekochat-site.example'), true);
 		assert.equal(shouldOpenExternalUrl('tel:+15551234567'), true);
-		assert.equal(shouldOpenExternalUrl('fluxer://invite/test'), true);
+		assert.equal(shouldOpenExternalUrl('nekochat://invite/test'), true);
 	});
 
 	test('blocks dangerous or malformed external URLs', () => {
@@ -88,10 +88,10 @@ describe('OpenExternal URL validation', () => {
 	test('opens normalized URLs once inside the dedupe window', async () => {
 		const {openExternalDeduped, openExternalCalls} = loadOpenExternal();
 
-		await openExternalDeduped('HTTPS://Fluxer.App/path');
-		await openExternalDeduped('https://fluxer.app/path');
+		await openExternalDeduped('HTTPS://NekoChat.EXAMPLE/path');
+		await openExternalDeduped('https://nekochat.example/path');
 
-		assert.deepEqual(openExternalCalls, ['https://fluxer.app/path']);
+		assert.deepEqual(openExternalCalls, ['https://nekochat.example/path']);
 	});
 
 	test('rejects blocked URLs before calling Electron shell', async () => {

@@ -31,6 +31,6 @@ jobs:
     uses: ./.github/workflows/_build-image.yaml
     secrets: inherit
     with:
-      image: fluxer-gifs
+      image: nekochat-gifs
       dockerfile: fluxer_gifs/Dockerfile
       build-version: ${{ inputs['build-version'] }}

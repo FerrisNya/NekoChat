@@ -19,7 +19,7 @@ pub fn login_page(
             head {
                 meta charset="UTF-8";
                 meta name="viewport" content="width=device-width, initial-scale=1.0";
-                title { "Login ~ Fluxer Admin" }
+                title { "Login ~ NekoChat Admin" }
                 link rel="stylesheet" href={(base) "/static/fonts/" (crate::fonts::STYLESHEET_FILE_NAME)};
                 link rel="stylesheet" href={(base) "/static/app.css"};
                 (favicon_links(config, branding))
@@ -31,7 +31,7 @@ pub fn login_page(
                             div class="flex flex-col gap-8 items-center" {
                                 div class="flex flex-col gap-2 items-center" {
                                     h1 class="text-gray-900 tracking-tight text-xl" {
-                                        "Fluxer Admin"
+                                        "NekoChat Admin"
                                     }
                                 }
                                 @if let Some(error) = error_message {

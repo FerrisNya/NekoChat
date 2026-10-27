@@ -11,17 +11,17 @@ const {localAppRuntimeInstanceKey} = await import('./LocalAppRuntimePlans.ts');
 
 describe('resolving an official client API alias', () => {
 	test('the migrated domain same-origin API is the official instance of its channel', () => {
-		assert.equal(officialClientApiEndpointForAlias('https://fluxer.com/api'), OFFICIAL_CLIENT_API_ENDPOINTS.stable);
+		assert.equal(officialClientApiEndpointForAlias('https://nekochat-site.example/api'), OFFICIAL_CLIENT_API_ENDPOINTS.stable);
 		assert.equal(
-			officialClientApiEndpointForAlias('https://canary.fluxer.com/api'),
+			officialClientApiEndpointForAlias('https://canary.nekochat-site.example/api'),
 			OFFICIAL_CLIENT_API_ENDPOINTS.canary,
 		);
 	});
 
 	test('the legacy web origins already are the official instance of their channel', () => {
-		assert.equal(officialClientApiEndpointForAlias('https://web.fluxer.app/api'), OFFICIAL_CLIENT_API_ENDPOINTS.stable);
+		assert.equal(officialClientApiEndpointForAlias('https://web.nekochat.example/api'), OFFICIAL_CLIENT_API_ENDPOINTS.stable);
 		assert.equal(
-			officialClientApiEndpointForAlias('https://web.canary.fluxer.app/api'),
+			officialClientApiEndpointForAlias('https://web.canary.nekochat.example/api'),
 			OFFICIAL_CLIENT_API_ENDPOINTS.canary,
 		);
 	});
@@ -34,11 +34,11 @@ describe('resolving an official client API alias', () => {
 
 	test('spelling differences do not create a second identity', () => {
 		for (const spelling of [
-			'https://canary.fluxer.com/api/',
-			'https://canary.fluxer.com/api//',
-			'HTTPS://CANARY.FLUXER.COM/api',
-			'https://canary.fluxer.com:443/api',
-			'  https://canary.fluxer.com/api  ',
+			'https://canary.nekochat-site.example/api/',
+			'https://canary.nekochat-site.example/api//',
+			'HTTPS://CANARY.NEKOCHAT-SITE.EXAMPLE/api',
+			'https://canary.nekochat-site.example:443/api',
+			'  https://canary.nekochat-site.example/api  ',
 		]) {
 			assert.equal(officialClientApiEndpointForAlias(spelling), OFFICIAL_CLIENT_API_ENDPOINTS.canary, spelling);
 		}
@@ -46,18 +46,18 @@ describe('resolving an official client API alias', () => {
 
 	test('anything that is not an official same-origin client API is left alone', () => {
 		for (const other of [
-			'https://canary.fluxer.com',
-			'https://canary.fluxer.com/',
-			'https://canary.fluxer.com/api/v1',
-			'https://canary.fluxer.com/API',
-			'http://canary.fluxer.com/api',
-			'https://canary.fluxer.com:8443/api',
-			'https://user:pw@canary.fluxer.com/api',
-			'https://canary.fluxer.com/api?x=1',
-			'https://canary.fluxer.com/api#f',
-			'https://api.fluxer.app/api',
-			'https://fluxer.app/api',
-			'https://evil.fluxer.com.example.test/api',
+			'https://canary.nekochat-site.example',
+			'https://canary.nekochat-site.example/',
+			'https://canary.nekochat-site.example/api/v1',
+			'https://canary.nekochat-site.example/API',
+			'http://canary.nekochat-site.example/api',
+			'https://canary.nekochat-site.example:8443/api',
+			'https://user:pw@canary.nekochat-site.example/api',
+			'https://canary.nekochat-site.example/api?x=1',
+			'https://canary.nekochat-site.example/api#f',
+			'https://api.nekochat.example/api',
+			'https://nekochat.example/api',
+			'https://evil.nekochat-site.example.example.test/api',
 			'https://chat.example.test/api',
 			'/api',
 			'',

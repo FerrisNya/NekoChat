@@ -117,13 +117,13 @@ mod tests {
     const TOKEN: &str = "3dbc5a5ef1a1c1666afc26f466e1b3ebaaf4c66d92dddeb0fd1b69c49641d4cd";
 
     fn ours() -> Vec<String> {
-        vec!["push.fluxer.com".to_owned()]
+        vec!["push.nekochat-site.example".to_owned()]
     }
 
     #[test]
     fn an_apns_endpoint_on_our_own_relay_is_taken_in_process() {
         let hop = parse(
-            &format!("https://push.fluxer.com/relay/v1/apns/canary/production/{TOKEN}"),
+            &format!("https://push.nekochat-site.example/relay/v1/apns/canary/production/{TOKEN}"),
             &ours(),
         )
         .expect("our own relay endpoint parses");
@@ -136,7 +136,7 @@ mod tests {
     #[test]
     fn an_fcm_endpoint_keeps_its_percent_encoded_token() {
         let hop = parse(
-            "https://push.fluxer.com/relay/v1/fcm/canary/dYC_x9gXTjyyrG8_Aw3nUM%3AAPA91bExample",
+            "https://push.nekochat-site.example/relay/v1/fcm/canary/dYC_x9gXTjyyrG8_Aw3nUM%3AAPA91bExample",
             &ours(),
         )
         .expect("an fcm endpoint parses");
@@ -148,7 +148,9 @@ mod tests {
     #[test]
     fn a_voip_endpoint_on_our_own_relay_keeps_its_own_leg() {
         let hop = parse(
-            &format!("https://push.fluxer.com/relay/v1/apns-voip/canary/production/{TOKEN}"),
+            &format!(
+                "https://push.nekochat-site.example/relay/v1/apns-voip/canary/production/{TOKEN}"
+            ),
             &ours(),
         )
         .expect("a voip endpoint parses");
@@ -163,7 +165,8 @@ mod tests {
 
     #[test]
     fn a_self_hosted_deployment_configures_no_hosts_and_never_shortcuts() {
-        let endpoint = format!("https://push.fluxer.com/relay/v1/apns/canary/production/{TOKEN}");
+        let endpoint =
+            format!("https://push.nekochat-site.example/relay/v1/apns/canary/production/{TOKEN}");
         assert!(parse(&endpoint, &[]).is_none());
     }
 
@@ -186,7 +189,7 @@ mod tests {
             format!("apns-voip/canary/production/{TOKEN}"),
             "fcm/canary/dYC_x9gXTjyyrG8_Aw3nUM%3AAPA91bExample".to_owned(),
         ] {
-            let endpoint = format!("https://push.fluxer.com/relay/v1/{path}");
+            let endpoint = format!("https://push.nekochat-site.example/relay/v1/{path}");
             assert!(
                 is_managed(&endpoint, &ours()),
                 "{endpoint} must be a managed relay endpoint"
@@ -202,11 +205,11 @@ mod tests {
     #[test]
     fn a_malformed_relay_path_is_refused() {
         for endpoint in [
-            "https://push.fluxer.com/relay/v1/apns/canary/production",
-            "https://push.fluxer.com/relay/v1/apns/canary/production/tok/extra",
-            "https://push.fluxer.com/relay/v1/sms/canary/production/tok",
-            "https://push.fluxer.com/relay/v2/apns/canary/production/tok",
-            "http://push.fluxer.com/relay/v1/apns/canary/production/tok",
+            "https://push.nekochat-site.example/relay/v1/apns/canary/production",
+            "https://push.nekochat-site.example/relay/v1/apns/canary/production/tok/extra",
+            "https://push.nekochat-site.example/relay/v1/sms/canary/production/tok",
+            "https://push.nekochat-site.example/relay/v2/apns/canary/production/tok",
+            "http://push.nekochat-site.example/relay/v1/apns/canary/production/tok",
         ] {
             assert!(
                 parse(endpoint, &ours()).is_none(),

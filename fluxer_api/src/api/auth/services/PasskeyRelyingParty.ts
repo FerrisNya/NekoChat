@@ -6,8 +6,8 @@ import type {WebAuthnCredential} from '@app/api/models/WebAuthnCredential';
 import {PASSKEY_MIGRATION_RP_ID} from '@fluxer/constants/src/PasskeyConstants';
 
 const PASSKEY_TARGET_TO_LEGACY_ORIGIN: ReadonlyMap<string, string> = new Map([
-	['https://fluxer.com', 'https://web.fluxer.app'],
-	['https://canary.fluxer.com', 'https://web.canary.fluxer.app'],
+	['https://nekochat-site.example', 'https://web.nekochat.example'],
+	['https://canary.nekochat-site.example', 'https://web.canary.nekochat.example'],
 ]);
 
 export interface CredentialRpSelection {

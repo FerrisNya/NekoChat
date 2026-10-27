@@ -13,7 +13,7 @@ use url::Url;
 const HN_API_BASE: &str = "https://hacker-news.firebaseio.com/v0";
 const HN_SITE_BASE: &str = "https://news.ycombinator.com";
 const HN_COLOR: u32 = 0xFF6600;
-const HN_ICON_URL: &str = "https://fluxer.app/static/img/app-hn-icon.4237980ebe2ba783.webp";
+const HN_ICON_URL: &str = "https://nekochat.example/static/img/app-hn-icon.4237980ebe2ba783.webp";
 const MAX_DESCRIPTION: usize = 400;
 
 pub struct HackerNewsResolver;

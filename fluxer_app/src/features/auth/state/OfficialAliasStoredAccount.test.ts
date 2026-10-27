@@ -20,8 +20,8 @@ import {beforeEach, describe, expect, test, vi} from 'vitest';
 
 type AccountStorageModule = typeof import('@app/features/auth/state/AccountStorage');
 
-const MIGRATED_ORIGIN = 'https://canary.fluxer.com';
-const LEGACY_WEB_ORIGIN = 'https://web.canary.fluxer.app';
+const MIGRATED_ORIGIN = 'https://canary.nekochat-site.example';
+const LEGACY_WEB_ORIGIN = 'https://web.canary.nekochat.example';
 const OFFICIAL_INSTANCE_KEY = `${LEGACY_WEB_ORIGIN}/api`;
 const USER_ID = '100000000000000002';
 const OTHER_USER_ID = '100000000000000003';
@@ -30,7 +30,7 @@ function instanceSnapshot(origin: string): RuntimeConfigSnapshot {
 	return {
 		...FIXTURE_CURRENT_INSTANCE_SNAPSHOT,
 		apiEndpoint: `${origin}/api`,
-		apiPublicEndpoint: 'https://api.canary.fluxer.app',
+		apiPublicEndpoint: 'https://api.canary.nekochat.example',
 		webAppEndpoint: origin,
 	};
 }
@@ -47,7 +47,7 @@ function oldClientRecord(origin: string, userId: string): Record<string, unknown
 		instance: {
 			apiEndpoint: `${origin}/api`,
 			webAppEndpoint: origin,
-			gatewayEndpoint: 'wss://gateway.fluxer.app',
+			gatewayEndpoint: 'wss://gateway.nekochat.example',
 		},
 		isValid: true,
 	};
@@ -176,7 +176,7 @@ describe('classifying an account stored on the migrated official domain', () => 
 });
 
 describe('a web user on the migrated official domain', () => {
-	test.each(['https://fluxer.com', MIGRATED_ORIGIN])(
+	test.each(['https://nekochat-site.example', MIGRATED_ORIGIN])(
 		'on %s the stored account keeps the same-origin instance it was stored with',
 		(origin) => {
 			setDocumentUrl(`${origin}/channels/@me`);

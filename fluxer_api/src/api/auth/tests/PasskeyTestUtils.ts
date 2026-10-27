@@ -18,10 +18,10 @@ import type {
 	PasskeyBridgeSudoRedeemResponse,
 } from '@fluxer/schema/src/domains/auth/PasskeyBridgeSchemas';
 
-export const TARGET_ORIGIN = 'https://fluxer.com';
-export const LEGACY_ORIGIN = 'https://web.fluxer.app';
+export const TARGET_ORIGIN = 'https://nekochat-site.example';
+export const LEGACY_ORIGIN = 'https://web.nekochat.example';
 export const LEGACY_RP_ID = 'localhost';
-export const TARGET_RP_ID = 'fluxer.com';
+export const TARGET_RP_ID = 'nekochat-site.example';
 
 export interface PasskeyCredentialListItem {
 	id: string;

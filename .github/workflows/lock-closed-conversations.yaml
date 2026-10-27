@@ -50,7 +50,7 @@ jobs:
         with:
           client-id: ${{ vars.FLUXER_CI_APP_ID }}
           private-key: ${{ secrets.FLUXER_CI_APP_KEY }}
-          owner: fluxerapp
+          owner: FerrisNya
           repositories: fluxer
           permission-discussions: write
           permission-issues: write
@@ -164,7 +164,7 @@ jobs:
         with:
           client-id: ${{ vars.FLUXER_CI_APP_ID }}
           private-key: ${{ secrets.FLUXER_CI_APP_KEY }}
-          owner: fluxerapp
+          owner: FerrisNya
           repositories: fluxer
           permission-discussions: write
           permission-issues: write

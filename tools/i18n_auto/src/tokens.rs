@@ -51,7 +51,7 @@ pub fn is_preserved_artifact(source: &str) -> bool {
     let trimmed = source.trim();
     if [
         r"(?i)^https?://\S+$",
-        r"(?i)^(?:mailto:|tel:|file:|app://|fluxer://)\S+$",
+        r"(?i)^(?:mailto:|tel:|file:|app://|nekochat://)\S+$",
         r"^[@#][\w-]+$",
         r"^\{[^{}]+\}$",
         r"^<[^>]+>$",

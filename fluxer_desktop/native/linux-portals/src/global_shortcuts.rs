@@ -14,7 +14,7 @@ pub const REGISTRY_INTERFACE: &str = "org.freedesktop.host.portal.Registry";
 pub const PROPERTIES_INTERFACE: &str = "org.freedesktop.DBus.Properties";
 pub const BUS_NAME: &str = "org.freedesktop.DBus";
 pub const BUS_PATH: &str = "/org/freedesktop/DBus";
-pub const DEFAULT_SESSION_TOKEN: &str = "fluxer_global_shortcuts";
+pub const DEFAULT_SESSION_TOKEN: &str = "nekochat_global_shortcuts";
 pub const SETUP_TIMEOUT: Duration = Duration::from_secs(30);
 pub const TEARDOWN_TIMEOUT: Duration = Duration::from_secs(2);
 pub const REGISTER_RETRY_DELAYS: [Duration; 3] = [
@@ -1722,8 +1722,8 @@ mod tests {
 
     #[test]
     fn tokens_only_allow_portal_safe_characters() {
-        assert!(is_valid_token("fluxer_global_shortcuts"));
-        assert!(is_valid_token("fluxer_canary_global_shortcuts"));
+        assert!(is_valid_token("nekochat_global_shortcuts"));
+        assert!(is_valid_token("nekochat_canary_global_shortcuts"));
         assert!(!is_valid_token(""));
         assert!(!is_valid_token("fluxer-global"));
         assert!(!is_valid_token("fluxer.global"));

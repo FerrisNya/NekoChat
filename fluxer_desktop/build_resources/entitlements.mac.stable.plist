@@ -22,13 +22,13 @@
     <key>com.apple.security.network.server</key>
     <true/>
     <key>com.apple.application-identifier</key>
-    <string>3G5837T29K.app.fluxer</string>
+    <string>XXXXXXXXXX.app.nekochat</string>
     <key>com.apple.developer.associated-domains</key>
     <array>
-        <string>webcredentials:fluxer.app</string>
-        <string>webcredentials:web.fluxer.app</string>
-        <string>webcredentials:fluxer.com</string>
-        <string>webcredentials:canary.fluxer.com</string>
+        <string>webcredentials:nekochat.example</string>
+        <string>webcredentials:web.nekochat.example</string>
+        <string>webcredentials:nekochat-site.example</string>
+        <string>webcredentials:canary.nekochat-site.example</string>
     </array>
 </dict>
 </plist>

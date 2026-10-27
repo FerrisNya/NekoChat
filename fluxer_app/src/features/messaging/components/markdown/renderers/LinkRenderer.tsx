@@ -135,7 +135,7 @@ const PAGE_LINK_DESCRIPTOR = msg({
 });
 const SETTINGS_LINK_DESCRIPTOR = msg({
 	message: 'settings link',
-	comment: 'Type chip suffix in tooltips for inline rendered fluxer://settings/user deep links. Lowercase.',
+	comment: 'Type chip suffix in tooltips for inline rendered nekochat://settings/user deep links. Lowercase.',
 });
 const CHANNEL_ACCESS_DENIED_DESCRIPTOR = msg({
 	message: 'Channel access denied',

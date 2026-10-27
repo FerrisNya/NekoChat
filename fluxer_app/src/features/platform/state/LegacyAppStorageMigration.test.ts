@@ -705,7 +705,7 @@ describe('running the migration', () => {
 	test('an unusable active instance writes nothing and activates nothing', async () => {
 		const {migration, backendModule} = await loadModules();
 		const backend = backendModule.createPersistentStorageBackend(window.indexedDB);
-		const unkeyable = {...FIXTURE_CURRENT_INSTANCE_SNAPSHOT, apiEndpoint: 'https://user:pw@fluxer.app/api?tenant=1'};
+		const unkeyable = {...FIXTURE_CURRENT_INSTANCE_SNAPSHOT, apiEndpoint: 'https://user:pw@nekochat.example/api?tenant=1'};
 
 		const result = await migration.runLegacyAppStorageMigration({
 			backend,

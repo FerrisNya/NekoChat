@@ -44,7 +44,7 @@ import {afterEach, beforeEach, describe, expect, test, vi} from 'vitest';
 type BootstrapModule = typeof import('@app/features/platform/state/AppStorageBootstrap');
 type PersistentStorageModule = typeof import('@app/features/platform/state/PersistentStorage');
 
-const LEGACY_ORIGIN = 'https://web.canary.fluxer.app';
+const LEGACY_ORIGIN = 'https://web.canary.nekochat.example';
 const ACTIVE_USER_ID = '100000000000000002';
 const OTHER_USER_ID = '100000000000000003';
 const ACTIVE_SCOPE = `${FIXTURE_CURRENT_INSTANCE_KEY}::${ACTIVE_USER_ID}`;
@@ -503,12 +503,12 @@ describe('later launches after the harvest was replanted', () => {
 });
 
 describe('upgrading an install enrolled in the move to the migrated official domain', () => {
-	const MIGRATED_ORIGIN = 'https://canary.fluxer.com';
-	const OFFICIAL_INSTANCE_KEY = 'https://web.canary.fluxer.app/api';
+	const MIGRATED_ORIGIN = 'https://canary.nekochat-site.example';
+	const OFFICIAL_INSTANCE_KEY = 'https://web.canary.nekochat.example/api';
 	const OFFICIAL_INSTANCE_SNAPSHOT = {
 		...FIXTURE_CURRENT_INSTANCE_SNAPSHOT,
 		apiEndpoint: OFFICIAL_INSTANCE_KEY,
-		webAppEndpoint: 'https://web.canary.fluxer.app',
+		webAppEndpoint: 'https://web.canary.nekochat.example',
 	};
 	const OFFICIAL_ACTIVE_SCOPE = `${OFFICIAL_INSTANCE_KEY}::${ACTIVE_USER_ID}`;
 	const OFFICIAL_OTHER_SCOPE = `${OFFICIAL_INSTANCE_KEY}::${OTHER_USER_ID}`;
@@ -519,7 +519,7 @@ describe('upgrading an install enrolled in the move to the migrated official dom
 			instance: {
 				apiEndpoint: `${MIGRATED_ORIGIN}/api`,
 				webAppEndpoint: MIGRATED_ORIGIN,
-				gatewayEndpoint: 'wss://gateway.fluxer.app',
+				gatewayEndpoint: 'wss://gateway.nekochat.example',
 			},
 		};
 	}

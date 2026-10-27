@@ -276,17 +276,17 @@ fn native_parser_allows_app_protocol_links() {
     let flags = ParserFlags::ALLOW_AUTOLINKS | ParserFlags::ALLOW_MASKED_LINKS;
     assert_eq!(
         parse(
-            "fluxer://invite/abc fluxer:/channels/123/456 [Open gift](fluxer:gift/xyz)",
+            "nekochat://invite/abc fluxer:/channels/123/456 [Open gift](fluxer:gift/xyz)",
             flags,
             ""
         ),
         json!({"nodes":[
             {
                 "type":"Link",
-                "url":"fluxer://invite/abc",
+                "url":"nekochat://invite/abc",
                 "escaped":false,
-                "rawUrl":"fluxer://invite/abc",
-                "source":"fluxer://invite/abc"
+                "rawUrl":"nekochat://invite/abc",
+                "source":"nekochat://invite/abc"
             },
             {"type":"Text","content":" "},
             {

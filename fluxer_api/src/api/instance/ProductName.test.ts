@@ -36,8 +36,8 @@ describe('getInstanceProductName', () => {
 		});
 
 		it.each([
-			[null, 'Fluxer'],
-			['Fluxer', 'Fluxer'],
+			[null, 'NekoChat'],
+			['NekoChat', 'NekoChat'],
 			['Example Chat', 'Example Chat'],
 		])('resolves %j to %j', (cached, expected) => {
 			setCachedProductName(cached);
@@ -50,31 +50,31 @@ describe('getInstanceProductName', () => {
 			config.instance.selfHosted = true;
 		});
 
-		it.each([null, '', '  ', 'Fluxer', ' fluxer ', 'FLUXER'])('resolves %j to the web app host', (cached) => {
+		it.each([null, '', '  ', 'NekoChat', ' nekochat ', 'NEKOCHAT'])('resolves %j to the web app host', (cached) => {
 			setCachedProductName(cached);
 			expect(getInstanceProductName()).toBe(WEB_APP_HOST);
 		});
 
-		it('resolves a configured default of Fluxer to the web app host', () => {
-			config.instance.branding.productName = 'Fluxer';
+		it('resolves a configured default of NekoChat to the web app host', () => {
+			config.instance.branding.productName = 'NekoChat';
 			expect(getInstanceProductName()).toBe(WEB_APP_HOST);
 		});
 
-		it.each(['Fluxer Community', 'Example Chat'])('leaves %j alone', (cached) => {
+		it.each(['NekoChat Community', 'Example Chat'])('leaves %j alone', (cached) => {
 			setCachedProductName(cached);
 			expect(getInstanceProductName()).toBe(cached);
 		});
 
-		it('resolves a persisted Fluxer name to the web app host', async () => {
+		it('resolves a persisted NekoChat name to the web app host', async () => {
 			setCassandraQueryExecutorForTesting(new InMemoryCassandraQueryExecutor());
 			const kvProvider = new MockKVProvider();
 			const writer = new InstanceConfigRepository(kvProvider);
 			const reader = new InstanceConfigRepository(kvProvider);
 			try {
-				await writer.setConfig('app_public_config', JSON.stringify({branding: {product_name: 'Fluxer'}}));
+				await writer.setConfig('app_public_config', JSON.stringify({branding: {product_name: 'NekoChat'}}));
 				setCachedProductName('Example Chat');
 				await reader.initialize();
-				expect((await reader.getAppPublicConfig()).branding.product_name).toBe('Fluxer');
+				expect((await reader.getAppPublicConfig()).branding.product_name).toBe('NekoChat');
 				expect(getInstanceProductName()).toBe(WEB_APP_HOST);
 			} finally {
 				writer.shutdown();

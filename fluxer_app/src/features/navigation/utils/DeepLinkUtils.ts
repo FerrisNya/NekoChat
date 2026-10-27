@@ -231,7 +231,7 @@ export async function startDeepLinkHandling(): Promise<void> {
 	}
 }
 
-const OFFICIAL_INTERNAL_APP_HOSTS = [...OFFICIAL_WEB_APP_HOSTS, 'fluxer.app', 'canary.fluxer.app'];
+const OFFICIAL_INTERNAL_APP_HOSTS = [...OFFICIAL_WEB_APP_HOSTS, 'nekochat.example', 'canary.nekochat.example'];
 const getNormalizedWebAppHost = (): string => {
 	try {
 		return new URL(RuntimeConfig.webAppBaseUrl).host.toLowerCase();

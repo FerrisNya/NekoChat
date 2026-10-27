@@ -9,7 +9,7 @@ pub const DEFAULT_OPENROUTER_MODEL: &str = "google/gemini-2.5-flash-lite";
 pub const DEFAULT_OPENROUTER_FALLBACK_MODELS: &str =
     "openai/gpt-4.1-nano,mistralai/mistral-nemo,mistralai/mistral-small-3.2-24b-instruct";
 pub const DEFAULT_OPENROUTER_PROVIDER_SORT: &str = "throughput";
-pub const DEFAULT_OPENROUTER_HTTP_REFERER: &str = "https://fluxer.chat";
+pub const DEFAULT_OPENROUTER_HTTP_REFERER: &str = "https://nekochat.example";
 pub const DEFAULT_OPENROUTER_APP_TITLE: &str = "Fluxer i18n auto";
 pub const DEFAULT_STRING_CONCURRENCY: usize = 2;
 pub const DEFAULT_LOCALE_CONCURRENCY: usize = 1;

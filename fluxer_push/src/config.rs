@@ -31,7 +31,7 @@ const DEFAULT_FCM_BASE_URL: &str = "https://fcm.googleapis.com";
 const DEFAULT_CLIENT_IP_HEADER_NAME: &str = "x-forwarded-for";
 const APNS_PRODUCTION_BASE_URL: &str = "https://api.push.apple.com";
 const APNS_DEVELOPMENT_BASE_URL: &str = "https://api.sandbox.push.apple.com";
-const DEFAULT_MANAGED_RELAY_HOST: &str = "push.fluxer.com";
+const DEFAULT_MANAGED_RELAY_HOST: &str = "push.nekochat-site.example";
 const VOIP_TOPIC_SUFFIX: &str = ".voip";
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq, clap::ValueEnum)]

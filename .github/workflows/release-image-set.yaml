@@ -15,7 +15,7 @@ on:
         required: false
         default: "v1"
       component-versions:
-        description: "Per-component overrides, one <image>=<version> entry per line (for example fluxer-api=2026.830.191141)"
+        description: "Per-component overrides, one <image>=<version> entry per line (for example nekochat-api=2026.830.191141)"
         type: string
         required: false
         default: ""
@@ -75,7 +75,7 @@ jobs:
         with:
           client-id: ${{ vars.FLUXER_CI_APP_ID }}
           private-key: ${{ secrets.FLUXER_CI_APP_KEY }}
-          owner: fluxerapp
+          owner: FerrisNya
           repositories: fluxer
           permission-contents: write
           permission-packages: read
@@ -119,7 +119,7 @@ jobs:
           VERSION: ${{ steps.vars.outputs.build_version }}
         run: >-
           tools/ci/run.sh image-set verify
-          --manifest "release-out/fluxer-release-${VERSION}.json"
+          --manifest "release-out/nekochat-release-${VERSION}.json"
 
       - name: Publish GitHub release
         env:
@@ -132,11 +132,11 @@ jobs:
             echo "image-set resolve reported no bundle commit" >&2
             exit 1
           fi
-          gh release create "fluxer-release@${VERSION}" \
-            --repo fluxerapp/fluxer \
+          gh release create "nekochat-release@${VERSION}" \
+            --repo FerrisNya/NekoChat \
             --target "${BUNDLE_COMMIT}" \
-            --title "fluxer-release ${VERSION}" \
+            --title "nekochat-release ${VERSION}" \
             --latest=true \
-            --notes "Immutable image set for ${VERSION}. Every image in the set contains ${BUNDLE_COMMIT}, the commit this tag points at, so the bundle here is never newer than the images. Pin with: docker compose -f docker-compose.yml -f fluxer-release-${VERSION}.yml up -d" \
-            "release-out/fluxer-release-${VERSION}.json" \
-            "release-out/fluxer-release-${VERSION}.yml"
+            --notes "Immutable image set for ${VERSION}. Every image in the set contains ${BUNDLE_COMMIT}, the commit this tag points at, so the bundle here is never newer than the images. Pin with: docker compose -f docker-compose.yml -f nekochat-release-${VERSION}.yml up -d" \
+            "release-out/nekochat-release-${VERSION}.json" \
+            "release-out/nekochat-release-${VERSION}.yml"

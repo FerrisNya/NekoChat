@@ -90,34 +90,34 @@ function loadDesktop({channel = 'stable', settings} = {}) {
 
 describe('DesktopConfig legacy app origin', () => {
 	test('harvests the legacy web app origin when no app origin is stored', () => {
-		assert.equal(loadDesktop().getLegacyAppOrigin(), 'https://web.fluxer.app');
-		assert.equal(loadDesktop({channel: 'canary'}).getLegacyAppOrigin(), 'https://web.canary.fluxer.app');
+		assert.equal(loadDesktop().getLegacyAppOrigin(), 'https://web.nekochat.example');
+		assert.equal(loadDesktop({channel: 'canary'}).getLegacyAppOrigin(), 'https://web.canary.nekochat.example');
 	});
 
 	test('harvests the migrated origin an older build stored', () => {
-		const stable = loadDesktop({settings: {app_origin: 'https://fluxer.com'}});
-		const canary = loadDesktop({channel: 'canary', settings: {app_origin: 'https://canary.fluxer.com'}});
+		const stable = loadDesktop({settings: {app_origin: 'https://nekochat-site.example'}});
+		const canary = loadDesktop({channel: 'canary', settings: {app_origin: 'https://canary.nekochat-site.example'}});
 
-		assert.equal(stable.getLegacyAppOrigin(), 'https://fluxer.com');
-		assert.equal(canary.getLegacyAppOrigin(), 'https://canary.fluxer.com');
+		assert.equal(stable.getLegacyAppOrigin(), 'https://nekochat-site.example');
+		assert.equal(canary.getLegacyAppOrigin(), 'https://canary.nekochat-site.example');
 	});
 
 	test('harvests the legacy web app origin for a stored legacy origin', () => {
-		const desktopConfig = loadDesktop({settings: {app_origin: 'https://web.fluxer.app'}});
+		const desktopConfig = loadDesktop({settings: {app_origin: 'https://web.nekochat.example'}});
 
-		assert.equal(desktopConfig.getLegacyAppOrigin(), 'https://web.fluxer.app');
+		assert.equal(desktopConfig.getLegacyAppOrigin(), 'https://web.nekochat.example');
 	});
 
 	test('drops stored origins outside the channel allowlist', () => {
 		for (const appOrigin of [
-			'https://canary.fluxer.com',
-			'https://fluxer.com/',
+			'https://canary.nekochat-site.example',
+			'https://nekochat-site.example/',
 			'https://evil.example',
-			'http://fluxer.com',
+			'http://nekochat-site.example',
 			42,
 		]) {
 			const desktopConfig = loadDesktop({settings: {app_origin: appOrigin}});
-			assert.equal(desktopConfig.getLegacyAppOrigin(), 'https://web.fluxer.app');
+			assert.equal(desktopConfig.getLegacyAppOrigin(), 'https://web.nekochat.example');
 		}
 	});
 });

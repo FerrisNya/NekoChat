@@ -6,12 +6,12 @@ import * as CodeLinkUtils from '@app/features/messaging/utils/CodeLinkUtils';
 import {wrapDesktopLocalResourceURLForInstance} from '@app/features/messaging/utils/DesktopResourceUrl';
 
 const OFFICIAL_THEME_URL_BASES = Object.freeze([
-	'https://fluxer.app/theme',
-	'https://canary.fluxer.app/theme',
-	'https://web.fluxer.app/theme',
-	'https://web.canary.fluxer.app/theme',
-	'https://fluxer.com/theme',
-	'https://canary.fluxer.com/theme',
+	'https://nekochat.example/theme',
+	'https://canary.nekochat.example/theme',
+	'https://web.nekochat.example/theme',
+	'https://web.canary.nekochat.example/theme',
+	'https://nekochat-site.example/theme',
+	'https://canary.nekochat-site.example/theme',
 ]);
 const appendThemePath = (endpoint: string | null | undefined): string | null => {
 	if (!endpoint) return null;

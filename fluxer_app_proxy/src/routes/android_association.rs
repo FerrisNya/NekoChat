@@ -5,25 +5,29 @@ use axum::{
     http::header,
     response::{IntoResponse, Response},
 };
-use serde_json::json;
+use serde_json::{Value, json};
+
+// NekoChat has no signed Android app yet; add its package name and signing-cert
+// fingerprints here once it does.
+const ANDROID_APPS: &[(&str, &[&str])] = &[];
 
 pub async fn assetlinks() -> Response {
-    let body = ["com.fluxer", "com.fluxer.canary"].map(|package_name| {
-        json!({
-            "relation": [
-                "delegate_permission/common.handle_all_urls",
-                "delegate_permission/common.get_login_creds"
-            ],
-            "target": {
-                "namespace": "android_app",
-                "package_name": package_name,
-                "sha256_cert_fingerprints": [
-                    "91:E4:98:E1:B8:A6:C8:BA:99:41:5E:DB:29:78:29:6B:6C:58:BA:A5:E2:D2:A6:49:CE:C6:2D:A7:A8:29:C7:BC",
-                    "2D:DE:2A:9D:3D:13:7C:17:87:31:3D:D8:BB:61:F4:59:3C:2A:97:18:05:B3:ED:F6:B8:39:B0:AA:D2:E7:76:C9"
-                ]
-            }
+    let body: Vec<Value> = ANDROID_APPS
+        .iter()
+        .map(|(package_name, fingerprints)| {
+            json!({
+                "relation": [
+                    "delegate_permission/common.handle_all_urls",
+                    "delegate_permission/common.get_login_creds"
+                ],
+                "target": {
+                    "namespace": "android_app",
+                    "package_name": package_name,
+                    "sha256_cert_fingerprints": fingerprints
+                }
+            })
         })
-    });
+        .collect();
 
     (
         [(header::CACHE_CONTROL, "public, max-age=1800")],
@@ -38,7 +42,7 @@ mod tests {
     use axum::body::to_bytes;
 
     #[tokio::test]
-    async fn assetlinks_serves_android_login_credentials_association() {
+    async fn assetlinks_trusts_no_android_app_until_one_is_configured() {
         let response = assetlinks().await;
 
         assert_eq!(response.status(), axum::http::StatusCode::OK);
@@ -49,38 +53,6 @@ mod tests {
 
         let body = to_bytes(response.into_body(), usize::MAX).await.unwrap();
         let actual: serde_json::Value = serde_json::from_slice(&body).unwrap();
-        assert_eq!(
-            actual,
-            serde_json::json!([
-                {
-                    "relation": [
-                        "delegate_permission/common.handle_all_urls",
-                        "delegate_permission/common.get_login_creds"
-                    ],
-                    "target": {
-                        "namespace": "android_app",
-                        "package_name": "com.fluxer",
-                        "sha256_cert_fingerprints": [
-                            "91:E4:98:E1:B8:A6:C8:BA:99:41:5E:DB:29:78:29:6B:6C:58:BA:A5:E2:D2:A6:49:CE:C6:2D:A7:A8:29:C7:BC",
-                            "2D:DE:2A:9D:3D:13:7C:17:87:31:3D:D8:BB:61:F4:59:3C:2A:97:18:05:B3:ED:F6:B8:39:B0:AA:D2:E7:76:C9"
-                        ]
-                    }
-                },
-                {
-                    "relation": [
-                        "delegate_permission/common.handle_all_urls",
-                        "delegate_permission/common.get_login_creds"
-                    ],
-                    "target": {
-                        "namespace": "android_app",
-                        "package_name": "com.fluxer.canary",
-                        "sha256_cert_fingerprints": [
-                            "91:E4:98:E1:B8:A6:C8:BA:99:41:5E:DB:29:78:29:6B:6C:58:BA:A5:E2:D2:A6:49:CE:C6:2D:A7:A8:29:C7:BC",
-                            "2D:DE:2A:9D:3D:13:7C:17:87:31:3D:D8:BB:61:F4:59:3C:2A:97:18:05:B3:ED:F6:B8:39:B0:AA:D2:E7:76:C9"
-                        ]
-                    }
-                }
-            ])
-        );
+        assert_eq!(actual, serde_json::json!([]));
     }
 }

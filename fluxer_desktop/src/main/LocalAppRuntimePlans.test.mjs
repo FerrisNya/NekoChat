@@ -18,7 +18,7 @@ const {DEPLOYED_OFFICIAL_DOCUMENT, SELF_HOSTED_API_TOPOLOGY_DOCUMENT, UPGRADED_D
 	'@fluxer/instance_bootstrap/src/__tests__/DiscoveryFixtures'
 );
 
-const OFFICIAL_KEY = 'https://api.fluxer.app';
+const OFFICIAL_KEY = 'https://api.nekochat.example';
 
 function plan(overrides = {}) {
 	return {
@@ -26,13 +26,13 @@ function plan(overrides = {}) {
 		document: {},
 		selfHosted: false,
 		endpoints: {
-			apiEndpoint: 'https://api.fluxer.app',
-			apiPublicEndpoint: 'https://api.fluxer.app',
-			webAppEndpoint: 'https://web.fluxer.app',
-			mediaEndpoint: 'https://media.fluxer.app',
-			staticCdnEndpoint: 'https://cdn.fluxer.app',
+			apiEndpoint: 'https://api.nekochat.example',
+			apiPublicEndpoint: 'https://api.nekochat.example',
+			webAppEndpoint: 'https://web.nekochat.example',
+			mediaEndpoint: 'https://media.nekochat.example',
+			staticCdnEndpoint: 'https://cdn.nekochat.example',
 			uploadRelayEndpoint: null,
-			gatewayEndpoint: 'wss://gateway.fluxer.app',
+			gatewayEndpoint: 'wss://gateway.nekochat.example',
 			inviteEndpoint: null,
 			giftEndpoint: null,
 			...overrides,
@@ -42,26 +42,26 @@ function plan(overrides = {}) {
 
 describe('instance keys', () => {
 	test('the key is the lowercased origin plus the path, without trailing slashes', () => {
-		assert.equal(localAppRuntimeInstanceKey('https://API.Fluxer.App'), 'https://api.fluxer.app');
-		assert.equal(localAppRuntimeInstanceKey('https://web.fluxer.app/api'), 'https://web.fluxer.app/api');
-		assert.equal(localAppRuntimeInstanceKey('https://web.fluxer.app/api/'), 'https://web.fluxer.app/api');
-		assert.equal(localAppRuntimeInstanceKey('  https://api.fluxer.app  '), 'https://api.fluxer.app');
+		assert.equal(localAppRuntimeInstanceKey('https://API.NekoChat.EXAMPLE'), 'https://api.nekochat.example');
+		assert.equal(localAppRuntimeInstanceKey('https://web.nekochat.example/api'), 'https://web.nekochat.example/api');
+		assert.equal(localAppRuntimeInstanceKey('https://web.nekochat.example/api/'), 'https://web.nekochat.example/api');
+		assert.equal(localAppRuntimeInstanceKey('  https://api.nekochat.example  '), 'https://api.nekochat.example');
 		assert.equal(localAppRuntimeInstanceKey('http://127.0.0.1:3000/api'), 'http://127.0.0.1:3000/api');
 	});
 
 	test('a credentialed, query-bearing or non-http endpoint has no key', () => {
-		assert.equal(localAppRuntimeInstanceKey('https://u:p@api.fluxer.app'), null);
-		assert.equal(localAppRuntimeInstanceKey('https://api.fluxer.app?x=1'), null);
-		assert.equal(localAppRuntimeInstanceKey('https://api.fluxer.app#x'), null);
+		assert.equal(localAppRuntimeInstanceKey('https://u:p@api.nekochat.example'), null);
+		assert.equal(localAppRuntimeInstanceKey('https://api.nekochat.example?x=1'), null);
+		assert.equal(localAppRuntimeInstanceKey('https://api.nekochat.example#x'), null);
 		assert.equal(localAppRuntimeInstanceKey('fluxer-app://app/api'), null);
 		assert.equal(localAppRuntimeInstanceKey('not a url'), null);
 	});
 
 	test('httpOriginSource only accepts http and https', () => {
-		assert.equal(httpOriginSource('https://web.fluxer.app/api'), 'https://web.fluxer.app');
+		assert.equal(httpOriginSource('https://web.nekochat.example/api'), 'https://web.nekochat.example');
 		assert.equal(httpOriginSource('http://127.0.0.1:3000/x'), 'http://127.0.0.1:3000');
 		assert.equal(httpOriginSource('fluxer-app://app/'), null);
-		assert.equal(httpOriginSource('wss://gateway.fluxer.app'), null);
+		assert.equal(httpOriginSource('wss://gateway.nekochat.example'), null);
 		assert.equal(httpOriginSource(null), null);
 		assert.equal(httpOriginSource(''), null);
 	});
@@ -69,8 +69,8 @@ describe('instance keys', () => {
 
 describe('runtime route URLs', () => {
 	test('the instance key becomes exactly one encoded path segment', () => {
-		const url = buildLocalAppRuntimeURL('/api', 'https://web.fluxer.app/api');
-		assert.equal(url, 'fluxer-app://app/api/https%3A%2F%2Fweb.fluxer.app%2Fapi');
+		const url = buildLocalAppRuntimeURL('/api', 'https://web.nekochat.example/api');
+		assert.equal(url, 'fluxer-app://app/api/https%3A%2F%2Fweb.nekochat.example%2Fapi');
 		assert.equal(new URL(url).pathname.split('/').length, 3);
 	});
 
@@ -86,12 +86,12 @@ describe('parsing a runtime route', () => {
 		['fluxer-app://app/api/k/', '/api', {runtimeKey: 'k', localPathPrefix: '/api/k'}],
 		['fluxer-app://app/api/k/v1/users/@me', '/api', {runtimeKey: 'k', localPathPrefix: '/api/k'}],
 		[
-			'fluxer-app://app/api/https%3A%2F%2Fweb.fluxer.app%2Fapi/v1/x?y=1',
+			'fluxer-app://app/api/https%3A%2F%2Fweb.nekochat.example%2Fapi/v1/x?y=1',
 			'/api',
-			{runtimeKey: 'https://web.fluxer.app/api', localPathPrefix: '/api/https%3A%2F%2Fweb.fluxer.app%2Fapi'},
+			{runtimeKey: 'https://web.nekochat.example/api', localPathPrefix: '/api/https%3A%2F%2Fweb.nekochat.example%2Fapi'},
 		],
 		[
-			'fluxer-app://app/proxy/k?url=https://media.fluxer.app/x',
+			'fluxer-app://app/proxy/k?url=https://media.nekochat.example/x',
 			'/proxy',
 			{runtimeKey: 'k', localPathPrefix: '/proxy/k'},
 		],
@@ -127,9 +127,9 @@ describe('building a plan from a discovery document', () => {
 		assert.equal(built.instanceKey, OFFICIAL_KEY);
 		assert.equal(built.selfHosted, false);
 		assert.equal(built.document, DEPLOYED_OFFICIAL_DOCUMENT);
-		assert.equal(built.endpoints.webAppEndpoint, 'https://web.fluxer.app');
-		assert.equal(built.endpoints.mediaEndpoint, 'https://media.fluxer.app');
-		assert.equal(built.endpoints.gatewayEndpoint, 'wss://gateway.fluxer.app');
+		assert.equal(built.endpoints.webAppEndpoint, 'https://web.nekochat.example');
+		assert.equal(built.endpoints.mediaEndpoint, 'https://media.nekochat.example');
+		assert.equal(built.endpoints.gatewayEndpoint, 'wss://gateway.nekochat.example');
 	});
 
 	test('a self-hosted document is flagged self hosted', () => {
@@ -140,7 +140,7 @@ describe('building a plan from a discovery document', () => {
 	test('the upload relay endpoint is carried through when advertised', () => {
 		assert.equal(
 			localAppRuntimePlanFromDiscovery(UPGRADED_DOCUMENT).endpoints.uploadRelayEndpoint,
-			'https://media.fluxer.app/upload',
+			'https://media.nekochat.example/upload',
 		);
 	});
 
@@ -153,18 +153,18 @@ describe('building a plan from a discovery document', () => {
 describe('the trusted origin set of a plan', () => {
 	test('every http endpoint plus the gateway as an http origin is trusted', () => {
 		assert.deepEqual(runtimePlanTrustedHTTPOrigins(plan()), [
-			'https://api.fluxer.app',
-			'https://cdn.fluxer.app',
-			'https://gateway.fluxer.app',
-			'https://media.fluxer.app',
-			'https://web.fluxer.app',
+			'https://api.nekochat.example',
+			'https://cdn.nekochat.example',
+			'https://gateway.nekochat.example',
+			'https://media.nekochat.example',
+			'https://web.nekochat.example',
 		]);
 	});
 
 	test('an origin outside the plan is not trusted', () => {
 		const origins = runtimePlanTrustedHTTPOrigins(plan());
 		assert.equal(origins.includes('https://evil.example'), false);
-		assert.equal(origins.includes('https://media.fluxer.app'), true);
+		assert.equal(origins.includes('https://media.nekochat.example'), true);
 	});
 
 	test('a non-http endpoint contributes nothing', () => {

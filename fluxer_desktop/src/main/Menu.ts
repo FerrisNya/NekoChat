@@ -214,20 +214,20 @@ function buildTemplate(): Array<MenuItemConstructorOptions> {
 			{
 				label: t('desktop.appMenu.website'),
 				click: async () => {
-					await openExternalDeduped('https://fluxer.app');
+					await openExternalDeduped('https://nekochat.example');
 				},
 			},
 			{
 				label: t('desktop.appMenu.github'),
 				click: async () => {
-					await openExternalDeduped('https://github.com/fluxerapp/fluxer');
+					await openExternalDeduped('https://github.com/FerrisNya/NekoChat');
 				},
 			},
 			{type: 'separator'},
 			{
 				label: t('desktop.appMenu.reportIssue'),
 				click: async () => {
-					await openExternalDeduped('https://feedback.fluxer.com');
+					await openExternalDeduped('https://feedback.nekochat-site.example');
 				},
 			},
 			{type: 'separator'},

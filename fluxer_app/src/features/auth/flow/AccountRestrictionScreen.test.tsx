@@ -111,14 +111,14 @@ const notice: EnforcementNotice = {
 	deletion_at: null,
 	summary: 'We suspended your account until Oct 8, 2026, 10:00 AM UTC.',
 	effects: ["You can't sign in or use Fluxer anywhere until then. Your account, messages and communities are kept."],
-	rule: {title: 'Spam and service abuse', url: 'https://fluxer.com/guidelines#6-spam-and-service-abuse'},
+	rule: {title: 'Spam and service abuse', url: 'https://nekochat-site.example/guidelines#6-spam-and-service-abuse'},
 	facts: [
 		'We found that your account sent unwanted messages in bulk.',
 		'3 messages in #general of Example, between Oct 1, 2026, 9:00 AM UTC and Oct 1, 2026, 9:05 AM UTC.',
 	],
 	statement: 'Please read the rules.',
 	how_we_decided: ['We reviewed this after a report.', 'A person on our team reviewed this and made the decision.'],
-	appeal: {email: 'appeals@fluxer.com', deadline: 'Nov 30, 2026', account_has_email: true},
+	appeal: {email: 'appeals@nekochat-site.example', deadline: 'Nov 30, 2026', account_has_email: true},
 	redress: [
 		"If you're in the EU, you can also refer this decision to a certified out-of-court dispute settlement body. The European Commission keeps a [list of these bodies](https://digital-strategy.ec.europa.eu/en/policies/dsa-out-court-dispute-settlement).",
 	],
@@ -126,7 +126,7 @@ const notice: EnforcementNotice = {
 
 const block: NetworkBlock = {
 	ip_address: '203.0.113.7',
-	appeal_email: 'support@fluxer.com',
+	appeal_email: 'support@nekochat-site.example',
 	appeals_supported: true,
 	ban_kind: 'permanent',
 	expires_at: null,
@@ -211,13 +211,13 @@ describe('account notice', () => {
 		expect(content).toContain('Rule: Spam and service abuse');
 		expect(content).toContain('Note from our team: Please read the rules.');
 		expect(content).toContain(
-			'If you think we got this wrong, email appeals@fluxer.com by Nov 30, 2026. Write from the email address on your account if you can, and include the decision ID. Appeals are free, and a person reviews each one.',
+			'If you think we got this wrong, email appeals@nekochat-site.example by Nov 30, 2026. Write from the email address on your account if you can, and include the decision ID. Appeals are free, and a person reviews each one.',
 		);
 		expect(content).toContain('Decision ID: 1234567890123456789');
 		const links = [...element.querySelectorAll('a[data-external-link]')].map((link) => link.getAttribute('href'));
 		expect(links).toEqual([
-			'https://fluxer.com/guidelines#6-spam-and-service-abuse',
-			'mailto:appeals@fluxer.com',
+			'https://nekochat-site.example/guidelines#6-spam-and-service-abuse',
+			'mailto:appeals@nekochat-site.example',
 			'https://digital-strategy.ec.europa.eu/en/policies/dsa-out-court-dispute-settlement',
 		]);
 	});
@@ -260,17 +260,17 @@ describe('account notice', () => {
 	test('an account with no email asks for the decision ID and username', () => {
 		const {element} = renderScreen({
 			type: 'notice',
-			notice: {...notice, appeal: {email: 'appeals@fluxer.com', deadline: 'Nov 30, 2026', account_has_email: false}},
+			notice: {...notice, appeal: {email: 'appeals@nekochat-site.example', deadline: 'Nov 30, 2026', account_has_email: false}},
 		});
 		expect(text(element)).toContain(
-			'If you think we got this wrong, email appeals@fluxer.com by Nov 30, 2026. Include the decision ID and your username. Appeals are free, and a person reviews each one.',
+			'If you think we got this wrong, email appeals@nekochat-site.example by Nov 30, 2026. Include the decision ID and your username. Appeals are free, and a person reviews each one.',
 		);
 	});
 
 	test('a deadline that ends in a period does not double the full stop', () => {
 		const {element} = renderScreen({
 			type: 'notice',
-			notice: {...notice, appeal: {email: 'appeals@fluxer.com', deadline: '14. pro 2026.', account_has_email: true}},
+			notice: {...notice, appeal: {email: 'appeals@nekochat-site.example', deadline: '14. pro 2026.', account_has_email: true}},
 		});
 		expect(text(element)).toContain('by 14. pro 2026. Write from');
 	});
@@ -285,11 +285,11 @@ describe('account notice', () => {
 				statement: null,
 				how_we_decided: [],
 				facts: ["We don't have more detail on record for this decision."],
-				appeal: {email: 'appeals@fluxer.com', deadline: null, account_has_email: true},
+				appeal: {email: 'appeals@nekochat-site.example', deadline: null, account_has_email: true},
 			},
 		});
 		const content = text(element);
-		expect(content).toContain('If you think we got this wrong, email appeals@fluxer.com and include your username.');
+		expect(content).toContain('If you think we got this wrong, email appeals@nekochat-site.example and include your username.');
 		expect(content).not.toContain('Decision ID');
 		expect(content).not.toContain('Rule:');
 		expect(content).not.toContain('How we decided');
@@ -321,17 +321,17 @@ describe('network blocked', () => {
 		expect(paragraphs(element)).toEqual([
 			'Fluxer blocked access from this network.',
 			'If you share this network, for example at school, at work, on public Wi-Fi, through your mobile carrier or a VPN, this block may have nothing to do with you. The quickest fix is to switch networks, for example to mobile data instead of Wi-Fi, or to turn your VPN on or off.',
-			'If you think this block is a mistake, email support@fluxer.com and include your IP address, 203.0.113.7.',
+			'If you think this block is a mistake, email support@nekochat-site.example and include your IP address, 203.0.113.7.',
 		]);
 		expect(text(element)).not.toMatch(/sign in/i);
-		expect(element.querySelector('a')?.getAttribute('href')).toBe('mailto:support@fluxer.com');
+		expect(element.querySelector('a')?.getAttribute('href')).toBe('mailto:support@nekochat-site.example');
 		expect(element.firstElementChild?.className.split(' ')).toContain('selectable');
 	});
 
 	test('with a reason leads with the rule', () => {
 		const {element} = renderScreen({
 			type: 'network_blocked',
-			block: {...block, appeal_email: 'appeals@fluxer.com', reason: {title: 'Spam and service abuse', url: null}},
+			block: {...block, appeal_email: 'appeals@nekochat-site.example', reason: {title: 'Spam and service abuse', url: null}},
 		});
 		expect(paragraphs(element).slice(0, 2)).toEqual([
 			'Fluxer blocked access from this network because of activity that broke its rules.',

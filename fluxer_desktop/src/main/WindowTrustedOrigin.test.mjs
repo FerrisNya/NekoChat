@@ -146,13 +146,13 @@ describe('the window trust boundary is exactly the local app document origin', (
 	});
 
 	test('no remote origin is trusted any more', () => {
-		assert.equal(isTrustedOrigin('https://web.fluxer.app/channels/@me'), false);
-		assert.equal(isTrustedOrigin('https://web.canary.fluxer.app/'), false);
+		assert.equal(isTrustedOrigin('https://web.nekochat.example/channels/@me'), false);
+		assert.equal(isTrustedOrigin('https://web.canary.nekochat.example/'), false);
 		assert.equal(isTrustedOrigin('https://evil.example/'), false);
 	});
 
 	test('the OS deep link scheme is not a document origin', () => {
-		assert.equal(isTrustedOrigin('fluxer://guild/channel'), false);
+		assert.equal(isTrustedOrigin('nekochat://guild/channel'), false);
 	});
 
 	test('an empty or absent URL is rejected', () => {
@@ -189,7 +189,7 @@ describe('the main window only ever loads the local app document', () => {
 
 	test('a deep link reaches the renderer as an in-app path, never as a document to load', async () => {
 		assert.doesNotMatch(readMainSource('DeepLinks.ts'), /\.loadURL\(|\.loadFile\(/);
-		for (const deepLink of ['fluxer://channels/@me', 'fluxer://evil.example/https://evil.example', 'fluxer://-/x']) {
+		for (const deepLink of ['nekochat://channels/@me', 'nekochat://evil.example/https://evil.example', 'nekochat://-/x']) {
 			ipcHandlers.delete('get-initial-deep-link');
 			withArgv([...HOSTILE_ARGV, deepLink], () => initializeDeepLinks());
 			const payload = await ipcHandlers.get('get-initial-deep-link')();
@@ -201,7 +201,7 @@ describe('the main window only ever loads the local app document', () => {
 
 	test('a sign-in return link never reaches the renderer with its grant', async () => {
 		ipcHandlers.delete('get-initial-deep-link');
-		withArgv(['fluxer://handoff?code=ABCDEF-GHJKMN&grant=secret-grant'], () => initializeDeepLinks());
+		withArgv(['nekochat://handoff?code=ABCDEF-GHJKMN&grant=secret-grant'], () => initializeDeepLinks());
 		assert.equal(await ipcHandlers.get('get-initial-deep-link')(), null);
 	});
 

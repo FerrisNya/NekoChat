@@ -114,29 +114,29 @@ describe('sanitizeNextPath', () => {
 
 	it('never leaves the origin it is resolved against', () => {
 		for (const input of ['/\t/evil.example', '/\n/evil.example', '/%09/evil.example', '/@evil.example']) {
-			expect(new URL(core.sanitizeNextPath(input), 'https://web.fluxer.app/x').origin).toBe('https://web.fluxer.app');
+			expect(new URL(core.sanitizeNextPath(input), 'https://web.nekochat.example/x').origin).toBe('https://web.nekochat.example');
 		}
 	});
 });
 
 describe('resolveDomainMigrationSide', () => {
 	it('recognises only the four official origins', () => {
-		expect(core.resolveDomainMigrationSide('https://web.fluxer.app')).toEqual({
+		expect(core.resolveDomainMigrationSide('https://web.nekochat.example')).toEqual({
 			role: 'source',
-			source: 'https://web.fluxer.app',
-			target: 'https://fluxer.com',
+			source: 'https://web.nekochat.example',
+			target: 'https://nekochat-site.example',
 		});
-		expect(core.resolveDomainMigrationSide('https://canary.fluxer.com')).toEqual({
+		expect(core.resolveDomainMigrationSide('https://canary.nekochat-site.example')).toEqual({
 			role: 'target',
-			source: 'https://web.canary.fluxer.app',
-			target: 'https://canary.fluxer.com',
+			source: 'https://web.canary.nekochat.example',
+			target: 'https://canary.nekochat-site.example',
 		});
 		for (const origin of [
 			'http://localhost:3000',
 			'https://chat.example.com',
-			'http://web.fluxer.app',
-			'https://fluxer.app',
-			'https://web.fluxer.com',
+			'http://web.nekochat.example',
+			'https://nekochat.example',
+			'https://web.nekochat-site.example',
 		]) {
 			expect(core.resolveDomainMigrationSide(origin)).toBeNull();
 		}
@@ -147,7 +147,7 @@ describe('payload encryption', () => {
 	it('round trips through encrypt and decrypt', async () => {
 		const payload = {
 			version: 1,
-			source_origin: 'https://web.fluxer.app',
+			source_origin: 'https://web.nekochat.example',
 			local_storage: {token: 'abc', big: 'x'.repeat(200_000)},
 		};
 		const sealed = await encryptDomainMigrationPayload(payload);
@@ -166,24 +166,24 @@ describe('payload encryption', () => {
 	it('rejects payloads from another source or version', () => {
 		const payload = {
 			version: 1,
-			source_origin: 'https://web.fluxer.app',
+			source_origin: 'https://web.nekochat.example',
 			exported_at: NOW,
 			local_storage: {},
 			accounts: [],
 			notification_permission: 'granted',
 		};
-		expect(core.parseDomainMigrationPayload(payload, 'https://web.fluxer.app')).not.toBeNull();
-		expect(core.parseDomainMigrationPayload(payload, 'https://web.canary.fluxer.app')).toBeNull();
-		expect(core.parseDomainMigrationPayload({...payload, version: 2}, 'https://web.fluxer.app')).toBeNull();
+		expect(core.parseDomainMigrationPayload(payload, 'https://web.nekochat.example')).not.toBeNull();
+		expect(core.parseDomainMigrationPayload(payload, 'https://web.canary.nekochat.example')).toBeNull();
+		expect(core.parseDomainMigrationPayload({...payload, version: 2}, 'https://web.nekochat.example')).toBeNull();
 		expect(
-			core.parseDomainMigrationPayload({...payload, accounts: [{userId: 1}]}, 'https://web.fluxer.app'),
+			core.parseDomainMigrationPayload({...payload, accounts: [{userId: 1}]}, 'https://web.nekochat.example'),
 		).toBeNull();
 	});
 
 	it('accepts a theme library and rejects a malformed one', () => {
 		const payload = {
 			version: 1,
-			source_origin: 'https://web.fluxer.app',
+			source_origin: 'https://web.nekochat.example',
 			exported_at: NOW,
 			local_storage: {},
 			accounts: [],
@@ -206,12 +206,12 @@ describe('payload encryption', () => {
 			enabled_theme_ids: ['quick-css'],
 		};
 		expect(
-			core.parseDomainMigrationPayload({...payload, theme_library: themeLibrary}, 'https://web.fluxer.app'),
+			core.parseDomainMigrationPayload({...payload, theme_library: themeLibrary}, 'https://web.nekochat.example'),
 		).not.toBeNull();
 		expect(
 			core.parseDomainMigrationPayload(
 				{...payload, theme_library: {...themeLibrary, enabled_theme_ids: [1]}},
-				'https://web.fluxer.app',
+				'https://web.nekochat.example',
 			),
 		).toBeNull();
 		const trimmed = core.withoutOptionalPayloadData({
@@ -227,7 +227,7 @@ describe('payload encryption', () => {
 
 describe('rewriteImportedAccount', () => {
 	it('points the account at the current instance and drops runtimeConfig', () => {
-		const current = {apiEndpoint: 'https://fluxer.com/api'} as RuntimeConfigSnapshot;
+		const current = {apiEndpoint: 'https://nekochat-site.example/api'} as RuntimeConfigSnapshot;
 		const record: StoredAccount = {
 			userId: '1',
 			token: 'token',
@@ -240,7 +240,7 @@ describe('rewriteImportedAccount', () => {
 				[core.DOMAIN_MIGRATION_MARKER_KEY]: '{}',
 			},
 			lastActive: NOW,
-			instance: {apiEndpoint: 'https://web.fluxer.app/api'} as RuntimeConfigSnapshot,
+			instance: {apiEndpoint: 'https://web.nekochat.example/api'} as RuntimeConfigSnapshot,
 		};
 		const rewritten = core.rewriteImportedAccount(record, current);
 		expect(rewritten.instance).toBe(current);
@@ -267,8 +267,8 @@ describe('local storage export', () => {
 });
 
 describe('scoped app storage handoff', () => {
-	const sourceInstance = {apiEndpoint: 'https://api.fluxer.app'} as RuntimeConfigSnapshot;
-	const targetInstance = {apiEndpoint: 'https://api.fluxer.com'} as RuntimeConfigSnapshot;
+	const sourceInstance = {apiEndpoint: 'https://api.nekochat.example'} as RuntimeConfigSnapshot;
+	const targetInstance = {apiEndpoint: 'https://api.nekochat-site.example'} as RuntimeConfigSnapshot;
 	const account: StoredAccount = {
 		userId: '1',
 		token: 'token',
@@ -316,14 +316,14 @@ describe('scoped app storage handoff', () => {
 		const parsed = core.parseDomainMigrationPayload(
 			{
 				version: core.DOMAIN_MIGRATION_PAYLOAD_VERSION,
-				source_origin: 'https://web.fluxer.app',
+				source_origin: 'https://web.nekochat.example',
 				exported_at: NOW,
 				local_storage: exported.local_storage,
 				app_storage: [...exported.app_storage, {user_id: 1, key: 'bad', value: 'x'}],
 				accounts: [account],
 				notification_permission: 'default',
 			},
-			'https://web.fluxer.app',
+			'https://web.nekochat.example',
 		);
 		expect(parsed?.app_storage).toHaveLength(exported.app_storage.length);
 
@@ -350,7 +350,7 @@ describe('migration gate', () => {
 		['assignment off', {assignmentEnabled: false}],
 		['kill switch', {discovery: {...ENABLED_DISCOVERY, enabled: false}}],
 		['no discovery', {discovery: null}],
-		['already completed', {marker: {state: 'completed', target: 'https://fluxer.com', at: NOW, attempts: 1}}],
+		['already completed', {marker: {state: 'completed', target: 'https://nekochat-site.example', at: NOW, attempts: 1}}],
 		['failed recently', {marker: {state: 'failed', at: NOW - 60_000, attempts: 1}}],
 		['failed too often', {marker: {state: 'failed', at: NOW - 3 * 24 * 60 * 60 * 1000, attempts: 3}}],
 		['Android web app', {environment: environment('chromium-android')}],
@@ -381,10 +381,10 @@ describe('marker state', () => {
 		core.markDomainMigrationFailed(storage, NOW);
 		core.markDomainMigrationFailed(storage, NOW + 1);
 		expect(core.readDomainMigrationMarker(storage)).toEqual({state: 'failed', at: NOW + 1, attempts: 2});
-		core.markDomainMigrationCompleted(storage, 'https://fluxer.com', NOW + 2);
+		core.markDomainMigrationCompleted(storage, 'https://nekochat-site.example', NOW + 2);
 		expect(core.readDomainMigrationMarker(storage)).toEqual({
 			state: 'completed',
-			target: 'https://fluxer.com',
+			target: 'https://nekochat-site.example',
 			at: NOW + 2,
 			attempts: 2,
 		});
@@ -417,16 +417,16 @@ describe('migration intent', () => {
 
 describe('forwarding', () => {
 	it('keeps the path, query and hash', () => {
-		expect(core.buildTargetUrl('https://fluxer.com', '/reset', '?a=1', '#token=abc')).toBe(
-			'https://fluxer.com/reset?a=1#token=abc',
+		expect(core.buildTargetUrl('https://nekochat-site.example', '/reset', '?a=1', '#token=abc')).toBe(
+			'https://nekochat-site.example/reset?a=1#token=abc',
 		);
-		expect(core.buildTargetUrl('https://fluxer.com', '/', '', '')).toBe('https://fluxer.com/app');
+		expect(core.buildTargetUrl('https://nekochat-site.example', '/', '', '')).toBe('https://nekochat-site.example/app');
 	});
 
 	it('honours the kill switch', () => {
 		const completed: core.DomainMigrationMarker = {
 			state: 'completed',
-			target: 'https://fluxer.com',
+			target: 'https://nekochat-site.example',
 			at: NOW,
 			attempts: 1,
 		};
@@ -440,7 +440,7 @@ describe('forwarding', () => {
 	it('forwards installed apps only when standalone forwarding is on', () => {
 		const completed: core.DomainMigrationMarker = {
 			state: 'completed',
-			target: 'https://fluxer.com',
+			target: 'https://nekochat-site.example',
 			at: NOW,
 			attempts: 1,
 		};
@@ -614,7 +614,7 @@ describe('runDomainMigrationPreMount', () => {
 	function writeCompletedMarker(): void {
 		window.localStorage.setItem(
 			core.DOMAIN_MIGRATION_MARKER_KEY,
-			JSON.stringify({state: 'completed', target: 'https://fluxer.com', at: NOW}),
+			JSON.stringify({state: 'completed', target: 'https://nekochat-site.example', at: NOW}),
 		);
 	}
 
@@ -644,7 +644,7 @@ describe('runDomainMigrationPreMount', () => {
 	});
 
 	it('reads the migration from the instance discovery document', async () => {
-		visit('https://web.fluxer.app/channels/@me', ENABLED_DISCOVERY);
+		visit('https://web.nekochat.example/channels/@me', ENABLED_DISCOVERY);
 		expect(readDomainMigrationDiscovery()).toBeNull();
 		await runDomainMigrationPreMount();
 		expect(discoveryFetch).toHaveBeenCalled();
@@ -652,7 +652,7 @@ describe('runDomainMigrationPreMount', () => {
 	});
 
 	it('stays put when discovery is unreachable', async () => {
-		visit('https://web.fluxer.app/channels/1/2', ENABLED_DISCOVERY);
+		visit('https://web.nekochat.example/channels/1/2', ENABLED_DISCOVERY);
 		vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new TypeError('offline')));
 		writeCompletedMarker();
 		expect(await runDomainMigrationPreMount()).toBe(false);
@@ -660,21 +660,21 @@ describe('runDomainMigrationPreMount', () => {
 	});
 
 	it('forwards a migrated source tab with its hash', async () => {
-		visit('https://web.fluxer.app/channels/1/2?a=1#b', ENABLED_DISCOVERY);
+		visit('https://web.nekochat.example/channels/1/2?a=1#b', ENABLED_DISCOVERY);
 		writeCompletedMarker();
 		expect(await runDomainMigrationPreMount()).toBe(true);
-		expect(replace).toHaveBeenCalledWith('https://fluxer.com/channels/1/2?a=1#b');
+		expect(replace).toHaveBeenCalledWith('https://nekochat-site.example/channels/1/2?a=1#b');
 	});
 
 	it('keeps one-shot routes on the source', async () => {
-		visit('https://web.fluxer.app/reset#token=abc', ENABLED_DISCOVERY);
+		visit('https://web.nekochat.example/reset#token=abc', ENABLED_DISCOVERY);
 		writeCompletedMarker();
 		expect(await runDomainMigrationPreMount()).toBe(false);
 		expect(replace).not.toHaveBeenCalled();
 	});
 
 	it('stays put when the kill switch is off', async () => {
-		visit('https://web.fluxer.app/reset#token=abc', {...ENABLED_DISCOVERY, enabled: false});
+		visit('https://web.nekochat.example/reset#token=abc', {...ENABLED_DISCOVERY, enabled: false});
 		writeCompletedMarker();
 		expect(await runDomainMigrationPreMount()).toBe(false);
 		expect(replace).not.toHaveBeenCalled();
@@ -682,66 +682,66 @@ describe('runDomainMigrationPreMount', () => {
 
 	it('marks the source completed when the intent matches the handoff', async () => {
 		writeIntent({at: Date.now(), handoff_id: 'handoff'});
-		visit('https://web.fluxer.app/migrate/done?h=handoff&next=%2Fchannels%2F1%2F2', ENABLED_DISCOVERY);
+		visit('https://web.nekochat.example/migrate/done?h=handoff&next=%2Fchannels%2F1%2F2', ENABLED_DISCOVERY);
 		expect(await runDomainMigrationPreMount()).toBe(true);
-		expect(replace).toHaveBeenCalledWith('https://fluxer.com/channels/1/2');
-		expect(readMarker()).toMatchObject({state: 'completed', target: 'https://fluxer.com'});
+		expect(replace).toHaveBeenCalledWith('https://nekochat-site.example/channels/1/2');
+		expect(readMarker()).toMatchObject({state: 'completed', target: 'https://nekochat-site.example'});
 		expect(window.sessionStorage.getItem(core.DOMAIN_MIGRATION_INTENT_KEY)).toBeNull();
 	});
 
 	it('ignores a done link without a matching intent', async () => {
-		visit('https://web.fluxer.app/migrate/done?next=%2Fchannels%2F1%2F2', ENABLED_DISCOVERY);
+		visit('https://web.nekochat.example/migrate/done?next=%2Fchannels%2F1%2F2', ENABLED_DISCOVERY);
 		expect(await runDomainMigrationPreMount()).toBe(true);
-		expect(replace).toHaveBeenCalledWith('https://web.fluxer.app/channels/1/2');
+		expect(replace).toHaveBeenCalledWith('https://web.nekochat.example/channels/1/2');
 		expect(readMarker()).toBeNull();
 
 		writeIntent({at: Date.now(), handoff_id: 'handoff'});
-		visit('https://web.fluxer.app/migrate/done?h=other&next=%2Fchannels%2F1%2F2', ENABLED_DISCOVERY);
+		visit('https://web.nekochat.example/migrate/done?h=other&next=%2Fchannels%2F1%2F2', ENABLED_DISCOVERY);
 		expect(await runDomainMigrationPreMount()).toBe(true);
-		expect(replace).toHaveBeenCalledWith('https://web.fluxer.app/channels/1/2');
+		expect(replace).toHaveBeenCalledWith('https://web.nekochat.example/channels/1/2');
 		expect(readMarker()).toBeNull();
 	});
 
 	it('ignores migrate links while the kill switch is off', async () => {
 		writeIntent({at: Date.now()});
-		visit('https://web.fluxer.app/migrate/done?next=%2Fchannels%2F1%2F2', {...ENABLED_DISCOVERY, enabled: false});
+		visit('https://web.nekochat.example/migrate/done?next=%2Fchannels%2F1%2F2', {...ENABLED_DISCOVERY, enabled: false});
 		expect(await runDomainMigrationPreMount()).toBe(true);
-		expect(replace).toHaveBeenCalledWith('https://web.fluxer.app/channels/1/2');
+		expect(replace).toHaveBeenCalledWith('https://web.nekochat.example/channels/1/2');
 		expect(readMarker()).toBeNull();
 	});
 
 	it('refuses to export without an intent from the source trigger', async () => {
 		const fetchSpy = vi.fn();
 		vi.stubGlobal('fetch', fetchSpy);
-		visit(`https://web.fluxer.app/migrate/export?n=${'a'.repeat(43)}`, ENABLED_DISCOVERY);
+		visit(`https://web.nekochat.example/migrate/export?n=${'a'.repeat(43)}`, ENABLED_DISCOVERY);
 		expect(await runDomainMigrationPreMount()).toBe(true);
-		expect(replace).toHaveBeenCalledWith('https://web.fluxer.app/channels/@me');
+		expect(replace).toHaveBeenCalledWith('https://web.nekochat.example/channels/@me');
 		expect(fetchSpy).not.toHaveBeenCalled();
 	});
 
 	it('leaves the marker alone on a failed link and refuses an open redirect', async () => {
-		visit('https://web.fluxer.app/migrate/failed?reason=nonce_mismatch&next=%2F%09%2Fevil.example', ENABLED_DISCOVERY);
+		visit('https://web.nekochat.example/migrate/failed?reason=nonce_mismatch&next=%2F%09%2Fevil.example', ENABLED_DISCOVERY);
 		expect(await runDomainMigrationPreMount()).toBe(true);
-		expect(replace).toHaveBeenCalledWith('https://web.fluxer.app/channels/@me');
+		expect(replace).toHaveBeenCalledWith('https://web.nekochat.example/channels/@me');
 		expect(readMarker()).toBeNull();
 	});
 
 	it('reopens a completed source when a resumed migration fails', async () => {
 		writeCompletedMarker();
 		writeIntent({at: Date.now()});
-		visit('https://web.fluxer.app/migrate/failed?reason=redeem_failed&next=%2Fchannels%2F%40me', ENABLED_DISCOVERY);
+		visit('https://web.nekochat.example/migrate/failed?reason=redeem_failed&next=%2Fchannels%2F%40me', ENABLED_DISCOVERY);
 		expect(await runDomainMigrationPreMount()).toBe(true);
-		expect(replace).toHaveBeenCalledWith('https://web.fluxer.app/channels/@me');
+		expect(replace).toHaveBeenCalledWith('https://web.nekochat.example/channels/@me');
 		expect(readMarker()).toMatchObject({state: 'failed', attempts: 1});
 	});
 
 	it('resumes through the target when a migrated source still holds a session', async () => {
 		writeCompletedMarker();
 		window.localStorage.setItem('token', 'session-token');
-		visit('https://web.fluxer.app/channels/1/2#x', ENABLED_DISCOVERY);
+		visit('https://web.nekochat.example/channels/1/2#x', ENABLED_DISCOVERY);
 		expect(await runDomainMigrationPreMount()).toBe(true);
 		expect(replace).toHaveBeenCalledWith(
-			`https://fluxer.com/migrate/begin?resume=1&imported=1&next=${encodeURIComponent('/channels/1/2#x')}`,
+			`https://nekochat-site.example/migrate/begin?resume=1&imported=1&next=${encodeURIComponent('/channels/1/2#x')}`,
 		);
 		expect(core.readDomainMigrationIntent(window.sessionStorage, Date.now())).not.toBeNull();
 	});
@@ -754,38 +754,38 @@ describe('runDomainMigrationPreMount', () => {
 	it('returns a Chromium desktop app to the source after the handoff', async () => {
 		installApp(CHROME_DESKTOP_UA);
 		writeIntent({at: Date.now(), handoff_id: 'handoff'});
-		visit('https://web.fluxer.app/migrate/done?h=handoff&next=%2Fchannels%2F1%2F2', ENABLED_DISCOVERY);
+		visit('https://web.nekochat.example/migrate/done?h=handoff&next=%2Fchannels%2F1%2F2', ENABLED_DISCOVERY);
 		expect(await runDomainMigrationPreMount()).toBe(true);
-		expect(replace).toHaveBeenCalledWith('https://web.fluxer.app/channels/1/2');
-		expect(readMarker()).toMatchObject({state: 'completed', target: 'https://fluxer.com'});
+		expect(replace).toHaveBeenCalledWith('https://web.nekochat.example/channels/1/2');
+		expect(readMarker()).toMatchObject({state: 'completed', target: 'https://nekochat-site.example'});
 	});
 
 	it('forwards a Chromium desktop app when standalone forwarding is on', async () => {
 		installApp(CHROME_DESKTOP_UA);
 		writeIntent({at: Date.now(), handoff_id: 'handoff'});
-		visit('https://web.fluxer.app/migrate/done?h=handoff&next=%2Fchannels%2F1%2F2', {
+		visit('https://web.nekochat.example/migrate/done?h=handoff&next=%2Fchannels%2F1%2F2', {
 			...ENABLED_DISCOVERY,
 			standalone_forwarding: true,
 		});
 		expect(await runDomainMigrationPreMount()).toBe(true);
-		expect(replace).toHaveBeenCalledWith('https://fluxer.com/channels/1/2');
+		expect(replace).toHaveBeenCalledWith('https://nekochat-site.example/channels/1/2');
 	});
 
 	it('keeps a migrated Chromium desktop app on the source', async () => {
 		installApp(CHROME_DESKTOP_UA);
 		writeCompletedMarker();
-		visit('https://web.fluxer.app/channels/1/2', {...ENABLED_DISCOVERY, anonymous_rollout_basis_points: 10000});
+		visit('https://web.nekochat.example/channels/1/2', {...ENABLED_DISCOVERY, anonymous_rollout_basis_points: 10000});
 		expect(await runDomainMigrationPreMount()).toBe(false);
 		expect(replace).not.toHaveBeenCalled();
 
-		visit('https://web.fluxer.app/channels/1/2', {...ENABLED_DISCOVERY, standalone_forwarding: true});
+		visit('https://web.nekochat.example/channels/1/2', {...ENABLED_DISCOVERY, standalone_forwarding: true});
 		expect(await runDomainMigrationPreMount()).toBe(true);
-		expect(replace).toHaveBeenCalledWith('https://fluxer.com/channels/1/2');
+		expect(replace).toHaveBeenCalledWith('https://nekochat-site.example/channels/1/2');
 	});
 
 	it('does not forward logged-out installed apps in the anonymous rollout', async () => {
 		installApp(CHROME_DESKTOP_UA);
-		visit('https://web.fluxer.app/login', {...ENABLED_DISCOVERY, anonymous_rollout_basis_points: 10000});
+		visit('https://web.nekochat.example/login', {...ENABLED_DISCOVERY, anonymous_rollout_basis_points: 10000});
 		expect(await runDomainMigrationPreMount()).toBe(false);
 		expect(replace).not.toHaveBeenCalled();
 	});
@@ -793,46 +793,46 @@ describe('runDomainMigrationPreMount', () => {
 	it('never runs the handoff or forwards in an Apple web app', async () => {
 		installApp(IPHONE_UA);
 		writeCompletedMarker();
-		visit('https://web.fluxer.app/channels/1/2', {...ENABLED_DISCOVERY, standalone_forwarding: true});
+		visit('https://web.nekochat.example/channels/1/2', {...ENABLED_DISCOVERY, standalone_forwarding: true});
 		expect(await runDomainMigrationPreMount()).toBe(false);
 		expect(replace).not.toHaveBeenCalled();
 
 		window.localStorage.clear();
 		writeIntent({at: Date.now(), handoff_id: 'handoff'});
-		visit('https://web.fluxer.app/migrate/done?h=handoff&next=%2Fchannels%2F1%2F2', ENABLED_DISCOVERY);
+		visit('https://web.nekochat.example/migrate/done?h=handoff&next=%2Fchannels%2F1%2F2', ENABLED_DISCOVERY);
 		expect(await runDomainMigrationPreMount()).toBe(true);
-		expect(replace).toHaveBeenCalledWith('https://web.fluxer.app/channels/1/2');
+		expect(replace).toHaveBeenCalledWith('https://web.nekochat.example/channels/1/2');
 		expect(readMarker()).toBeNull();
 	});
 
 	it('never runs the handoff in an Android web app', async () => {
 		installApp(CHROME_ANDROID_UA);
 		writeIntent({at: Date.now()});
-		visit('https://web.fluxer.app/migrate/done?next=%2Fchannels%2F1%2F2', ENABLED_DISCOVERY);
+		visit('https://web.nekochat.example/migrate/done?next=%2Fchannels%2F1%2F2', ENABLED_DISCOVERY);
 		expect(await runDomainMigrationPreMount()).toBe(true);
-		expect(replace).toHaveBeenCalledWith('https://web.fluxer.app/channels/1/2');
+		expect(replace).toHaveBeenCalledWith('https://web.nekochat.example/channels/1/2');
 		expect(readMarker()).toBeNull();
 	});
 
 	it('starts a browser migration opened from an installed Android app on the source', async () => {
-		visit('https://fluxer.com/migrate/begin?start=1&next=%2Fapp', ENABLED_DISCOVERY);
+		visit('https://nekochat-site.example/migrate/begin?start=1&next=%2Fapp', ENABLED_DISCOVERY);
 		expect(await runDomainMigrationPreMount()).toBe(true);
-		expect(replace).toHaveBeenCalledWith('https://web.fluxer.app/migrate/start?next=%2Fapp');
+		expect(replace).toHaveBeenCalledWith('https://web.nekochat.example/migrate/start?next=%2Fapp');
 		expect(window.sessionStorage.getItem(core.DOMAIN_MIGRATION_PENDING_KEY)).toBeNull();
 
-		visit('https://web.fluxer.app/migrate/start?next=%2Fapp', ENABLED_DISCOVERY);
+		visit('https://web.nekochat.example/migrate/start?next=%2Fapp', ENABLED_DISCOVERY);
 		expect(await runDomainMigrationPreMount()).toBe(true);
-		expect(replace).toHaveBeenCalledWith('https://fluxer.com/migrate/begin?next=%2Fapp');
+		expect(replace).toHaveBeenCalledWith('https://nekochat-site.example/migrate/begin?next=%2Fapp');
 		expect(core.readDomainMigrationIntent(window.sessionStorage, Date.now())).toMatchObject({at: expect.any(Number)});
 
-		visit('https://fluxer.com/migrate/begin?next=%2Fapp', ENABLED_DISCOVERY);
+		visit('https://nekochat-site.example/migrate/begin?next=%2Fapp', ENABLED_DISCOVERY);
 		expect(await runDomainMigrationPreMount()).toBe(true);
 		expect(replace.mock.calls[0]?.[0]).toMatch(/^https:\/\/web\.fluxer\.app\/migrate\/export\?n=[\w-]+$/u);
 	});
 
 	it('opens the target in place when the browser already migrated', async () => {
 		window.localStorage.setItem('token', 'session-token');
-		visit('https://fluxer.com/migrate/begin?start=1&next=%2Fapp', ENABLED_DISCOVERY);
+		visit('https://nekochat-site.example/migrate/begin?start=1&next=%2Fapp', ENABLED_DISCOVERY);
 		const replaceState = vi.fn();
 		vi.stubGlobal('history', {state: null, replaceState});
 		expect(await runDomainMigrationPreMount()).toBe(false);
@@ -842,35 +842,35 @@ describe('runDomainMigrationPreMount', () => {
 
 	it('does not start a migration inside an installed Android app', async () => {
 		installApp(CHROME_ANDROID_UA);
-		visit('https://web.fluxer.app/migrate/start?next=%2Fapp', ENABLED_DISCOVERY);
+		visit('https://web.nekochat.example/migrate/start?next=%2Fapp', ENABLED_DISCOVERY);
 		expect(await runDomainMigrationPreMount()).toBe(true);
-		expect(replace).toHaveBeenCalledWith('https://web.fluxer.app/app');
+		expect(replace).toHaveBeenCalledWith('https://web.nekochat.example/app');
 		expect(core.readDomainMigrationIntent(window.sessionStorage, Date.now())).toBeNull();
 	});
 
 	it('sends a target completion without a pending nonce back as failed', async () => {
-		visit('https://fluxer.com/migrate/complete#h=abc&k=def', ENABLED_DISCOVERY);
+		visit('https://nekochat-site.example/migrate/complete#h=abc&k=def', ENABLED_DISCOVERY);
 		vi.stubGlobal('history', {state: null, replaceState: vi.fn()});
 		expect(await runDomainMigrationPreMount()).toBe(true);
 		expect(replace).toHaveBeenCalledWith(
-			'https://web.fluxer.app/migrate/failed?reason=no_pending&next=%2Fchannels%2F%40me',
+			'https://web.nekochat.example/migrate/failed?reason=no_pending&next=%2Fchannels%2F%40me',
 		);
 	});
 
 	it('still imports into a target that already holds a session', async () => {
 		window.localStorage.setItem('token', 'session-token');
-		visit('https://fluxer.com/migrate/begin?next=%2Fchannels%2F1', ENABLED_DISCOVERY);
+		visit('https://nekochat-site.example/migrate/begin?next=%2Fchannels%2F1', ENABLED_DISCOVERY);
 		expect(await runDomainMigrationPreMount()).toBe(true);
 		expect(replace.mock.calls[0]?.[0]).toMatch(/^https:\/\/web\.fluxer\.app\/migrate\/export\?n=[\w-]+$/u);
 		expect(window.sessionStorage.getItem(core.DOMAIN_MIGRATION_PENDING_KEY)).not.toBeNull();
 
 		window.localStorage.removeItem(core.DOMAIN_MIGRATION_IMPORT_KEY);
-		visit('https://fluxer.com/migrate/begin?resume=1&next=%2Fchannels%2F1', ENABLED_DISCOVERY);
+		visit('https://nekochat-site.example/migrate/begin?resume=1&next=%2Fchannels%2F1', ENABLED_DISCOVERY);
 		expect(await runDomainMigrationPreMount()).toBe(true);
 		expect(replace.mock.calls[0]?.[0]).toMatch(/^https:\/\/web\.fluxer\.app\/migrate\/export\?n=[\w-]+$/u);
 
 		core.writeDomainMigrationImport(window.localStorage, {state: 'done', at: Date.now()});
-		visit('https://fluxer.com/migrate/begin?resume=1&next=%2Fchannels%2F1', ENABLED_DISCOVERY);
+		visit('https://nekochat-site.example/migrate/begin?resume=1&next=%2Fchannels%2F1', ENABLED_DISCOVERY);
 		const replaceState = vi.fn();
 		vi.stubGlobal('history', {state: null, replaceState});
 		expect(await runDomainMigrationPreMount()).toBe(false);

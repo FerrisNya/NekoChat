@@ -137,7 +137,7 @@ describe('Auth desktop handoff deep link return', () => {
 	});
 
 	it('rejects a return deep link outside the desktop app schemes', async () => {
-		for (const returnUri of ['https://evil.example/handoff', 'fluxer://handoff/extra', 'javascript://handoff']) {
+		for (const returnUri of ['https://evil.example/handoff', 'nekochat://handoff/extra', 'javascript://handoff']) {
 			await createBuilderWithoutAuth(harness)
 				.post('/auth/handoff/initiate')
 				.body({return_uri: returnUri})

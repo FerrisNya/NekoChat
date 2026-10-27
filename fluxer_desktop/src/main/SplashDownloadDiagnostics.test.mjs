@@ -18,7 +18,7 @@ function diagnosticsInput(overrides = {}) {
 		electronVersion: '44.4.1',
 		logsPath: 'C:\\Users\\u\\AppData\\Roaming\\fluxer_desktop_canary\\logs',
 		userDataPath: 'C:\\Users\\u\\AppData\\Roaming\\fluxercanary',
-		packageOrigin: 'https://pkgs.fluxer.com',
+		packageOrigin: 'https://pkgs.nekochat-site.example',
 		proxyRoute: 'PROXY 10.0.0.2:3128',
 		splashStatus: 'download-stalled',
 		updaterStatus: 'retry-wait',
@@ -37,7 +37,7 @@ describe('splash diagnostics', () => {
 	test('never carries query values or credential-looking pairs', () => {
 		const text = buildSplashDiagnosticsText(
 			diagnosticsInput({
-				lastError: 'failed to reach https://pkgs.fluxer.com/x?token=abc123&sig=zzz: authorization: Bearer secretvalue',
+				lastError: 'failed to reach https://pkgs.nekochat-site.example/x?token=abc123&sig=zzz: authorization: Bearer secretvalue',
 				proxyRoute: 'PROXY user:pass@proxy:8080',
 			}),
 		);
@@ -51,8 +51,8 @@ describe('splash diagnostics', () => {
 
 	test('redaction leaves plain diagnostic text alone', () => {
 		assert.equal(
-			redactDiagnosticText('Package origin: https://pkgs.fluxer.com'),
-			'Package origin: https://pkgs.fluxer.com',
+			redactDiagnosticText('Package origin: https://pkgs.nekochat-site.example'),
+			'Package origin: https://pkgs.nekochat-site.example',
 		);
 	});
 });

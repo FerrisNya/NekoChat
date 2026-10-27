@@ -4,26 +4,26 @@ import type {RuntimeConfigSnapshot} from '@app/features/app/state/RuntimeConfig'
 import type {StoredAccount} from '@app/features/auth/state/AccountStorageContract';
 import {BOOTSTRAP_APP_PUBLIC} from '@app/features/platform/state/__fixtures__/RuntimeBootstrapFixture';
 
-const FIXTURE_CURRENT_API_ENDPOINT = 'https://fluxer.app/api';
-export const FIXTURE_CURRENT_INSTANCE_KEY = 'https://fluxer.app/api';
+const FIXTURE_CURRENT_API_ENDPOINT = 'https://nekochat.example/api';
+export const FIXTURE_CURRENT_INSTANCE_KEY = 'https://nekochat.example/api';
 const FIXTURE_PATHED_API_ENDPOINT = 'HTTPS://Self.Hosted.Example/fluxer/api/';
 const FIXTURE_PATHED_INSTANCE_KEY = 'https://self.hosted.example/fluxer/api';
-const FIXTURE_UNKEYABLE_API_ENDPOINT = 'https://operator:hunter2@fluxer.app/api?tenant=1';
+const FIXTURE_UNKEYABLE_API_ENDPOINT = 'https://operator:hunter2@nekochat.example/api?tenant=1';
 export const FIXTURE_NOW = 1_755_000_000_000;
 
 function runtimeConfigSnapshotFixture(apiEndpoint: string): RuntimeConfigSnapshot {
 	return {
 		apiEndpoint,
 		apiPublicEndpoint: apiEndpoint,
-		gatewayEndpoint: 'wss://gateway.fluxer.app',
-		mediaEndpoint: 'https://media.fluxer.app',
-		staticCdnEndpoint: 'https://cdn.fluxer.app',
-		marketingEndpoint: 'https://fluxer.app',
-		adminEndpoint: 'https://admin.fluxer.app',
+		gatewayEndpoint: 'wss://gateway.nekochat.example',
+		mediaEndpoint: 'https://media.nekochat.example',
+		staticCdnEndpoint: 'https://cdn.nekochat.example',
+		marketingEndpoint: 'https://nekochat.example',
+		adminEndpoint: 'https://admin.nekochat.example',
 		inviteEndpoint: 'https://flux.gg',
 		giftEndpoint: 'https://flux.gift',
-		webAppEndpoint: 'https://fluxer.app',
-		uploadRelayEndpoint: 'https://upload.fluxer.app',
+		webAppEndpoint: 'https://nekochat.example',
+		uploadRelayEndpoint: 'https://upload.nekochat.example',
 		gifProvider: 'tenor',
 		gifProviderDisplayName: 'Tenor',
 		gifAttributionRequired: true,

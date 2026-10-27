@@ -101,49 +101,49 @@ const FRAME_SOURCES: &[&str] = &[
 ];
 
 const IMAGE_SOURCES: &[&str] = &[
-    "https://*.fluxer.app",
-    "https://fluxer.app",
+    "https://*.nekochat.example",
+    "https://nekochat.example",
     "https://i.ytimg.com",
     "https://*.youtube.com",
-    "https://*.fluxer.media",
-    "https://fluxer.media",
+    "https://*.nekochat-media.example",
+    "https://nekochat-media.example",
 ];
 
 const MEDIA_SOURCES: &[&str] = &[
-    "https://*.fluxer.app",
-    "https://fluxer.app",
+    "https://*.nekochat.example",
+    "https://nekochat.example",
     "https://*.youtube.com",
-    "https://*.fluxer.media",
-    "https://fluxer.media",
+    "https://*.nekochat-media.example",
+    "https://nekochat-media.example",
 ];
 
-const SCRIPT_SOURCES: &[&str] = &["https://*.fluxer.app"];
+const SCRIPT_SOURCES: &[&str] = &["https://*.nekochat.example"];
 
 const STYLE_SOURCES: &[&str] = &[
-    "https://*.fluxer.app",
+    "https://*.nekochat.example",
     "https://fonts.googleapis.com",
     "https://api.fonts.coollabs.io",
 ];
 
 const FONT_SOURCES: &[&str] = &[
-    "https://*.fluxer.app",
+    "https://*.nekochat.example",
     "https://fonts.gstatic.com",
     "https://api.fonts.coollabs.io",
 ];
 
 const CONNECT_SOURCES: &[&str] = &[
-    "https://*.fluxer.app",
-    "wss://*.fluxer.app",
-    "https://*.fluxer.media",
-    "wss://*.fluxer.media",
-    "https://fluxer-uploads.ewr1.vultrobjects.com",
-    "https://fluxerstatus.com",
-    "https://fluxer.media",
+    "https://*.nekochat.example",
+    "wss://*.nekochat.example",
+    "https://*.nekochat-media.example",
+    "wss://*.nekochat-media.example",
+    "https://fluxer-uploads.s3.nekochat-storage.example",
+    "https://status.nekochat.example",
+    "https://nekochat-media.example",
 ];
 
-const WORKER_SOURCES: &[&str] = &["https://*.fluxer.app", "blob:"];
+const WORKER_SOURCES: &[&str] = &["https://*.nekochat.example", "blob:"];
 
-const MANIFEST_SOURCES: &[&str] = &["https://*.fluxer.app"];
+const MANIFEST_SOURCES: &[&str] = &["https://*.nekochat.example"];
 
 #[derive(Debug)]
 pub enum CspCompileError {
@@ -522,7 +522,7 @@ mod tests {
             assert!(
                 directive
                     .split(' ')
-                    .any(|source| source == "https://fluxer.app"),
+                    .any(|source| source == "https://nekochat.example"),
                 "{name}must allow the apex domain: {directive}"
             );
         }

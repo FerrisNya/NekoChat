@@ -18,8 +18,8 @@ const transformedSource = esbuild.transformSync(readFileSync(sourcePath, 'utf8')
 	target: 'node20',
 }).code;
 
-const DOWNLOAD_PAGE_URL = 'https://fluxer.app/download';
-const FLATPAK_APP_ID = 'app.fluxer.FluxerDesktop';
+const DOWNLOAD_PAGE_URL = 'https://nekochat.example/download';
+const FLATPAK_APP_ID = 'app.nekochat.NekoChatDesktop';
 const NEWER_SHELL = '2026.1013.15209';
 
 function loadPrompt({plan, flatpakAppId = null, response = 0}) {
@@ -29,7 +29,7 @@ function loadPrompt({plan, flatpakAppId = null, response = 0}) {
 	function requireStub(specifier) {
 		switch (specifier) {
 			case '@electron/common/DesktopIdentity':
-				return {DESKTOP_APP_NAME: 'Fluxer'};
+				return {DESKTOP_APP_NAME: 'NekoChat'};
 			case '@electron/common/ErrorMessage':
 				return {errorMessage: (error) => String(error)};
 			case '@electron/common/Logger':

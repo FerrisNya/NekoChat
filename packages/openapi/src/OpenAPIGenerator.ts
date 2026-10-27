@@ -38,10 +38,10 @@ interface GeneratorSettings {
 function createGeneratorSettings(options: OpenAPIGeneratorOptions): GeneratorSettings {
 	return {
 		basePath: options.basePath,
-		title: options.title ?? 'Fluxer API',
+		title: options.title ?? 'NekoChat API',
 		version: options.version ?? '1.0.0',
-		description: options.description ?? 'The Fluxer API',
-		serverUrl: options.serverUrl ?? 'https://api.fluxer.app',
+		description: options.description ?? 'The NekoChat API',
+		serverUrl: options.serverUrl ?? 'https://api.nekochat.example',
 		routeScope: options.routeScope ?? 'public',
 		schemaTarget: options.schemaTarget ?? 'draft-2020-12',
 	};
@@ -89,8 +89,8 @@ export class OpenAPIGenerator {
 				version: this.settings.version,
 				description: this.settings.description,
 				contact: {
-					name: 'Fluxer Platform AB',
-					email: 'support@fluxer.com',
+					name: 'NekoChat',
+					email: 'support@nekochat-site.example',
 				},
 				license: {
 					name: 'AGPL-3.0',

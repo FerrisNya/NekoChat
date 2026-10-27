@@ -155,7 +155,7 @@ describe('Enforcement sign-in', () => {
 				kind: 'suspension',
 				permanent: false,
 				rule: {title: 'Spam'},
-				appeal: {email: 'appeals@fluxer.com', account_has_email: true},
+				appeal: {email: 'appeals@nekochat-site.example', account_has_email: true},
 			});
 			expect(json.notice?.summary).toMatch(/^We suspended your account until /);
 		});
@@ -340,7 +340,7 @@ describe('Enforcement sign-in', () => {
 			const sentAt = decision!.notice_sent_at!;
 			expect(sentAt.getTime()).toBeGreaterThanOrEqual(before);
 			expect(first.appeal).toEqual({
-				email: 'appeals@fluxer.com',
+				email: 'appeals@nekochat-site.example',
 				deadline: formatNoticeDate(new Date(sentAt.getTime() + 60 * DAY), 'en-US'),
 				account_has_email: false,
 			});

@@ -166,7 +166,7 @@ function seedDeployedLocalStorage(): void {
 function installDeployedDesktop(store: FakeDesktopStore): void {
 	const harvest: DesktopLegacyHarvest = {
 		version: 1,
-		origin: 'https://web.canary.fluxer.app',
+		origin: 'https://web.canary.nekochat.example',
 		capturedAt: FIXTURE_NOW - 10_000,
 		localStorage: {...goldenCorpusRecord(), userId: ACTIVE_USER_ID},
 		stores: [

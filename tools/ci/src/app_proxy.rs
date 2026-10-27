@@ -18,10 +18,10 @@ use std::env;
 use std::fs;
 use std::path::{Path, PathBuf};
 
-const DEFAULT_PUBLIC_ASSET_BASE_URL: &str = "https://fluxerstatic.com";
+const DEFAULT_PUBLIC_ASSET_BASE_URL: &str = "https://static.nekochat.example";
 const DEFAULT_APP_PROXY_BUNDLE_LOCAL_ASSETS: &str = "false";
 const DEFAULT_STATIC_BUCKET: &str = "fluxer-static";
-const DEFAULT_S3_ENDPOINT: &str = "https://ewr1.vultrobjects.com";
+const DEFAULT_S3_ENDPOINT: &str = "https://s3.nekochat-storage.example";
 const IMMUTABLE_ASSET_CACHE_CONTROL: &str = "public, max-age=31536000, immutable";
 const RUNTIME_STATIC_DIR: &str = "/srv/app/static";
 const CANONICAL_ASSETS_DIR: &str = "/assets";
@@ -160,7 +160,7 @@ fn assets_image_ref(image_repo: &str, build_version: &str) -> String {
 fn image_repo() -> Result<String> {
     match env::var("IMAGE_REPO") {
         Ok(value) => Ok(value),
-        Err(_) => Ok(format!("ghcr.io/{}/fluxer-app-proxy", ghcr_owner()?)),
+        Err(_) => Ok(format!("ghcr.io/{}/nekochat-app-proxy", ghcr_owner()?)),
     }
 }
 
@@ -203,8 +203,8 @@ fn bake_command(targets: &[&str]) -> Result<CommandSpec> {
 }
 
 fn default_app_proxy_cache_ref() -> String {
-    let owner = ghcr_owner().unwrap_or_else(|_| "fluxerapp".to_string());
-    format!("type=registry,ref=ghcr.io/{owner}/fluxer-app-proxy:buildcache-amd64")
+    let owner = ghcr_owner().unwrap_or_else(|_| "ferrisnya".to_string());
+    format!("type=registry,ref=ghcr.io/{owner}/nekochat-app-proxy:buildcache-amd64")
 }
 
 fn ghcr_owner() -> Result<String> {
@@ -613,10 +613,10 @@ mod tests {
     #[test]
     fn referenced_assets_collects_absolute_and_root_relative_urls() {
         let index = concat!(
-            "<script src=\"https://fluxerstatic.com/assets/a.js\"></script>",
+            "<script src=\"https://static.nekochat.example/assets/a.js\"></script>",
             "<link rel=\"stylesheet\" href=\"/assets/b.css\">",
             "<a href=\"assets/fonts-NOTICE.txt\">notice</a>",
-            "<script src=\"https://fluxerstatic.com/assets/a.js\"></script>",
+            "<script src=\"https://static.nekochat.example/assets/a.js\"></script>",
         );
 
         assert_eq!(
@@ -684,7 +684,7 @@ mod tests {
         ] {
             assert!(
                 workflow.contains(entry),
-                "a self-hosted dist that inherits the hosted CDN default would ship index.html pointing at fluxerstatic.com, so the workflow must set {entry}"
+                "a self-hosted dist that inherits the hosted CDN default would ship index.html pointing at static.nekochat.example, so the workflow must set {entry}"
             );
         }
     }

@@ -358,7 +358,7 @@ impl Source {
             0,
         );
         let queue =
-            dispatch2::DispatchQueue::new("app.fluxer.mac-app-audio.sck", Some(&queue_attr));
+            dispatch2::DispatchQueue::new("app.nekochat.mac-app-audio.sck", Some(&queue_attr));
 
         let mut src = Box::new(Source {
             delegate,

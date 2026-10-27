@@ -150,7 +150,7 @@ describe('subresource requests from a live app document', () => {
 	test('XHR at the API route and asset loads are both stamped', () => {
 		for (const [url, resourceType] of [
 			['fluxer-app://app/api/k/v1/users/@me', 'xhr'],
-			['fluxer-app://app/proxy/k?url=https%3A%2F%2Fmedia.fluxer.app%2Fx.png', 'image'],
+			['fluxer-app://app/proxy/k?url=https%3A%2F%2Fmedia.nekochat.example%2Fx.png', 'image'],
 			['fluxer-app://app/assets/main.js', 'script'],
 		]) {
 			const headers = authorization.applyRequestHeaders(
@@ -171,7 +171,7 @@ describe('subresource requests from a live app document', () => {
 	});
 
 	test('an about:blank frame with a foreign origin is not stamped', () => {
-		const popout = createFrame(owner, {url: 'about:blank', origin: 'https://web.fluxer.app'});
+		const popout = createFrame(owner, {url: 'about:blank', origin: 'https://web.nekochat.example'});
 		const headers = authorization.applyRequestHeaders(
 			{url: 'fluxer-app://app/api/k/v1/x', resourceType: 'xhr', frame: popout, webContentsId: owner.id},
 			{},

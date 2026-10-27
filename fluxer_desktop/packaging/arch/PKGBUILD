@@ -1,21 +1,21 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 _channel="${FLUXER_CHANNEL:-stable}"
 if [[ $_channel == canary ]]; then
-	pkgname=fluxer-canary
-	_desktopid=app.fluxer.FluxerDesktopCanary
-	_appname='Fluxer Canary'
-	_comment='Canary build of Fluxer'
+	pkgname=nekochat-canary
+	_desktopid=app.nekochat.NekoChatDesktopCanary
+	_appname='NekoChat Canary'
+	_comment='Canary build of NekoChat'
 else
-	pkgname=fluxer
-	_desktopid=app.fluxer.FluxerDesktop
-	_appname='Fluxer'
+	pkgname=nekochat
+	_desktopid=app.nekochat.NekoChatDesktop
+	_appname='NekoChat'
 	_comment='Instant messaging and VoIP'
 fi
 pkgver="${FLUXER_VERSION:?FLUXER_VERSION must be set}"
 pkgrel=1
 pkgdesc='Instant messaging and VoIP application'
 arch=('x86_64' 'aarch64')
-url='https://fluxer.app'
+url='https://nekochat.example'
 license=('AGPL-3.0-or-later')
 depends=(
 	'alsa-lib'
@@ -88,7 +88,7 @@ package() {
 		Categories=Network;InstantMessaging;Chat;
 		StartupNotify=true
 		SingleMainWindow=true
-		MimeType=x-scheme-handler/fluxer;
+		MimeType=x-scheme-handler/nekochat;
 		X-GNOME-UsesNotifications=true
 		Actions=open-settings;new-dm;
 

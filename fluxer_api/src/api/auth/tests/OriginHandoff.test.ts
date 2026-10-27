@@ -171,14 +171,14 @@ describe('Origin handoff', () => {
 	});
 
 	it('accepts a redeem from a configured web app origin alias', async () => {
-		getConfig().endpoints.webAppOrigins = [webAppOrigin, 'https://fluxer.com'];
+		getConfig().endpoints.webAppOrigins = [webAppOrigin, 'https://nekochat-site.example'];
 		const account = await createTestAccount(harness);
 		const {nonce, nonceHash} = createNonce();
 		const handoffId = await createHandoff(account.token, nonceHash);
 
 		const redeemed = await createBuilderWithoutAuth<OriginHandoffRedeemResponse>(harness)
 			.post(REDEEM_PATH)
-			.header('origin', 'https://fluxer.com')
+			.header('origin', 'https://nekochat-site.example')
 			.body({handoff_id: handoffId, nonce})
 			.execute();
 		expect(redeemed.payload).toBe(PAYLOAD);

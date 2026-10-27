@@ -339,7 +339,7 @@ describe('splash window configuration', () => {
 		});
 
 		assert.equal(prevented, true);
-		assert.deepEqual(window.webContents.windowOpenHandler({url: 'https://fluxer.app'}), {action: 'deny'});
+		assert.deepEqual(window.webContents.windowOpenHandler({url: 'https://nekochat.example'}), {action: 'deny'});
 	});
 
 	test('stays hidden until the preload reports ready, then shows without stealing focus', async () => {

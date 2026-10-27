@@ -112,7 +112,7 @@ describe('Enforcement suspensions', () => {
 			kind_label: 'suspension',
 			neutral: 'no',
 			rule_title: 'Spam',
-			appeals_email: 'appeals@fluxer.com',
+			appeals_email: 'appeals@nekochat-site.example',
 			appeal_deadline: deadline,
 			decision_id: decisionId,
 		});
@@ -126,7 +126,7 @@ describe('Enforcement suspensions', () => {
 		expect(text).toContain('Note from our team: You sent the same invite link to many people.');
 		expect(text).toContain('How we decided\nWe found this in our own review.');
 		expect(text).toContain('A person on our team reviewed this and made the decision.');
-		expect(text).toContain(`email appeals@fluxer.com by ${deadline}.`);
+		expect(text).toContain(`email appeals@nekochat-site.example by ${deadline}.`);
 		expect(text).toContain('certified out-of-court dispute settlement body');
 		expect(text).toContain(`Decision ID: ${decisionId}`);
 		expect(text).not.toContain(INTERNAL_NOTE);

@@ -464,7 +464,7 @@ services:
 
   api:
     <<: *fluxer-service
-    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/fluxer-api:${FLUXER_IMAGE_TAG:-v1}
+    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-ferrisnya}}/nekochat-api:${FLUXER_IMAGE_TAG:-v1}
     deploy:
       resources:
         limits:
@@ -499,7 +499,7 @@ services:
 
   worker:
     <<: *fluxer-service
-    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/fluxer-api:${FLUXER_IMAGE_TAG:-v1}
+    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-ferrisnya}}/nekochat-api:${FLUXER_IMAGE_TAG:-v1}
     deploy:
       resources:
         limits:
@@ -529,7 +529,7 @@ services:
 
   gateway:
     <<: *fluxer-service
-    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/fluxer-gateway:${FLUXER_IMAGE_TAG:-v1}
+    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-ferrisnya}}/nekochat-gateway:${FLUXER_IMAGE_TAG:-v1}
     deploy:
       resources:
         limits:
@@ -569,7 +569,7 @@ services:
 
   media-proxy:
     <<: *fluxer-service
-    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/fluxer-media-proxy:${FLUXER_IMAGE_TAG:-v1}
+    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-ferrisnya}}/nekochat-media-proxy:${FLUXER_IMAGE_TAG:-v1}
     deploy:
       resources:
         limits:
@@ -612,7 +612,7 @@ services:
 
   push:
     <<: *fluxer-service
-    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/fluxer-push:${FLUXER_IMAGE_TAG:-v1}
+    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-ferrisnya}}/nekochat-push:${FLUXER_IMAGE_TAG:-v1}
     deploy:
       resources:
         limits:
@@ -646,7 +646,7 @@ services:
 
   static-proxy:
     <<: *fluxer-service
-    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/fluxer-static:${FLUXER_IMAGE_TAG:-v1}
+    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-ferrisnya}}/nekochat-static:${FLUXER_IMAGE_TAG:-v1}
     deploy:
       resources:
         limits:
@@ -659,7 +659,7 @@ services:
 
   app-proxy:
     <<: *fluxer-service
-    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/fluxer-app-proxy-self-hosted:${FLUXER_IMAGE_TAG:-v1}
+    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-ferrisnya}}/nekochat-app-proxy-self-hosted:${FLUXER_IMAGE_TAG:-v1}
     deploy:
       resources:
         limits:
@@ -700,7 +700,7 @@ services:
 
   snowflakes:
     <<: *fluxer-service
-    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/fluxer-snowflakes:${FLUXER_IMAGE_TAG:-v1}
+    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-ferrisnya}}/nekochat-snowflakes:${FLUXER_IMAGE_TAG:-v1}
     deploy:
       resources:
         limits:
@@ -715,7 +715,7 @@ services:
 
   snowflakes-shard:
     <<: *fluxer-service
-    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/fluxer-snowflakes:${FLUXER_IMAGE_TAG:-v1}
+    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-ferrisnya}}/nekochat-snowflakes:${FLUXER_IMAGE_TAG:-v1}
     deploy:
       resources:
         limits:
@@ -731,7 +731,7 @@ services:
 
   users:
     <<: *fluxer-service
-    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/fluxer-users:${FLUXER_IMAGE_TAG:-v1}
+    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-ferrisnya}}/nekochat-users:${FLUXER_IMAGE_TAG:-v1}
     deploy:
       resources:
         limits:
@@ -746,7 +746,7 @@ services:
 
   users-shard:
     <<: *fluxer-service
-    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/fluxer-users:${FLUXER_IMAGE_TAG:-v1}
+    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-ferrisnya}}/nekochat-users:${FLUXER_IMAGE_TAG:-v1}
     deploy:
       resources:
         limits:
@@ -764,7 +764,7 @@ services:
 
   gifs:
     <<: *fluxer-service
-    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/fluxer-gifs:${FLUXER_IMAGE_TAG:-v1}
+    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-ferrisnya}}/nekochat-gifs:${FLUXER_IMAGE_TAG:-v1}
     deploy:
       resources:
         limits:
@@ -779,7 +779,7 @@ services:
 
   gifs-shard:
     <<: *fluxer-service
-    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/fluxer-gifs:${FLUXER_IMAGE_TAG:-v1}
+    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-ferrisnya}}/nekochat-gifs:${FLUXER_IMAGE_TAG:-v1}
     deploy:
       resources:
         limits:
@@ -796,7 +796,7 @@ services:
 
   messages:
     <<: *fluxer-service
-    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/fluxer-messages:${FLUXER_IMAGE_TAG:-v1}
+    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-ferrisnya}}/nekochat-messages:${FLUXER_IMAGE_TAG:-v1}
     deploy:
       resources:
         limits:
@@ -811,7 +811,7 @@ services:
 
   messages-shard:
     <<: *fluxer-service
-    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/fluxer-messages:${FLUXER_IMAGE_TAG:-v1}
+    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-ferrisnya}}/nekochat-messages:${FLUXER_IMAGE_TAG:-v1}
     deploy:
       resources:
         limits:
@@ -829,7 +829,7 @@ services:
 
   unfurl:
     <<: *fluxer-service
-    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/fluxer-unfurl:${FLUXER_IMAGE_TAG:-v1}
+    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-ferrisnya}}/nekochat-unfurl:${FLUXER_IMAGE_TAG:-v1}
     deploy:
       resources:
         limits:
@@ -844,7 +844,7 @@ services:
 
   unfurl-shard:
     <<: *fluxer-service
-    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/fluxer-unfurl:${FLUXER_IMAGE_TAG:-v1}
+    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-ferrisnya}}/nekochat-unfurl:${FLUXER_IMAGE_TAG:-v1}
     deploy:
       resources:
         limits:
@@ -861,7 +861,7 @@ services:
 
   admin:
     <<: *fluxer-service
-    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/fluxer-admin:${FLUXER_IMAGE_TAG:-v1}
+    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-ferrisnya}}/nekochat-admin:${FLUXER_IMAGE_TAG:-v1}
     deploy:
       resources:
         limits:

@@ -964,13 +964,13 @@ fn app_public_config_section(
                                 "app_status_page_url",
                                 "Status page URL",
                                 app_public.branding.status_page_url.as_deref().unwrap_or(""),
-                                "https://fluxerstatus.com",
+                                "https://status.nekochat.example",
                             ))
                             (text_input(
                                 "app_status_page_incident_history_url",
                                 "Status page history URL",
                                 app_public.branding.status_page_incident_history_url.as_deref().unwrap_or(""),
-                                "https://fluxerstatus.com/history",
+                                "https://status.nekochat.example/history",
                             ))
                         }
                         div class="space-y-2" {
@@ -1308,7 +1308,7 @@ fn push_relay_section(
                         "Until this is accepted official mobile app notifications are dropped. \
                          Self-hosted UnifiedPush and ntfy endpoints never reach the relay and are \
                          unaffected. "
-                        a href="https://fluxer.com/push-relay" target="_blank" rel="noreferrer"
+                        a href="https://nekochat-site.example/push-relay" target="_blank" rel="noreferrer"
                             class="text-neutral-900 underline decoration-neutral-300 hover:text-neutral-600 hover:decoration-neutral-500" {
                             "Read the notice"
                         }

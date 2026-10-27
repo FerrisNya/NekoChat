@@ -12,7 +12,7 @@ const {RendererDocumentOwnerFactory} = await import('./RendererDocumentOwner.ts'
 const {createBrowserHandoffPreloadAPI} = await import('../preload/BrowserHandoffPreload.ts');
 const {DESKTOP_HANDOFF_CHANNELS} = await import('../../../packages/desktop_ipc/src/BrowserHandoffContract.ts');
 
-const APP_ORIGIN = 'https://web.fluxer.app';
+const APP_ORIGIN = 'https://web.nekochat.example';
 const INSTANCE = Object.freeze({
 	apiEndpoint: 'https://self.hosted.example/api',
 	apiVersion: 1,
@@ -126,7 +126,7 @@ function initiateRoute({pollSecret = 'poll-secret-value', returnMethod} = {}) {
 		});
 }
 
-const RETURN_URI = 'fluxer://handoff';
+const RETURN_URI = 'nekochat://handoff';
 const GRANT = 'grant-value_42';
 
 function completedStatus() {
@@ -438,9 +438,9 @@ describe('the browser handoff preload bridge', () => {
 
 describe('the main-process handoff sends the browser Origin the instance demands', () => {
 	const ORIGIN_INSTANCE = Object.freeze({
-		apiEndpoint: 'https://web.canary.fluxer.app/api',
+		apiEndpoint: 'https://web.canary.nekochat.example/api',
 		apiVersion: 1,
-		webAppEndpoint: 'https://web.canary.fluxer.app',
+		webAppEndpoint: 'https://web.canary.nekochat.example',
 	});
 
 	test('a POST carries the origin of the web app endpoint, and a GET carries none', async () => {
@@ -455,7 +455,7 @@ describe('the main-process handoff sends the browser Origin the instance demands
 		assert.deepEqual(
 			requests.map((request) => [request.method, request.headers.Origin ?? null]),
 			[
-				['POST', 'https://web.canary.fluxer.app'],
+				['POST', 'https://web.canary.nekochat.example'],
 				['GET', null],
 			],
 		);
@@ -473,7 +473,7 @@ describe('the main-process handoff sends the browser Origin the instance demands
 
 		assert.deepEqual(
 			requests.map((request) => request.headers.Origin),
-			['https://web.canary.fluxer.app', 'https://web.canary.fluxer.app'],
+			['https://web.canary.nekochat.example', 'https://web.canary.nekochat.example'],
 		);
 	});
 
@@ -482,18 +482,18 @@ describe('the main-process handoff sends the browser Origin the instance demands
 
 		await routes[DESKTOP_HANDOFF_CHANNELS.initiate](document.event, {
 			...ORIGIN_INSTANCE,
-			apiEndpoint: 'https://api.canary.fluxer.app/api',
-			webAppEndpoint: 'https://web.canary.fluxer.app/app',
+			apiEndpoint: 'https://api.canary.nekochat.example/api',
+			webAppEndpoint: 'https://web.canary.nekochat.example/app',
 		});
 
-		assert.equal(requests[0].expectedOrigin, 'https://api.canary.fluxer.app');
-		assert.equal(requests[0].headers.Origin, 'https://web.canary.fluxer.app');
+		assert.equal(requests[0].expectedOrigin, 'https://api.canary.nekochat.example');
+		assert.equal(requests[0].headers.Origin, 'https://web.canary.nekochat.example');
 	});
 
 	test('a web app endpoint that has no usable origin is refused before any request is sent', async () => {
 		const {document, routes, requests} = createHandoff({[`POST ${INITIATE_PATH}`]: initiateRoute()});
 
-		for (const webAppEndpoint of ['/app', 'not a url', 'javascript:alert(1)', 'https://user:pw@web.fluxer.app']) {
+		for (const webAppEndpoint of ['/app', 'not a url', 'javascript:alert(1)', 'https://user:pw@web.nekochat.example']) {
 			await assert.rejects(
 				() => routes[DESKTOP_HANDOFF_CHANNELS.initiate](document.event, {...ORIGIN_INSTANCE, webAppEndpoint}),
 				/instance.webAppEndpoint is invalid/,

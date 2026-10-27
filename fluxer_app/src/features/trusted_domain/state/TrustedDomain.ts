@@ -5,13 +5,13 @@ import UserSettings from '@app/features/user/state/UserSettings';
 import {makeAutoObservable} from 'mobx';
 
 const BUILT_IN_TRUST_PATTERNS = [
-	'fluxer.app',
-	'*.fluxer.app',
-	'fluxer.com',
-	'*.fluxer.com',
-	'fluxerstatus.com',
-	'*.fluxerstatus.com',
-	'fluxer.gg',
+	'nekochat.example',
+	'*.nekochat.example',
+	'nekochat-site.example',
+	'*.nekochat-site.example',
+	'status.nekochat.example',
+	'*.status.nekochat.example',
+	'nekochat-invite.example',
 	'fluxer.gift',
 ] as const;
 const TRUST_EVERYTHING_PATTERN = '*';

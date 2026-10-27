@@ -77,7 +77,7 @@ jobs:
           $work = Join-Path $env:RUNNER_TEMP 'portable'
           New-Item -ItemType Directory -Force -Path $work | Out-Null
           $zip = Join-Path $work 'portable.zip'
-          Invoke-WebRequest -Uri "https://pkgs.fluxer.com/desktop/$env:CHANNEL/win32/$env:ARCH/$env:VERSION/portable" -OutFile $zip
+          Invoke-WebRequest -Uri "https://pkgs.nekochat-site.example/desktop/$env:CHANNEL/win32/$env:ARCH/$env:VERSION/portable" -OutFile $zip
           Expand-Archive -Path $zip -DestinationPath (Join-Path $work 'app')
           $exe = Get-ChildItem -Path (Join-Path $work 'app') -Recurse -Filter 'Fluxer*.exe' | Where-Object { $_.Name -notlike '*_ExecutionStub.exe' } | Select-Object -First 1
           if ($null -eq $exe) { throw "The portable build holds no Fluxer executable" }
@@ -96,8 +96,8 @@ jobs:
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
-          $channelDirs = @{ canary = 'fluxer_desktop_canary'; stable = 'fluxer_desktop' }
-          $dataDirs = @{ canary = 'fluxercanary'; stable = 'fluxer' }
+          $channelDirs = @{ canary = 'nekochat_desktop_canary'; stable = 'nekochat_desktop' }
+          $dataDirs = @{ canary = 'nekochatcanary'; stable = 'nekochat' }
           $installRoot = Join-Path $env:LOCALAPPDATA $channelDirs[$env:CHANNEL]
           $logPath = Join-Path (Join-Path $env:APPDATA $dataDirs[$env:CHANNEL]) 'logs\main.log'
           $failures = @()
@@ -107,7 +107,7 @@ jobs:
             if (Test-Path $installRoot) { Remove-Item -Recurse -Force $installRoot }
             Remove-Item -Recurse -Force (Split-Path (Split-Path $logPath -Parent) -Parent) -ErrorAction SilentlyContinue
             $setup = Join-Path $env:RUNNER_TEMP "setup-$from.exe"
-            Invoke-WebRequest -Uri "https://pkgs.fluxer.com/desktop/$env:CHANNEL/win32/$env:ARCH/$from/setup" -OutFile $setup
+            Invoke-WebRequest -Uri "https://pkgs.nekochat-site.example/desktop/$env:CHANNEL/win32/$env:ARCH/$from/setup" -OutFile $setup
             Start-Process -FilePath $setup -ArgumentList '--silent' -Wait
             Start-Sleep -Seconds 5
             Get-Process | Where-Object { $_.Path -like "$installRoot*" } | Stop-Process -Force -ErrorAction SilentlyContinue

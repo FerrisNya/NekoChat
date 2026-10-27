@@ -32,7 +32,7 @@ const SNAPSHOT = FIXTURE_CURRENT_INSTANCE_SNAPSHOT;
 
 function accountWith(instance: Account['instance']): Account {
 	return {
-		storageKey: 'https://fluxer.app/api::100000000000000001',
+		storageKey: 'https://nekochat.example/api::100000000000000001',
 		userId: '100000000000000001',
 		token: 'token',
 		lastActive: 0,
@@ -46,7 +46,7 @@ const UNUSABLE_SNAPSHOTS: ReadonlyArray<readonly [string, Account['instance']]> 
 	['blank endpoints', {...SNAPSHOT, apiEndpoint: '', webAppEndpoint: ''}],
 	['blank webAppEndpoint', {...SNAPSHOT, webAppEndpoint: ''}],
 	['unparsable endpoints', {...SNAPSHOT, apiEndpoint: 'not a url', webAppEndpoint: 'not a url'}],
-	['userinfo and query in apiEndpoint', {...SNAPSHOT, apiEndpoint: 'https://o:p@fluxer.app/api?tenant=1'}],
+	['userinfo and query in apiEndpoint', {...SNAPSHOT, apiEndpoint: 'https://o:p@nekochat.example/api?tenant=1'}],
 	['endpoints missing entirely', {} as unknown as NonNullable<Account['instance']>],
 ];
 

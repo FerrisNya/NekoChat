@@ -5,7 +5,7 @@ exports[`buildEnforcementNotice > renders bot_suspension 1`] = `
   "appeal": {
     "account_has_email": true,
     "deadline": "Dec 13, 2026",
-    "email": "appeals@fluxer.com",
+    "email": "appeals@nekochat-site.example",
   },
   "decision_id": "1234567890123",
   "deletion_at": null,
@@ -42,7 +42,7 @@ exports[`buildEnforcementNotice > renders closure 1`] = `
   "appeal": {
     "account_has_email": true,
     "deadline": "Dec 13, 2026",
-    "email": "appeals@fluxer.com",
+    "email": "appeals@nekochat-site.example",
   },
   "decision_id": "1234567890123",
   "deletion_at": "2026-12-27T10:00:00.000Z",
@@ -80,7 +80,7 @@ exports[`buildEnforcementNotice > renders community_removal 1`] = `
   "appeal": {
     "account_has_email": true,
     "deadline": "Dec 13, 2026",
-    "email": "appeals@fluxer.com",
+    "email": "appeals@nekochat-site.example",
   },
   "decision_id": "1234567890123",
   "deletion_at": null,
@@ -118,7 +118,7 @@ exports[`buildEnforcementNotice > renders content_removal 1`] = `
   "appeal": {
     "account_has_email": true,
     "deadline": "Dec 13, 2026",
-    "email": "appeals@fluxer.com",
+    "email": "appeals@nekochat-site.example",
   },
   "decision_id": "1234567890123",
   "deletion_at": null,
@@ -156,7 +156,7 @@ exports[`buildEnforcementNotice > renders content_removal_all 1`] = `
   "appeal": {
     "account_has_email": true,
     "deadline": "Dec 13, 2026",
-    "email": "appeals@fluxer.com",
+    "email": "appeals@nekochat-site.example",
   },
   "decision_id": "1234567890123",
   "deletion_at": null,
@@ -194,7 +194,7 @@ exports[`buildEnforcementNotice > renders copyright 1`] = `
   "appeal": {
     "account_has_email": true,
     "deadline": "Dec 13, 2026",
-    "email": "appeals@fluxer.com",
+    "email": "appeals@nekochat-site.example",
   },
   "decision_id": "1234567890123",
   "deletion_at": null,
@@ -233,7 +233,7 @@ exports[`buildEnforcementNotice > renders feature_limit_direct_messages 1`] = `
   "appeal": {
     "account_has_email": true,
     "deadline": "Dec 13, 2026",
-    "email": "appeals@fluxer.com",
+    "email": "appeals@nekochat-site.example",
   },
   "decision_id": "1234567890123",
   "deletion_at": null,
@@ -271,7 +271,7 @@ exports[`buildEnforcementNotice > renders feature_limit_purchases 1`] = `
   "appeal": {
     "account_has_email": true,
     "deadline": "Dec 13, 2026",
-    "email": "appeals@fluxer.com",
+    "email": "appeals@nekochat-site.example",
   },
   "decision_id": "1234567890123",
   "deletion_at": null,
@@ -310,7 +310,7 @@ exports[`buildEnforcementNotice > renders feature_limit_reports 1`] = `
   "appeal": {
     "account_has_email": true,
     "deadline": "Dec 13, 2026",
-    "email": "appeals@fluxer.com",
+    "email": "appeals@nekochat-site.example",
   },
   "decision_id": "1234567890123",
   "deletion_at": null,
@@ -348,7 +348,7 @@ exports[`buildEnforcementNotice > renders permanent_suspension 1`] = `
   "appeal": {
     "account_has_email": true,
     "deadline": "Dec 13, 2026",
-    "email": "appeals@fluxer.com",
+    "email": "appeals@nekochat-site.example",
   },
   "decision_id": "1234567890123",
   "deletion_at": null,
@@ -387,7 +387,7 @@ exports[`buildEnforcementNotice > renders profile_reset 1`] = `
   "appeal": {
     "account_has_email": true,
     "deadline": "Dec 13, 2026",
-    "email": "appeals@fluxer.com",
+    "email": "appeals@nekochat-site.example",
   },
   "decision_id": "1234567890123",
   "deletion_at": null,
@@ -426,7 +426,7 @@ exports[`buildEnforcementNotice > renders protected_harassment 1`] = `
   "appeal": {
     "account_has_email": true,
     "deadline": "Dec 13, 2026",
-    "email": "appeals@fluxer.com",
+    "email": "appeals@nekochat-site.example",
   },
   "decision_id": "1234567890123",
   "deletion_at": null,
@@ -465,7 +465,7 @@ exports[`buildEnforcementNotice > renders restricted_child_safety 1`] = `
   "appeal": {
     "account_has_email": true,
     "deadline": "Dec 13, 2026",
-    "email": "appeals@fluxer.com",
+    "email": "appeals@nekochat-site.example",
   },
   "decision_id": "1234567890123",
   "deletion_at": null,
@@ -502,7 +502,7 @@ exports[`buildEnforcementNotice > renders self_harm 1`] = `
   "appeal": {
     "account_has_email": true,
     "deadline": "Dec 13, 2026",
-    "email": "appeals@fluxer.com",
+    "email": "appeals@nekochat-site.example",
   },
   "decision_id": "1234567890123",
   "deletion_at": null,
@@ -541,7 +541,7 @@ exports[`buildEnforcementNotice > renders suspension 1`] = `
   "appeal": {
     "account_has_email": true,
     "deadline": "Dec 13, 2026",
-    "email": "appeals@fluxer.com",
+    "email": "appeals@nekochat-site.example",
   },
   "decision_id": "1234567890123",
   "deletion_at": null,
@@ -578,7 +578,7 @@ exports[`buildEnforcementNotice > renders warning 1`] = `
   "appeal": {
     "account_has_email": true,
     "deadline": "Dec 13, 2026",
-    "email": "appeals@fluxer.com",
+    "email": "appeals@nekochat-site.example",
   },
   "decision_id": "1234567890123",
   "deletion_at": null,

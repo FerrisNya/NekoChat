@@ -344,11 +344,11 @@ fn full_decision() -> Value {
         "deletion_at": null,
         "summary": "We suspended your account until Jan 1, 2099.",
         "effects": ["You can't sign in until then."],
-        "rule": {"title": "Harassment", "url": "https://fluxer.com/guidelines#1-harassment-threats-and-privacy"},
+        "rule": {"title": "Harassment", "url": "https://nekochat-site.example/guidelines#1-harassment-threats-and-privacy"},
         "facts": ["You sent messages that harass people."],
         "statement": "Stop sending these messages.",
         "how_we_decided": ["We reviewed this after a report."],
-        "appeal": {"email": "appeals@fluxer.com", "deadline": "Dec 13, 2026", "account_has_email": true},
+        "appeal": {"email": "appeals@nekochat-site.example", "deadline": "Dec 13, 2026", "account_has_email": true},
         "redress": []
     });
     decision
@@ -604,7 +604,7 @@ async fn decision_page_renders_the_full_response() {
     for expected in [
         "Decision 1900000000000000001",
         "Harassment or bullying",
-        "https://fluxer.com/guidelines#1-harassment-threats-and-privacy",
+        "https://nekochat-site.example/guidelines#1-harassment-threats-and-privacy",
         "Stop sending these messages.",
         "We suspended your account.",
         "We suspended your account until Jan 1, 2099.",

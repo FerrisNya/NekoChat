@@ -15,17 +15,17 @@ const notice: EnforcementNotice = {
 	deletion_at: null,
 	summary: 'We suspended your account until Oct 8, 2026, 10:00 AM UTC.',
 	effects: ["You can't sign in or use Fluxer until then. Your account, messages and communities are kept."],
-	rule: {title: 'Spam', url: 'https://fluxer.com/guidelines#6-spam-and-service-abuse'},
+	rule: {title: 'Spam', url: 'https://nekochat-site.example/guidelines#6-spam-and-service-abuse'},
 	facts: ['We found that your account sent unwanted messages in bulk.'],
 	statement: null,
 	how_we_decided: ['We reviewed this after a report.'],
-	appeal: {email: 'appeals@fluxer.com', deadline: 'Nov 30, 2026', account_has_email: true},
+	appeal: {email: 'appeals@nekochat-site.example', deadline: 'Nov 30, 2026', account_has_email: true},
 	redress: [],
 };
 
 const block: NetworkBlock = {
 	ip_address: '203.0.113.7',
-	appeal_email: 'support@fluxer.com',
+	appeal_email: 'support@nekochat-site.example',
 	appeals_supported: true,
 	ban_kind: 'permanent',
 	expires_at: null,

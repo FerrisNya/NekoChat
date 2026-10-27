@@ -32,7 +32,7 @@ describe('buildMessagingPausedHelpEmail', () => {
 		);
 		const url = new URL(mailto);
 		expect(url.protocol).toBe('mailto:');
-		expect(url.pathname).toBe('support@fluxer.com');
+		expect(url.pathname).toBe('support@nekochat-site.example');
 		expect(url.searchParams.get('subject')).toBe("My text didn't go through");
 		expect(decodeURIComponent(mailto.split('&body=')[1])).toBe(body);
 	});

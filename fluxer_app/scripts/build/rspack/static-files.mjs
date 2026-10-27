@@ -32,10 +32,10 @@ function resolveStaticCdnEndpoint(staticCdnEndpoint) {
 function generateManifest(staticCdnEndpoint) {
 	const cdn = resolveStaticCdnEndpoint(staticCdnEndpoint);
 	const manifest = {
-		name: 'Fluxer',
-		short_name: 'Fluxer',
+		name: 'NekoChat',
+		short_name: 'NekoChat',
 		description:
-			'Fluxer is a free and open source instant messaging and VoIP platform built for friends, groups, and communities.',
+			'NekoChat is a free and open source instant messaging and VoIP platform built for friends, groups, and communities.',
 		id: '/',
 		start_url: '/app',
 		display: 'standalone',
@@ -87,7 +87,7 @@ function generateBrowserConfig(staticCdnEndpoint) {
   <msapplication>
     <tile>
       <square150x150logo src="${cdn}/web/mstile-150x150.png"/>
-      <TileColor>#4641D9</TileColor>
+      <TileColor>#FFFFFF</TileColor>
     </tile>
   </msapplication>
 </browserconfig>`;

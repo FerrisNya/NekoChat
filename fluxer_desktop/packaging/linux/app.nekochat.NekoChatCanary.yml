@@ -1,12 +1,12 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-id: app.fluxer.FluxerCanary
+id: app.nekochat.NekoChatCanary
 runtime: org.freedesktop.Platform
 runtime-version: '25.08'
 sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
 base-version: '25.08'
 branch: stable
-command: app.fluxer.FluxerCanary
+command: app.nekochat.NekoChatCanary
 separate-locales: false
 finish-args:
   - --share=ipc
@@ -34,19 +34,19 @@ modules:
   - name: fluxer
     buildsystem: simple
     build-commands:
-      - install -Dm755 app.fluxer.FluxerCanary.sh ${FLATPAK_DEST}/bin/${FLATPAK_ID}
+      - install -Dm755 app.nekochat.NekoChatCanary.sh ${FLATPAK_DEST}/bin/${FLATPAK_ID}
       - mkdir -p ${FLATPAK_DEST}/fluxer
       - cp -a app/. ${FLATPAK_DEST}/fluxer/
       - patch-electron-desktop-filename ${FLATPAK_DEST}/fluxer/resources/app.asar
-      - install -Dm644 app.fluxer.FluxerCanary.desktop ${FLATPAK_DEST}/share/applications/${FLATPAK_ID}.desktop
-      - install -Dm644 app.fluxer.FluxerCanary.metainfo.xml ${FLATPAK_DEST}/share/metainfo/${FLATPAK_ID}.metainfo.xml
-      - install -Dm644 app.fluxer.FluxerCanary.svg ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg
+      - install -Dm644 app.nekochat.NekoChatCanary.desktop ${FLATPAK_DEST}/share/applications/${FLATPAK_ID}.desktop
+      - install -Dm644 app.nekochat.NekoChatCanary.metainfo.xml ${FLATPAK_DEST}/share/metainfo/${FLATPAK_ID}.metainfo.xml
+      - install -Dm644 app.nekochat.NekoChatCanary.svg ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg
     sources:
       - type: file
-        path: app.fluxer.FluxerCanary.sh
+        path: app.nekochat.NekoChatCanary.sh
       - type: file
-        path: app.fluxer.FluxerCanary.desktop
+        path: app.nekochat.NekoChatCanary.desktop
       - type: file
-        path: app.fluxer.FluxerCanary.metainfo.xml
+        path: app.nekochat.NekoChatCanary.metainfo.xml
       - type: file
-        path: app.fluxer.FluxerCanary.svg
+        path: app.nekochat.NekoChatCanary.svg

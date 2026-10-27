@@ -114,7 +114,7 @@ describe('RestClient desktop local upload tagging', () => {
 
 	test('a remote upload from the desktop app never carries the local upload id', async () => {
 		desktopDocument.active = true;
-		await createClient().put('https://uploads.fluxer.app/v1/relay/abc?t=token', {
+		await createClient().put('https://uploads.nekochat.example/v1/relay/abc?t=token', {
 			body: new Blob(['x']),
 			auth: 'none',
 			onProgress: () => {},

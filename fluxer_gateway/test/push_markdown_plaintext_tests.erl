@@ -18,12 +18,12 @@ renders_notification_plaintext_with_mentions_and_preserved_markdown_test() ->
     },
     Content =
         <<
-            "**Deploy** <@1> <@!2> <@&3> <#4> [docs](https://fluxer.app/docs) "
+            "**Deploy** <@1> <@!2> <@&3> <#4> [docs](https://nekochat.example/docs) "
             "`code` ~~done~~ ||spoiler|| <:party:99>"
         >>,
     ?assertEqual(
         <<
-            "**Deploy** @Alice @Bob @On Call #alerts [docs](https://fluxer.app/docs) "
+            "**Deploy** @Alice @Bob @On Call #alerts [docs](https://nekochat.example/docs) "
             "`code` ~~done~~ ||spoiler|| :party:"
         >>,
         push_markdown_plaintext:render_push_preview(Content, Context)

@@ -33,7 +33,7 @@ import {observer} from 'mobx-react-lite';
 import type React from 'react';
 import {useCallback} from 'react';
 
-const PUSH_RELAY_NOTICE_URL = 'https://fluxer.com/push-relay';
+const PUSH_RELAY_NOTICE_URL = 'https://nekochat-site.example/push-relay';
 const DEFAULT_THEME_COLOR = 0x4641d9;
 
 export type RegistrationMode = 'open' | 'approval' | 'closed';

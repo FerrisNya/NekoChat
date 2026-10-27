@@ -118,7 +118,7 @@ const UP_TO_DATE_KEY = 'updater-up-to-date';
 const UNSUPPORTED_KEY = 'updater-unsupported';
 const ERROR_KEY = 'updater-error';
 
-function openSoftwareCenter(appId: string = isCanaryDesktop() ? 'app.fluxer.FluxerCanary' : 'app.fluxer.Fluxer'): void {
+function openSoftwareCenter(appId: string = isCanaryDesktop() ? 'app.nekochat.NekoChatCanary' : 'app.nekochat.NekoChat'): void {
 	void openExternalUrl(`appstream://${appId}`);
 }
 

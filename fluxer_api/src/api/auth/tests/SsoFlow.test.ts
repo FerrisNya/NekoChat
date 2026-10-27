@@ -191,7 +191,7 @@ describe('Auth SSO flow', () => {
 				.post('/auth/sso/start')
 				.body({
 					redirect_to: '/me',
-					redirect_uri: 'fluxer://auth/sso/callback',
+					redirect_uri: 'nekochat://auth/sso/callback',
 				})
 				.execute();
 			expect(startData.redirect_uri).toBe(status.redirect_uri);

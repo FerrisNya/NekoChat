@@ -34,7 +34,7 @@ jobs:
         with:
           client-id: ${{ vars.FLUXER_CI_APP_ID }}
           private-key: ${{ secrets.FLUXER_CI_APP_KEY }}
-          owner: fluxerapp
+          owner: FerrisNya
           repositories: fluxer
           permission-contents: write
           permission-pull-requests: write
@@ -98,7 +98,7 @@ jobs:
           body="$(cat <<'BODY'
           Pulls reviewed translation updates from Weblate and includes generated runtime artifacts.
 
-          Weblate project: https://weblate.fluxer.tools/projects/fluxer/
+          Weblate project: https://translate.nekochat.example/projects/fluxer/
           BODY
           )"
           if [[ -z "$pr_number" ]]; then

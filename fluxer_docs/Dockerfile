@@ -39,7 +39,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN npm install -g pnpm@11.27.0
 
 LABEL maintainer="Fluxer"
-LABEL org.opencontainers.image.title="fluxer-docs"
+LABEL org.opencontainers.image.title="nekochat-docs"
 LABEL org.opencontainers.image.description="Fluxer API and protocol reference"
 LABEL org.opencontainers.image.licenses="AGPL-3.0-or-later"
 LABEL org.opencontainers.image.vendor="Fluxer"

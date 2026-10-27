@@ -110,7 +110,7 @@ describe('ModuleBootHandoff second instance forwarding', () => {
 	});
 
 	test('launches forwarded before a sink exists are replayed in order once it lands, thrower and all', () => {
-		forward(['fluxer', 'fluxer://channels/1']);
+		forward(['fluxer', 'nekochat://channels/1']);
 		forward(['fluxer', 'boom']);
 		forward(['fluxer', '--jump-list-task=new-dm']);
 		const seen = [];
@@ -122,7 +122,7 @@ describe('ModuleBootHandoff second instance forwarding', () => {
 		});
 		assert.deepEqual(
 			seen,
-			['fluxer://channels/1', 'boom', '--jump-list-task=new-dm'],
+			['nekochat://channels/1', 'boom', '--jump-list-task=new-dm'],
 			'Electron never queues second-instance, so a launch that arrives while the splash is still updating is only recoverable from this buffer',
 		);
 	});
@@ -133,8 +133,8 @@ describe('ModuleBootHandoff second instance forwarding', () => {
 			seen.push(argv[1]);
 		});
 		assert.deepEqual(seen, [], 'the buffer drained into the first sink, so a later sink must start empty');
-		forward(['fluxer', 'fluxer://channels/2']);
-		assert.deepEqual(seen, ['fluxer://channels/2']);
+		forward(['fluxer', 'nekochat://channels/2']);
+		assert.deepEqual(seen, ['nekochat://channels/2']);
 	});
 });
 
@@ -170,19 +170,19 @@ describe('ModuleBootHandoff open-url forwarding', () => {
 	});
 
 	test('links opened before the main app exists are buffered and replayed in order once its sink lands', () => {
-		assert.equal(openUrl('fluxer://invite/abc'), true, 'macOS opens the link in a browser unless the event is claimed');
-		listenerFor('ready')({}, {userInfo: {fallbackDeepLink: 'fluxer://channels/1'}});
-		openUrl('fluxer://boom');
+		assert.equal(openUrl('nekochat://invite/abc'), true, 'macOS opens the link in a browser unless the event is claimed');
+		listenerFor('ready')({}, {userInfo: {fallbackDeepLink: 'nekochat://channels/1'}});
+		openUrl('nekochat://boom');
 		const seen = [];
 		setOpenUrlSink((url) => {
 			seen.push(url);
-			if (url === 'fluxer://boom') {
+			if (url === 'nekochat://boom') {
 				throw new Error('this sink throws');
 			}
 		});
 		assert.deepEqual(
 			seen,
-			['fluxer://invite/abc', 'fluxer://channels/1', 'fluxer://boom'],
+			['nekochat://invite/abc', 'nekochat://channels/1', 'nekochat://boom'],
 			'open-url fires around will-finish-launching on a cold start, long before module convergence imports the main app',
 		);
 	});
@@ -193,7 +193,7 @@ describe('ModuleBootHandoff open-url forwarding', () => {
 			seen.push(url);
 		});
 		assert.deepEqual(seen, []);
-		openUrl('fluxer://channels/2');
-		assert.deepEqual(seen, ['fluxer://channels/2']);
+		openUrl('nekochat://channels/2');
+		assert.deepEqual(seen, ['nekochat://channels/2']);
 	});
 });

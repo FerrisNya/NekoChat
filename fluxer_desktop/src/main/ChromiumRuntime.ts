@@ -77,9 +77,9 @@ const CHROMIUM_FEATURE_SWITCHES = new Set([
 ]);
 
 const LINUX_FLAGS_CONFIG_FILE_NAMES: Record<BuildChannel, Array<string>> = {
-	stable: ['fluxer_desktop-flags.conf', 'fluxer-flags.conf'],
-	canary: ['fluxer_desktop_canary-flags.conf', 'fluxer-canary-flags.conf'],
-	development: ['fluxer_desktop_development-flags.conf', 'fluxer-development-flags.conf'],
+	stable: ['nekochat_desktop-flags.conf', 'nekochat-flags.conf'],
+	canary: ['nekochat_desktop_canary-flags.conf', 'nekochat-canary-flags.conf'],
+	development: ['nekochat_desktop_development-flags.conf', 'nekochat-development-flags.conf'],
 };
 
 export const MIDDLE_CLICK_AUTOSCROLL_BLINK_FEATURE = 'MiddleClickAutoscroll';

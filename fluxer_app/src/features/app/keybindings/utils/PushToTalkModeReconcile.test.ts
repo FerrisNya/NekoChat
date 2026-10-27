@@ -112,7 +112,7 @@ function portalStatus(state: GlobalShortcutsPortalState, options: PortalStatusOp
 		version: 2,
 		canConfigure: true,
 		canRecheck: state === 'unsupported' || state === 'error',
-		portalAppId: 'app.fluxer.FluxerDesktop',
+		portalAppId: 'app.nekochat.NekoChatDesktop',
 		shortcuts: [
 			{action: 'voice_push_to_talk', triggerDescription: state === 'bound' ? trigger : null},
 			{action: 'voice_push_to_mute', triggerDescription: null},

@@ -156,8 +156,8 @@ interface WebhookExecuteLibredeskParams extends WebhookTokenParams, WebhookThrea
 
 const WEBHOOK_AVATAR_MISSING_CACHE_VALUE = '__fluxer_webhook_avatar_missing__';
 const HOSTED_WEBHOOK_AVATAR_URLS = {
-	github: 'https://fluxer.app/static/img/app-webhook-github.2d0319169a3aee33.webp',
-	instatus: 'https://fluxer.app/static/img/app-webhook-instatus.22ad5aee16da872c.webp',
+	github: 'https://nekochat.example/static/img/app-webhook-github.2d0319169a3aee33.webp',
+	instatus: 'https://nekochat.example/static/img/app-webhook-instatus.22ad5aee16da872c.webp',
 } as const;
 
 export class WebhookService {

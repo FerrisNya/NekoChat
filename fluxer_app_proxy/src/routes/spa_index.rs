@@ -1153,10 +1153,16 @@ mod tests {
     #[tokio::test]
     async fn a_same_origin_host_marks_the_document_as_serving_its_own_api() {
         let mut state = spa_state_serving(SHIPPED_APP_SHELL);
-        Arc::make_mut(&mut state.config).same_origin_hosts =
-            vec!["fluxer.com".to_owned(), "canary.fluxer.com".to_owned()];
+        Arc::make_mut(&mut state.config).same_origin_hosts = vec![
+            "nekochat-site.example".to_owned(),
+            "canary.nekochat-site.example".to_owned(),
+        ];
 
-        for host in ["fluxer.com", "FLUXER.com:443", "canary.fluxer.com."] {
+        for host in [
+            "nekochat-site.example",
+            "NEKOCHAT-SITE.example:443",
+            "canary.nekochat-site.example.",
+        ] {
             let response = serve_spa_index(&state, &request_for_host(host), "/").await;
             assert_eq!(response.status(), StatusCode::OK);
             let policy = policy_of(&response);
@@ -1172,7 +1178,11 @@ mod tests {
             assert_every_inline_script_is_granted(&served, &policy);
         }
 
-        for host in ["web.fluxer.app", "fluxer.com.evil.test", "notfluxer.com"] {
+        for host in [
+            "web.nekochat.example",
+            "nekochat-site.example.evil.test",
+            "notnekochat-site.example",
+        ] {
             let served =
                 read_document(serve_spa_index(&state, &request_for_host(host), "/").await).await;
             assert!(

@@ -18,7 +18,7 @@ import {
 } from '@app/features/platform/state/auth_session/AuthSessionStoredAccountResolver';
 import {describe, expect, it} from 'vitest';
 
-const PRIMARY_INSTANCE_KEY = 'https://fluxer.app/api';
+const PRIMARY_INSTANCE_KEY = 'https://nekochat.example/api';
 const FOREIGN_INSTANCE_KEY = 'https://self.hosted.example/api';
 
 function instanceSnapshot(apiEndpoint: string): RuntimeConfigSnapshot {

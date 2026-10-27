@@ -244,7 +244,7 @@ describe('buildEnforcementNotice', () => {
 			facts: ["We don't have more detail on record for this decision."],
 			statement: null,
 			how_we_decided: [],
-			appeal: {email: 'appeals@fluxer.com', deadline: null, account_has_email: true},
+			appeal: {email: 'appeals@nekochat-site.example', deadline: null, account_has_email: true},
 		});
 		const banned = buildEnforcementNotice(
 			{
@@ -280,7 +280,7 @@ describe('buildEnforcementNotice', () => {
 
 	it('offers the appeal variants', () => {
 		expect(notice(decision()).appeal).toEqual({
-			email: 'appeals@fluxer.com',
+			email: 'appeals@nekochat-site.example',
 			deadline: 'Dec 13, 2026',
 			account_has_email: true,
 		});
@@ -294,7 +294,7 @@ describe('buildEnforcementNotice', () => {
 			},
 			'en-US',
 		);
-		expect(noEmail.appeal).toEqual({email: 'appeals@fluxer.com', deadline: null, account_has_email: false});
+		expect(noEmail.appeal).toEqual({email: 'appeals@nekochat-site.example', deadline: null, account_has_email: false});
 	});
 
 	it('names no product, address or support line on an unnamed self-hosted instance', () => {

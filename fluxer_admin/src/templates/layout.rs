@@ -95,7 +95,7 @@ pub fn admin_layout_ext(
                 @if options.auto_refresh {
                     meta http-equiv="refresh" content="3";
                 }
-                title { (title) " ~ Fluxer Admin" }
+                title { (title) " ~ NekoChat Admin" }
                 link rel="stylesheet" href={(base) "/static/fonts/" (crate::fonts::STYLESHEET_FILE_NAME)};
                 link rel="stylesheet" href=(cache_busted_asset(base, asset_version, "/static/app.css"));
                 (favicon_links(config, auth.branding.as_ref()))

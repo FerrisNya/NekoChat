@@ -31,15 +31,15 @@ clusterChecks: true
 
 image:
   # The registry and owner the Fluxer images come from.
-  registry: ghcr.io/fluxerapp
+  registry: ghcr.io/ferrisnya
   # The tag for every Fluxer image. v1 moves with each release.
   tag: v1
   # Always pulls the moving tag whenever a pod starts, including a pod that
   # restarts by itself. Pin with digests for rollouts you control.
   pullPolicy: Always
-  # Per-image tag overrides, keyed by image name, for example fluxer-api: 2026.1012.120000.
+  # Per-image tag overrides, keyed by image name, for example nekochat-api: 2026.1012.120000.
   tags: {}
-  # Per-image digests, keyed by image name, for example fluxer-api: sha256:0123.
+  # Per-image digests, keyed by image name, for example nekochat-api: sha256:0123.
   # A digest pins the image whatever the tag.
   digests: {}
   # Image pull secrets for every pod, as a list of {name: <secret>}.

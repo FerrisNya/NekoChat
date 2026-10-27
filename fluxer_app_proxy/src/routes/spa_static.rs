@@ -226,8 +226,11 @@ mod tests {
 
     fn substituted_manifest(origins: &[&str]) -> serde_json::Value {
         let origins: Vec<String> = origins.iter().map(|origin| (*origin).to_owned()).collect();
-        let text =
-            substitute_placeholders(BUILT_MANIFEST, "https://fluxerstatic.com", Some(&origins));
+        let text = substitute_placeholders(
+            BUILT_MANIFEST,
+            "https://static.nekochat.example",
+            Some(&origins),
+        );
         serde_json::from_str(&text).expect("substituted manifest must stay valid JSON")
     }
 
@@ -237,18 +240,21 @@ mod tests {
         assert_eq!(manifest["scope_extensions"], serde_json::json!([]));
         assert_eq!(
             manifest["icons"][0]["src"],
-            "https://fluxerstatic.com/web/android-chrome-192x192.png"
+            "https://static.nekochat.example/web/android-chrome-192x192.png"
         );
     }
 
     #[test]
     fn manifest_scope_extensions_list_each_configured_origin() {
-        let manifest = substituted_manifest(&["https://fluxer.com", "https://canary.fluxer.com"]);
+        let manifest = substituted_manifest(&[
+            "https://nekochat-site.example",
+            "https://canary.nekochat-site.example",
+        ]);
         assert_eq!(
             manifest["scope_extensions"],
             serde_json::json!([
-                { "type": "origin", "origin": "https://fluxer.com" },
-                { "type": "origin", "origin": "https://canary.fluxer.com" }
+                { "type": "origin", "origin": "https://nekochat-site.example" },
+                { "type": "origin", "origin": "https://canary.nekochat-site.example" }
             ])
         );
         assert_eq!(manifest["id"], "/");
@@ -260,18 +266,18 @@ mod tests {
         let text = substitute_placeholders(
             r#"{"id":"/"}"#,
             "",
-            Some(&["https://fluxer.com".to_owned()]),
+            Some(&["https://nekochat-site.example".to_owned()]),
         );
         let manifest: serde_json::Value = serde_json::from_str(&text).expect("valid JSON");
         assert_eq!(
             manifest["scope_extensions"],
-            serde_json::json!([{ "type": "origin", "origin": "https://fluxer.com" }])
+            serde_json::json!([{ "type": "origin", "origin": "https://nekochat-site.example" }])
         );
     }
 
     #[test]
     fn other_text_files_are_left_alone() {
-        let origins = ["https://fluxer.com".to_owned()];
+        let origins = ["https://nekochat-site.example".to_owned()];
         assert_eq!(
             substitute_placeholders(
                 "not json {{STATIC_CDN_ENDPOINT}}",
@@ -287,9 +293,9 @@ mod tests {
     }
 
     const GENERATED_MANIFEST: &str = r##"{
-  "name": "Fluxer",
-  "short_name": "Fluxer",
-  "description": "Fluxer is a free and open source instant messaging and VoIP platform built for friends, groups, and communities.",
+  "name": "NekoChat",
+  "short_name": "NekoChat",
+  "description": "NekoChat is a free and open source instant messaging and VoIP platform built for friends, groups, and communities.",
   "id": "/",
   "start_url": "/app",
   "display": "standalone",
@@ -359,8 +365,8 @@ mod tests {
 
     #[test]
     fn the_official_manifest_is_left_byte_identical() {
-        let text =
-            GENERATED_MANIFEST.replace("{{STATIC_CDN_ENDPOINT}}", "https://fluxerstatic.com");
+        let text = GENERATED_MANIFEST
+            .replace("{{STATIC_CDN_ENDPOINT}}", "https://static.nekochat.example");
         assert_eq!(finish_manifest(text.clone(), &[], None), text);
     }
 
@@ -487,7 +493,7 @@ mod tests {
   <msapplication>
     <tile>
       <square150x150logo src="{{STATIC_CDN_ENDPOINT}}/web/mstile-150x150.png"/>
-      <TileColor>#4641D9</TileColor>
+      <TileColor>#FFFFFF</TileColor>
     </tile>
   </msapplication>
 </browserconfig>"#;

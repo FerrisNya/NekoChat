@@ -295,7 +295,7 @@ describe('buildNamedFluxerEnvOverrides', () => {
 			FLUXER_GOOGLE_PLAY_SERVICE_ACCOUNT_JSON_PATH: '/etc/fluxer/keys/play.json',
 			FLUXER_GOOGLE_PLAY_TOKEN_URI: 'https://oauth2.example/token',
 			FLUXER_GOOGLE_PLAY_PRODUCTS: '{"plutonium:monthly":"monthly","gift_1_month":"gift_1_month"}',
-			FLUXER_GOOGLE_PLAY_PUSH_AUDIENCE: 'https://api.fluxer.app/webhooks/google-play',
+			FLUXER_GOOGLE_PLAY_PUSH_AUDIENCE: 'https://api.nekochat.example/webhooks/google-play',
 			FLUXER_GOOGLE_PLAY_PUSH_SERVICE_ACCOUNT_EMAIL: 'rtdn@fluxer.iam.gserviceaccount.com',
 		});
 
@@ -310,7 +310,7 @@ describe('buildNamedFluxerEnvOverrides', () => {
 					service_account_json_path: '/etc/fluxer/keys/play.json',
 					token_uri: 'https://oauth2.example/token',
 					products: {'plutonium:monthly': 'monthly', gift_1_month: 'gift_1_month'},
-					push_audience: 'https://api.fluxer.app/webhooks/google-play',
+					push_audience: 'https://api.nekochat.example/webhooks/google-play',
 					push_service_account_email: 'rtdn@fluxer.iam.gserviceaccount.com',
 				},
 			},

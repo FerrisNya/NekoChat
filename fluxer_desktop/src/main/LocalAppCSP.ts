@@ -10,42 +10,42 @@ const FRAME_SOURCES: ReadonlyArray<string> = Object.freeze([
 ]);
 
 const IMAGE_SOURCES: ReadonlyArray<string> = Object.freeze([
-	'https://*.fluxer.app',
+	'https://*.nekochat.example',
 	'https://i.ytimg.com',
 	'https://*.youtube.com',
-	'https://*.fluxer.media',
-	'https://fluxer.media',
+	'https://*.nekochat-media.example',
+	'https://nekochat-media.example',
 ]);
 
 const MEDIA_SOURCES: ReadonlyArray<string> = Object.freeze([
-	'https://*.fluxer.app',
+	'https://*.nekochat.example',
 	'https://*.youtube.com',
-	'https://*.fluxer.media',
-	'https://fluxer.media',
+	'https://*.nekochat-media.example',
+	'https://nekochat-media.example',
 ]);
 
-const SCRIPT_SOURCES: ReadonlyArray<string> = Object.freeze(['https://*.fluxer.app']);
+const SCRIPT_SOURCES: ReadonlyArray<string> = Object.freeze(['https://*.nekochat.example']);
 
 const STYLE_SOURCES: ReadonlyArray<string> = Object.freeze([
-	'https://*.fluxer.app',
+	'https://*.nekochat.example',
 	'https://fonts.googleapis.com',
 	'https://api.fonts.coollabs.io',
 ]);
 
 const FONT_SOURCES: ReadonlyArray<string> = Object.freeze([
-	'https://*.fluxer.app',
+	'https://*.nekochat.example',
 	'https://fonts.gstatic.com',
 	'https://api.fonts.coollabs.io',
 ]);
 
 const CONNECT_SOURCES: ReadonlyArray<string> = Object.freeze([
-	'https://*.fluxer.app',
-	'wss://*.fluxer.app',
-	'https://*.fluxer.media',
-	'wss://*.fluxer.media',
-	'https://fluxer-uploads.ewr1.vultrobjects.com',
-	'https://fluxerstatus.com',
-	'https://fluxer.media',
+	'https://*.nekochat.example',
+	'wss://*.nekochat.example',
+	'https://*.nekochat-media.example',
+	'wss://*.nekochat-media.example',
+	'https://fluxer-uploads.s3.nekochat-storage.example',
+	'https://status.nekochat.example',
+	'https://nekochat-media.example',
 ]);
 
 const LOOPBACK_HTTP_SOURCES: ReadonlyArray<string> = Object.freeze([
@@ -54,9 +54,9 @@ const LOOPBACK_HTTP_SOURCES: ReadonlyArray<string> = Object.freeze([
 	'http://127.0.0.1:*',
 ]);
 
-const WORKER_SOURCES: ReadonlyArray<string> = Object.freeze(['https://*.fluxer.app', 'blob:']);
+const WORKER_SOURCES: ReadonlyArray<string> = Object.freeze(['https://*.nekochat.example', 'blob:']);
 
-const MANIFEST_SOURCES: ReadonlyArray<string> = Object.freeze(['https://*.fluxer.app']);
+const MANIFEST_SOURCES: ReadonlyArray<string> = Object.freeze(['https://*.nekochat.example']);
 
 const SELF_SOURCE = "'self'";
 const NONE_SOURCE = "'none'";

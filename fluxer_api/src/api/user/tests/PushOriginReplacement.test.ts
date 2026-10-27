@@ -8,8 +8,8 @@ import {classifyWebPushOrigin, sameUserAgentFamily} from '@app/api/user/services
 import {listPushSubscriptions} from '@app/api/user/tests/UserTestUtils';
 import {afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi} from 'vitest';
 
-const LEGACY_ORIGIN = 'https://web.fluxer.app';
-const TARGET_ORIGIN = 'https://fluxer.com';
+const LEGACY_ORIGIN = 'https://web.nekochat.example';
+const TARGET_ORIGIN = 'https://nekochat-site.example';
 const IPHONE_UA =
 	'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1';
 const IPHONE_UPDATED_UA =
@@ -40,11 +40,11 @@ interface HandoffStatusResponse {
 
 describe('classifyWebPushOrigin', () => {
 	it.each([
-		{origin: 'https://web.fluxer.app', kind: 'legacy'},
-		{origin: 'https://web.canary.fluxer.app', kind: 'legacy'},
-		{origin: 'https://fluxer.com', kind: 'target'},
-		{origin: 'https://canary.fluxer.com', kind: 'target'},
-		{origin: 'https://fluxer.app', kind: null},
+		{origin: 'https://web.nekochat.example', kind: 'legacy'},
+		{origin: 'https://web.canary.nekochat.example', kind: 'legacy'},
+		{origin: 'https://nekochat-site.example', kind: 'target'},
+		{origin: 'https://canary.nekochat-site.example', kind: 'target'},
+		{origin: 'https://nekochat.example', kind: null},
 		{origin: 'https://example.com', kind: null},
 		{origin: undefined, kind: null},
 		{origin: null, kind: null},
@@ -215,7 +215,7 @@ describe('web push origin replacement', () => {
 	it('never removes another new-origin subscription of the same session', async () => {
 		const account = await createTestAccount(harness);
 		const first = await subscribeFrom(account.token, TARGET_ORIGIN, 'https://push.example.com/target-a');
-		const second = await subscribeFrom(account.token, 'https://canary.fluxer.com', 'https://push.example.com/target-b');
+		const second = await subscribeFrom(account.token, 'https://canary.nekochat-site.example', 'https://push.example.com/target-b');
 		expect(await listSubscriptionIds(account.token)).toEqual([first, second].sort());
 	});
 

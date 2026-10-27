@@ -239,7 +239,7 @@ function submitDsa(harness: ApiTestHarness, ticket: string, world: World, messag
 		.body({
 			ticket,
 			report_type: 'message',
-			message_link: `https://web.fluxer.app/channels/${world.guildId}/${world.channelId}/${messageId}`,
+			message_link: `https://web.nekochat.example/channels/${world.guildId}/${world.channelId}/${messageId}`,
 			revision_hash: currentHash('message', 'dsa'),
 			steps: HARASSMENT_WALK,
 			good_faith_confirmed: true,

@@ -9,7 +9,7 @@ import type {
 	InstanceDiscoveryResponse,
 } from '@fluxer/instance_bootstrap/src/Types';
 
-const BOOTSTRAP_API_ENDPOINT = 'https://fluxer.app/api';
+const BOOTSTRAP_API_ENDPOINT = 'https://nekochat.example/api';
 
 export const BOOTSTRAP_APP_PUBLIC: InstanceAppPublic = {
 	branding: {
@@ -41,15 +41,15 @@ export function instanceDiscoveryFixture(
 			api: apiEndpoint,
 			api_client: apiEndpoint,
 			api_public: apiEndpoint,
-			gateway: 'wss://gateway.fluxer.app',
-			media: 'https://media.fluxer.app',
-			static_cdn: 'https://cdn.fluxer.app',
-			marketing: 'https://fluxer.app',
-			admin: 'https://admin.fluxer.app',
+			gateway: 'wss://gateway.nekochat.example',
+			media: 'https://media.nekochat.example',
+			static_cdn: 'https://cdn.nekochat.example',
+			marketing: 'https://nekochat.example',
+			admin: 'https://admin.nekochat.example',
 			invite: 'https://flux.gg',
 			gift: 'https://flux.gift',
-			webapp: 'https://fluxer.app',
-			upload_relay: 'https://upload.fluxer.app',
+			webapp: 'https://nekochat.example',
+			upload_relay: 'https://upload.nekochat.example',
 		},
 		captcha: {provider: 'none'},
 		features: {

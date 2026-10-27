@@ -175,24 +175,27 @@ mod hop_tests {
     const TOKEN: &str = "3dbc5a5ef1a1c1666afc26f466e1b3ebaaf4c66d92dddeb0fd1b69c49641d4cd";
 
     fn ours() -> Vec<String> {
-        vec!["push.fluxer.com".to_owned()]
+        vec!["push.nekochat-site.example".to_owned()]
     }
 
     #[test]
     fn the_plain_apns_leg_is_delivered_in_process() {
-        let apns = format!("https://push.fluxer.com/relay/v1/apns/canary/production/{TOKEN}");
+        let apns =
+            format!("https://push.nekochat-site.example/relay/v1/apns/canary/production/{TOKEN}");
         assert!(in_process_hop(&apns, &ours()).is_some());
     }
 
     #[test]
     fn an_fcm_relay_endpoint_is_delivered_in_process() {
-        let fcm = "https://push.fluxer.com/relay/v1/fcm/canary/tok%3AAPA91bExample";
+        let fcm = "https://push.nekochat-site.example/relay/v1/fcm/canary/tok%3AAPA91bExample";
         assert!(in_process_hop(fcm, &ours()).is_some());
     }
 
     #[test]
     fn a_pushkit_relay_endpoint_keeps_its_voip_topic() {
-        let voip = format!("https://push.fluxer.com/relay/v1/apns-voip/canary/production/{TOKEN}");
+        let voip = format!(
+            "https://push.nekochat-site.example/relay/v1/apns-voip/canary/production/{TOKEN}"
+        );
         assert!(in_process_hop(&voip, &ours()).is_none());
     }
 }
@@ -207,14 +210,14 @@ mod consent_tests {
     const NTFY_ENDPOINT: &str = "https://ntfy.sh/upZzH87cT9jJCc?up=1";
 
     fn managed_endpoint() -> String {
-        format!("https://push.fluxer.com/relay/v1/apns/stable/production/{TOKEN}")
+        format!("https://push.nekochat-site.example/relay/v1/apns/stable/production/{TOKEN}")
     }
 
     fn state(relay_consent_accepted: bool) -> AppState {
         let cfg = DeliveryConfig::load_from_iter([
             ("FLUXER_INTERNAL_API_ENDPOINT", "http://127.0.0.1:8080"),
             ("FLUXER_GATEWAY_RPC_AUTH_TOKEN", "rpc-token"),
-            ("FLUXER_VAPID_EMAIL", "ops@fluxer.com"),
+            ("FLUXER_VAPID_EMAIL", "ops@nekochat-site.example"),
             ("FLUXER_VAPID_PUBLIC_KEY", "public-key"),
             ("FLUXER_VAPID_PRIVATE_KEY", "private-key"),
             (

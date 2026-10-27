@@ -18,9 +18,9 @@ const {
 	NATIVE_GATEWAY_TRANSPORT_EVENT_CHANNEL,
 } = await import('../../../packages/desktop_ipc/src/GatewayTransportContract.ts');
 
-const APP_ORIGIN = 'https://web.fluxer.app';
-const GATEWAY_URL = 'wss://gateway.fluxer.app/?v=9&encoding=json&compress=zstd-stream&stream=1';
-const GATEWAY_WS_ORIGIN = 'wss://gateway.fluxer.app';
+const APP_ORIGIN = 'https://web.nekochat.example';
+const GATEWAY_URL = 'wss://gateway.nekochat.example/?v=9&encoding=json&compress=zstd-stream&stream=1';
+const GATEWAY_WS_ORIGIN = 'wss://gateway.nekochat.example';
 
 let connectionCounter = 0;
 
@@ -108,7 +108,7 @@ function createBoundary() {
 	};
 }
 
-function createRegistry({gatewayEndpoint = 'wss://gateway.fluxer.app/', anchors = []} = {}) {
+function createRegistry({gatewayEndpoint = 'wss://gateway.nekochat.example/', anchors = []} = {}) {
 	const resolved = [];
 	const registry = new GatewayOriginRegistry({
 		additionalAnchorOrigins: async () => anchors,
@@ -172,10 +172,10 @@ describe('NativeGatewayTransportRequestBoundary', () => {
 	test('refuses an http, file, credentialed or fragmented target', async () => {
 		const {routes, mainDocument} = createTransport();
 		for (const url of [
-			'http://gateway.fluxer.app/',
+			'http://gateway.nekochat.example/',
 			'file:///etc/passwd',
-			'wss://user:secret@gateway.fluxer.app/',
-			'wss://gateway.fluxer.app/#fragment',
+			'wss://user:secret@gateway.nekochat.example/',
+			'wss://gateway.nekochat.example/#fragment',
 			'not-a-url',
 		]) {
 			await rejects(
@@ -615,7 +615,7 @@ describe('DesktopNativeGatewayTransport', () => {
 		const registry = new GatewayOriginRegistry({
 			resolveAnchorGatewayOrigin: async (anchor) => {
 				await admissionGate;
-				return anchor === APP_ORIGIN ? 'wss://gateway.fluxer.app/' : null;
+				return anchor === APP_ORIGIN ? 'wss://gateway.nekochat.example/' : null;
 			},
 		});
 		registry.seedAnchorOrigin(APP_ORIGIN);
@@ -702,7 +702,7 @@ describe('GatewayOriginRegistry', () => {
 				return null;
 			},
 		});
-		registry.recordAnchorGateway(`${APP_ORIGIN}/api`, 'wss://gateway.fluxer.app');
+		registry.recordAnchorGateway(`${APP_ORIGIN}/api`, 'wss://gateway.nekochat.example');
 		assert.equal(await registry.admit({documentKey: {}, url: GATEWAY_URL}), GATEWAY_WS_ORIGIN);
 		assert.deepEqual(resolved, []);
 		assert.equal(anchorReads, 0);
@@ -713,12 +713,12 @@ describe('GatewayOriginRegistry', () => {
 		const registry = new GatewayOriginRegistry({
 			resolveAnchorGatewayOrigin: async (anchor) => {
 				resolved.push(anchor);
-				return anchor === 'https://gateway.fluxer.app' ? 'wss://gateway.fluxer.app' : null;
+				return anchor === 'https://gateway.nekochat.example' ? 'wss://gateway.nekochat.example' : null;
 			},
 		});
 		registry.recordAnchorGateway(`${APP_ORIGIN}/api`, 'wss://gateway.other.example');
 		assert.equal(await registry.admit({documentKey: {}, url: GATEWAY_URL}), GATEWAY_WS_ORIGIN);
-		assert.deepEqual(resolved, ['https://gateway.fluxer.app']);
+		assert.deepEqual(resolved, ['https://gateway.nekochat.example']);
 	});
 
 	test('fetches discovery for a recorded runtime plan that advertises no gateway', async () => {
@@ -726,7 +726,7 @@ describe('GatewayOriginRegistry', () => {
 		const registry = new GatewayOriginRegistry({
 			resolveAnchorGatewayOrigin: async (anchor) => {
 				resolved.push(anchor);
-				return anchor === APP_ORIGIN ? 'wss://gateway.fluxer.app' : null;
+				return anchor === APP_ORIGIN ? 'wss://gateway.nekochat.example' : null;
 			},
 		});
 		registry.recordAnchorGateway(`${APP_ORIGIN}/api`, null);
@@ -741,10 +741,10 @@ describe('GatewayOriginRegistry', () => {
 			now: () => now,
 			resolveAnchorGatewayOrigin: async (anchor) => {
 				resolved.push(anchor);
-				return anchor === APP_ORIGIN ? 'wss://gateway.fluxer.app' : null;
+				return anchor === APP_ORIGIN ? 'wss://gateway.nekochat.example' : null;
 			},
 		});
-		registry.recordAnchorGateway(`${APP_ORIGIN}/api`, 'wss://gateway.fluxer.app');
+		registry.recordAnchorGateway(`${APP_ORIGIN}/api`, 'wss://gateway.nekochat.example');
 		await registry.admit({documentKey: {}, url: GATEWAY_URL});
 		assert.deepEqual(resolved, []);
 		now += 6 * 60 * 60 * 1000 + 1;
@@ -783,7 +783,7 @@ describe('GatewayOriginRegistry', () => {
 			now: () => now,
 			resolveAnchorGatewayOrigin: async (anchor) => {
 				resolved.push(anchor);
-				return anchor === APP_ORIGIN ? 'wss://gateway.fluxer.app/' : null;
+				return anchor === APP_ORIGIN ? 'wss://gateway.nekochat.example/' : null;
 			},
 		});
 		registry.seedAnchorOrigin(APP_ORIGIN);
@@ -838,7 +838,7 @@ describe('GatewayOriginRegistry', () => {
 			now: () => now,
 			resolveAnchorGatewayOrigin: async (anchor) => {
 				resolved.push(anchor);
-				return anchor === APP_ORIGIN ? 'wss://gateway.fluxer.app/' : null;
+				return anchor === APP_ORIGIN ? 'wss://gateway.nekochat.example/' : null;
 			},
 		});
 		registry.seedAnchorOrigin(APP_ORIGIN);
@@ -856,7 +856,7 @@ describe('GatewayOriginRegistry', () => {
 		registry.seedAnchorOrigin(APP_ORIGIN);
 		const document = {};
 		await rejects(registry.admit({documentKey: document, url: GATEWAY_URL}), /no reachable instance/u);
-		advertised = 'wss://gateway.fluxer.app/';
+		advertised = 'wss://gateway.nekochat.example/';
 		now += 60 * 1000 + 1;
 		assert.equal(await registry.admit({documentKey: document, url: GATEWAY_URL}), GATEWAY_WS_ORIGIN);
 	});

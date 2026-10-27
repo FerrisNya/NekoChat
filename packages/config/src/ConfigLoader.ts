@@ -24,11 +24,11 @@ let cachedConfig: MasterConfig | null = null;
 const MAX_REPORT_RETENTION_DAYS = 36_500;
 
 const DEFAULT_PASSKEY_ORIGINS = [
-	'https://fluxer.app',
-	'https://web.fluxer.app',
-	'https://web.canary.fluxer.app',
-	'https://fluxer.com',
-	'https://canary.fluxer.com',
+	'https://nekochat.example',
+	'https://web.nekochat.example',
+	'https://web.canary.nekochat.example',
+	'https://nekochat-site.example',
+	'https://canary.nekochat-site.example',
 	'android:apk-key-hash:keSY4bimyLqZQV7bKXgpa2xYuqXi0qZJzsYtp6gpx7w',
 ];
 
@@ -251,7 +251,7 @@ function defaultConfig(): MasterConfig {
 		instance: {
 			self_hosted: false,
 			branding: {
-				product_name: 'Fluxer',
+				product_name: 'NekoChat',
 			},
 			setup: {
 				configured: false,

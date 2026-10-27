@@ -24,18 +24,18 @@ const {LOCAL_APP_UPLOAD_ID_HEADER} = await import('@fluxer/desktop_ipc/src/Local
 
 function plan(overrides = {}) {
 	return {
-		instanceKey: 'https://api.fluxer.app',
+		instanceKey: 'https://api.nekochat.example',
 		document: {},
 		selfHosted: false,
 		degraded: false,
 		endpoints: {
-			apiEndpoint: 'https://api.fluxer.app',
-			apiPublicEndpoint: 'https://api.fluxer.app',
-			webAppEndpoint: 'https://web.fluxer.app',
-			mediaEndpoint: 'https://media.fluxer.app',
-			staticCdnEndpoint: 'https://cdn.fluxer.app',
-			uploadRelayEndpoint: 'https://media.fluxer.app/upload',
-			gatewayEndpoint: 'wss://gateway.fluxer.app',
+			apiEndpoint: 'https://api.nekochat.example',
+			apiPublicEndpoint: 'https://api.nekochat.example',
+			webAppEndpoint: 'https://web.nekochat.example',
+			mediaEndpoint: 'https://media.nekochat.example',
+			staticCdnEndpoint: 'https://cdn.nekochat.example',
+			uploadRelayEndpoint: 'https://media.nekochat.example/upload',
+			gatewayEndpoint: 'wss://gateway.nekochat.example',
 			inviteEndpoint: null,
 			giftEndpoint: null,
 			...overrides,
@@ -57,7 +57,7 @@ function headerNames(headers) {
 
 describe('rewriting the local API path onto the instance API endpoint', () => {
 	const cases = [
-		['https://api.fluxer.app', '/api/k/v1/users/@me?x=1', '/api/k', 'https://api.fluxer.app/v1/users/@me?x=1'],
+		['https://api.nekochat.example', '/api/k/v1/users/@me?x=1', '/api/k', 'https://api.nekochat.example/v1/users/@me?x=1'],
 		['https://h.example/base/', '/api/k/v1/x', '/api/k', 'https://h.example/base/v1/x'],
 		['https://h.example/base', '/api/k/v1/x', '/api/k', 'https://h.example/base/v1/x'],
 		['https://h.example/base', '/api/k', '/api/k', 'https://h.example/base/'],
@@ -74,11 +74,11 @@ describe('rewriting the local API path onto the instance API endpoint', () => {
 
 	test('the renderer contributes only path and query, never the host', () => {
 		const target = buildAPITargetURL({
-			apiEndpoint: 'https://api.fluxer.app',
+			apiEndpoint: 'https://api.nekochat.example',
 			requestURL: 'fluxer-app://app/api/k/..%2F..%2Fv1/x?y=1',
 			localPathPrefix: '/api/k',
 		});
-		assert.equal(new URL(target).origin, 'https://api.fluxer.app');
+		assert.equal(new URL(target).origin, 'https://api.nekochat.example');
 	});
 });
 
@@ -87,9 +87,9 @@ describe('outbound API request headers', () => {
 		const headers = buildAPIRequestHeaders({
 			headers: new Headers({Origin: 'fluxer-app://app', Authorization: 'token'}),
 			method: 'POST',
-			origin: 'https://web.fluxer.app',
+			origin: 'https://web.nekochat.example',
 		});
-		assert.equal(headers.get('Origin'), 'https://web.fluxer.app');
+		assert.equal(headers.get('Origin'), 'https://web.nekochat.example');
 		assert.equal(headers.get('Authorization'), 'token');
 	});
 
@@ -97,7 +97,7 @@ describe('outbound API request headers', () => {
 		const headers = buildAPIRequestHeaders({
 			headers: new Headers({Origin: 'fluxer-app://app'}),
 			method: 'GET',
-			origin: 'https://web.fluxer.app',
+			origin: 'https://web.nekochat.example',
 		});
 		assert.equal(headers.get('Origin'), null);
 	});
@@ -105,7 +105,7 @@ describe('outbound API request headers', () => {
 	test('a renderer-supplied Origin can never survive, even when the plan has none', () => {
 		for (const method of ['GET', 'HEAD', 'POST', 'PATCH', 'DELETE']) {
 			const headers = buildAPIRequestHeaders({
-				headers: new Headers({Origin: 'https://web.fluxer.app'}),
+				headers: new Headers({Origin: 'https://web.nekochat.example'}),
 				method,
 				origin: null,
 			});
@@ -130,7 +130,7 @@ describe('outbound API request headers', () => {
 				Accept: 'application/json',
 			}),
 			method: 'POST',
-			origin: 'https://web.fluxer.app',
+			origin: 'https://web.nekochat.example',
 		});
 		assert.equal(headers.get(DESKTOP_PROTOCOL_AUTHORIZATION_HEADER), null);
 		assert.equal(headers.get(LOCAL_APP_UPLOAD_ID_HEADER), null);
@@ -267,8 +267,8 @@ describe('proxied response headers', () => {
 describe('resolving the remote resource target', () => {
 	test('an absolute http target is accepted', () => {
 		assert.equal(
-			remoteProxyTargetURL('fluxer-app://app/proxy/k?url=https%3A%2F%2Fmedia.fluxer.app%2Fx.png'),
-			'https://media.fluxer.app/x.png',
+			remoteProxyTargetURL('fluxer-app://app/proxy/k?url=https%3A%2F%2Fmedia.nekochat.example%2Fx.png'),
+			'https://media.nekochat.example/x.png',
 		);
 	});
 
@@ -294,10 +294,10 @@ describe('resolving the remote resource target', () => {
 describe('the remote resource origin allowlist', () => {
 	test('only origins named by the active plan are reachable', () => {
 		for (const target of [
-			'https://api.fluxer.app/v1/x',
-			'https://web.fluxer.app/x',
-			'https://media.fluxer.app/attachments/x.png',
-			'https://cdn.fluxer.app/libs/x.wasm',
+			'https://api.nekochat.example/v1/x',
+			'https://web.nekochat.example/x',
+			'https://media.nekochat.example/attachments/x.png',
+			'https://cdn.nekochat.example/libs/x.wasm',
 		]) {
 			assert.equal(allowsRemoteResource(target), true, target);
 		}
@@ -306,9 +306,9 @@ describe('the remote resource origin allowlist', () => {
 	test('an origin outside the plan is refused, including a lookalike host', () => {
 		for (const target of [
 			'https://evil.example/x',
-			'https://media.fluxer.app.evil.example/x',
-			'http://media.fluxer.app/x',
-			'https://media.fluxer.app:8443/x',
+			'https://media.nekochat.example.evil.example/x',
+			'http://media.nekochat.example/x',
+			'https://media.nekochat.example:8443/x',
 			'fluxer-app://app/x',
 		]) {
 			assert.equal(allowsRemoteResource(target), false, target);
@@ -316,14 +316,14 @@ describe('the remote resource origin allowlist', () => {
 	});
 
 	test('the gateway origin is not a remote-resource target', () => {
-		assert.equal(allowsRemoteResource('https://gateway.fluxer.app/x'), false);
+		assert.equal(allowsRemoteResource('https://gateway.nekochat.example/x'), false);
 	});
 
 	test('GET and PUT take different admission paths', () => {
-		const relay = 'https://media.fluxer.app/upload/v1/relay/attachments%2Fa.png?t=TOKEN';
+		const relay = 'https://media.nekochat.example/upload/v1/relay/attachments%2Fa.png?t=TOKEN';
 		assert.equal(isAllowedRemoteProxyTarget({method: 'GET', targetURL: relay, plan: plan()}), true);
 		assert.equal(
-			isAllowedRemoteProxyTarget({method: 'PUT', targetURL: 'https://media.fluxer.app/x.png', plan: plan()}),
+			isAllowedRemoteProxyTarget({method: 'PUT', targetURL: 'https://media.nekochat.example/x.png', plan: plan()}),
 			false,
 		);
 	});
@@ -331,22 +331,22 @@ describe('the remote resource origin allowlist', () => {
 
 describe('the upload relay admission rule matches fluxer_api UploadRelay.ts', () => {
 	test('a single-part relay PUT is admitted', () => {
-		assert.equal(allowsUploadRelay('https://media.fluxer.app/upload/v1/relay/attachments%2Fa.png?t=TOKEN'), true);
+		assert.equal(allowsUploadRelay('https://media.nekochat.example/upload/v1/relay/attachments%2Fa.png?t=TOKEN'), true);
 	});
 
 	test('a multipart part upload carrying uploadId and partNumber is admitted', () => {
 		assert.equal(
 			allowsUploadRelay(
-				'https://media.fluxer.app/upload/v1/relay/attachments%2Fa.png?t=TOKEN&uploadId=U1&partNumber=2',
+				'https://media.nekochat.example/upload/v1/relay/attachments%2Fa.png?t=TOKEN&uploadId=U1&partNumber=2',
 			),
 			true,
 		);
 	});
 
 	test('a relay endpoint advertised with its own /v1/relay suffix normalises the same way the API does', () => {
-		const relayPlan = plan({uploadRelayEndpoint: 'https://media.fluxer.app/upload/v1/relay'});
+		const relayPlan = plan({uploadRelayEndpoint: 'https://media.nekochat.example/upload/v1/relay'});
 		assert.equal(
-			allowsUploadRelay('https://media.fluxer.app/upload/v1/relay/attachments%2Fa.png?t=TOKEN', relayPlan),
+			allowsUploadRelay('https://media.nekochat.example/upload/v1/relay/attachments%2Fa.png?t=TOKEN', relayPlan),
 			true,
 			'KNOWN BUG (WP-I): isAllowedUploadRelayEndpoint rejects any endpoint whose pathname contains a relay ' +
 				'segment before uploadRelayBasePath gets to strip the /v1/relay suffix, so UPLOAD_RELAY_BASE_SUFFIX_PATTERN ' +
@@ -358,33 +358,33 @@ describe('the upload relay admission rule matches fluxer_api UploadRelay.ts', ()
 	});
 
 	test('a root relay endpoint admits /v1/relay/<key>', () => {
-		const relayPlan = plan({uploadRelayEndpoint: 'https://media.fluxer.app'});
-		assert.equal(allowsUploadRelay('https://media.fluxer.app/v1/relay/attachments%2Fa.png?t=TOKEN', relayPlan), true);
+		const relayPlan = plan({uploadRelayEndpoint: 'https://media.nekochat.example'});
+		assert.equal(allowsUploadRelay('https://media.nekochat.example/v1/relay/attachments%2Fa.png?t=TOKEN', relayPlan), true);
 	});
 
 	test('a missing token, an empty token or a duplicated token is refused', () => {
-		const base = 'https://media.fluxer.app/upload/v1/relay/attachments%2Fa.png';
+		const base = 'https://media.nekochat.example/upload/v1/relay/attachments%2Fa.png';
 		assert.equal(allowsUploadRelay(base), false);
 		assert.equal(allowsUploadRelay(`${base}?t=`), false);
 		assert.equal(allowsUploadRelay(`${base}?t=A&t=B`), false);
 	});
 
 	test('an unknown query parameter is refused', () => {
-		const base = 'https://media.fluxer.app/upload/v1/relay/attachments%2Fa.png';
+		const base = 'https://media.nekochat.example/upload/v1/relay/attachments%2Fa.png';
 		assert.equal(allowsUploadRelay(`${base}?t=TOKEN&redirect=https://evil.example`), false);
 	});
 
 	test('a hash, a wrong origin, an empty key or a path outside the relay prefix is refused', () => {
-		assert.equal(allowsUploadRelay('https://media.fluxer.app/upload/v1/relay/a.png?t=T#frag'), false);
+		assert.equal(allowsUploadRelay('https://media.nekochat.example/upload/v1/relay/a.png?t=T#frag'), false);
 		assert.equal(allowsUploadRelay('https://evil.example/upload/v1/relay/a.png?t=T'), false);
-		assert.equal(allowsUploadRelay('https://media.fluxer.app/upload/v1/relay/?t=T'), false);
-		assert.equal(allowsUploadRelay('https://media.fluxer.app/upload/v1/x/a.png?t=T'), false);
-		assert.equal(allowsUploadRelay('https://media.fluxer.app/v1/relay/a.png?t=T'), false);
+		assert.equal(allowsUploadRelay('https://media.nekochat.example/upload/v1/relay/?t=T'), false);
+		assert.equal(allowsUploadRelay('https://media.nekochat.example/upload/v1/x/a.png?t=T'), false);
+		assert.equal(allowsUploadRelay('https://media.nekochat.example/v1/relay/a.png?t=T'), false);
 	});
 
 	test('no advertised relay endpoint means no relay PUT is ever admitted', () => {
 		const relayPlan = plan({uploadRelayEndpoint: null});
-		assert.equal(allowsUploadRelay('https://media.fluxer.app/upload/v1/relay/a.png?t=T', relayPlan), false);
+		assert.equal(allowsUploadRelay('https://media.nekochat.example/upload/v1/relay/a.png?t=T', relayPlan), false);
 	});
 });
 

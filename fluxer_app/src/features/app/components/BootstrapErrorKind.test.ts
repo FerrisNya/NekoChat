@@ -5,7 +5,7 @@ import {InstanceDiscoveryUnreachableError} from '@fluxer/instance_bootstrap/src/
 import {expect, test} from 'vitest';
 
 const DESKTOP_UNREACHABLE = new Error(
-	"Error invoking remote method 'desktop-runtime-config:resolve': DesktopRuntimeDiscoveryUnreachableError: No usable instance discovery document was served for https://web.canary.fluxer.app/api: https://web.canary.fluxer.app/.well-known/fluxer (connect ECONNREFUSED 127.0.0.1:9)",
+	"Error invoking remote method 'desktop-runtime-config:resolve': DesktopRuntimeDiscoveryUnreachableError: No usable instance discovery document was served for https://web.canary.nekochat.example/api: https://web.canary.nekochat.example/.well-known/fluxer (connect ECONNREFUSED 127.0.0.1:9)",
 );
 
 test('a desktop discovery that could not reach the instance is a connection failure', () => {

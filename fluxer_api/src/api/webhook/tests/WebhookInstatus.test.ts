@@ -14,21 +14,21 @@ function createInstatusPage() {
 		id: 'pg_123',
 		status_indicator: 'HASISSUES',
 		status_description: 'Partially degraded service',
-		url: 'https://status.fluxer.app',
+		url: 'https://status.nekochat.example',
 	};
 }
 
 function createInstatusMeta() {
 	// `documentation` seems to always be an empty string.
 	// If only we had documentation about it.
-	return {unsubscribe: 'https://status.fluxer.app/unsubscribe?id=1&token=abc', documentation: ''};
+	return {unsubscribe: 'https://status.nekochat.example/unsubscribe?id=1&token=abc', documentation: ''};
 }
 
 function createInstatusIncident(overrides: Record<string, unknown> = {}) {
 	return {
 		id: 'inc_1',
 		name: 'Elevated API latency',
-		url: 'https://status.fluxer.app/incident/inc_1',
+		url: 'https://status.nekochat.example/incident/inc_1',
 		status: 'Investigating',
 		backfilled: false,
 		resolved_at: null,

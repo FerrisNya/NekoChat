@@ -44,7 +44,7 @@ installTestModuleStub(
 				network.registrations.push(registration);
 				if (network.resolvable) return 'public';
 				if (registration.unresolvedAnchorRequirement != null) return registration.unresolvedAnchorRequirement;
-				throw Object.assign(new Error('getaddrinfo EAI_AGAIN api.fluxer.app'), {
+				throw Object.assign(new Error('getaddrinfo EAI_AGAIN api.nekochat.example'), {
 					code: 'EAI_AGAIN',
 					syscall: 'getaddrinfo',
 				});
@@ -61,7 +61,7 @@ const {DESKTOP_RUNTIME_DISCOVERY_UNREACHABLE_ERROR_NAME} = await import(
 	'@fluxer/desktop_ipc/src/LocalAppRuntimeContract'
 );
 
-const API_ENDPOINT = 'https://api.fluxer.app';
+const API_ENDPOINT = 'https://api.nekochat.example';
 const MARKER_KEY = `runtime_discovery.v1:${API_ENDPOINT}`;
 
 function served(document) {

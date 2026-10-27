@@ -27,7 +27,7 @@ const ADD_ACCOUNT_DESCRIPTOR = msg({
 export const SIGN_IN_WITH_OLD_APP_DESCRIPTOR = msg({
 	message: 'Sign in with your old {productName} app',
 	comment:
-		'Sign-in option and modal title on fluxer.com that pairs a newly installed app with the old installed app still signed in on the previous domain. productName is the app name.',
+		'Sign-in option and modal title on nekochat-site.example that pairs a newly installed app with the old installed app still signed in on the previous domain. productName is the app name.',
 });
 
 export type BrowserLoginHandoffVariant = 'browser' | 'old_app';

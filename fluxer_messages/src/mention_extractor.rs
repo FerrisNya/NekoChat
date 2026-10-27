@@ -174,7 +174,7 @@ mod tests {
         "no idea, ask in the other channel",
         "brb",
         "https://example.com/some/long/path?query=1&other=2",
-        "check out https://github.com/fluxerapp/fluxer/pull/1234 when you get a sec",
+        "check out https://github.com/FerrisNya/NekoChat/pull/1234 when you get a sec",
         "mail me at someone@example.com",
         "the price is 12 <> 15 depending on the region",
         "a < b && c > d",

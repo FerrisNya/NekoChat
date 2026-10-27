@@ -344,7 +344,7 @@ fn create_aggregate_description(
     let aggregate_dict: Retained<NSMutableDictionary<NSString, NSObject>> =
         NSMutableDictionary::new();
     let counter = AGGREGATE_UID_COUNTER.fetch_add(1, Ordering::Relaxed);
-    let uid_string = format!("app.fluxer.mac-app-audio.tap.{pid}.{counter}");
+    let uid_string = format!("app.nekochat.mac-app-audio.tap.{pid}.{counter}");
     let uid = NSString::from_str(&uid_string);
     let name = NSString::from_str("Fluxer app audio capture");
     foundation::dict_set_str_key(&aggregate_dict, c"uid", uid.as_ref());

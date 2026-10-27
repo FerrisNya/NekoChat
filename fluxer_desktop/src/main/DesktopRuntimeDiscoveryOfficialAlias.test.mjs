@@ -62,8 +62,8 @@ function officialDocument(clientOrigin) {
 }
 
 const CHANNELS = Object.freeze([
-	{migrated: 'https://fluxer.com', official: 'https://web.fluxer.app'},
-	{migrated: 'https://canary.fluxer.com', official: 'https://web.canary.fluxer.app'},
+	{migrated: 'https://nekochat-site.example', official: 'https://web.nekochat.example'},
+	{migrated: 'https://canary.nekochat-site.example', official: 'https://web.canary.nekochat.example'},
 ]);
 
 describe('desktop discovery for an account stored on the migrated official domain', () => {

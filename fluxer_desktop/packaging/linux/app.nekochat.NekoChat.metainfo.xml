@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- SPDX-License-Identifier: AGPL-3.0-or-later -->
 <component type="desktop-application">
-    <id>app.fluxer.FluxerCanary</id>
-    <launchable type="desktop-id">app.fluxer.FluxerCanary.desktop</launchable>
-    <name>Fluxer Canary</name>
-    <developer id="app.fluxer">
-        <name>Fluxer</name>
+    <id>app.nekochat.NekoChat</id>
+    <launchable type="desktop-id">app.nekochat.NekoChat.desktop</launchable>
+    <name>NekoChat</name>
+    <developer id="app.nekochat">
+        <name>NekoChat</name>
     </developer>
-    <summary>Canary build of Fluxer</summary>
+    <summary>A chat app that puts you first</summary>
     <metadata_license>CC0-1.0</metadata_license>
     <project_license>AGPL-3.0-or-later</project_license>
-    <icon type="stock">app.fluxer.FluxerCanary</icon>
+    <icon type="stock">app.nekochat.NekoChat</icon>
     <description>
-        <p>Fluxer Canary is the pre-release desktop build of Fluxer, a free and open-source instant messaging and voice-over-IP application.</p>
+        <p>Fluxer is a free and open-source instant messaging and voice-over-IP application. It provides text chat, voice calls, video calls, and screen sharing in a modern interface.</p>
         <p>Features include:</p>
         <ul>
             <li>Text messaging with rich formatting and media support</li>
@@ -39,21 +39,23 @@
         <keyword>call</keyword>
     </keywords>
     <branding>
-        <color type="primary">#FFA600</color>
+        <color type="primary">#4641D9</color>
     </branding>
     <screenshots>
-        <screenshot type="default">
+        <screenshot type="default" xml:lang="en">
             <caption>The main Fluxer window.</caption>
-            <image type="source" width="1920" height="1670">https://fluxer.app/static/img/screenshots-desktop-1920w.4976d2d1f2238c05.avif</image>
+            <image type="source" width="2560" height="2227">https://nekochat.example/static/img/screenshots-desktop-2560w.948e9d88f4c9807a.avif</image>
         </screenshot>
     </screenshots>
-    <url type="bugtracker">https://feedback.fluxer.com</url>
-    <url type="homepage">https://canary.fluxer.app</url>
-    <url type="donation">https://fluxer.app/donate</url>
-    <url type="vcs-browser">https://github.com/fluxerapp/fluxer.git</url>
+    <url type="bugtracker">https://feedback.nekochat-site.example</url>
+    <url type="homepage">https://nekochat.example</url>
+    <url type="donation">https://nekochat.example/donate</url>
+    <url type="contact">https://nekochat.example/company-information#contact</url>
+    <url type="translate">https://translate.nekochat.example/</url>
+    <url type="vcs-browser">https://github.com/FerrisNya/NekoChat.git</url>
     <update_contact>fen@unix.dog</update_contact>
     <provides>
-        <binary>app.fluxer.FluxerCanary</binary>
+        <binary>app.nekochat.NekoChat</binary>
     </provides>
     <content_rating type="oars-1.1">
         <content_attribute id="social-chat">intense</content_attribute>
@@ -69,4 +71,14 @@
         <control>keyboard</control>
         <control>pointing</control>
     </supports>
+    <releases>
+        <release version="2026.920.144558" date="2026-09-20">
+            <url type="details">https://github.com/FerrisNya/NekoChat/compare/5d85e88532a6b2bc8fa95cd951c9f82d63841de1..c157ab5752084ba424b80b66f7b3b6ca4abba1e3</url>
+            <description>
+                <p>
+                    Release following the synchronization of stable with canary
+                </p>
+            </description>
+        </release>
+    </releases>
 </component>

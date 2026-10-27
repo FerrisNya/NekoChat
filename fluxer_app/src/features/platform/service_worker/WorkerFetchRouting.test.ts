@@ -11,8 +11,8 @@ function request(url: string, init?: RequestInit): Request {
 
 describe('WorkerFetchRouting', () => {
 	it('does not intercept expression media URLs', () => {
-		expect(getWorkerFetchRoute(request('https://fluxerusercontent.com/emojis/123.webp'), WORKER_ORIGIN)).toBe('ignore');
-		expect(getWorkerFetchRoute(request('https://fluxerusercontent.com/stickers/456.webp'), WORKER_ORIGIN)).toBe(
+		expect(getWorkerFetchRoute(request('https://nekochat-usercontent.example/emojis/123.webp'), WORKER_ORIGIN)).toBe('ignore');
+		expect(getWorkerFetchRoute(request('https://nekochat-usercontent.example/stickers/456.webp'), WORKER_ORIGIN)).toBe(
 			'ignore',
 		);
 		expect(getWorkerFetchRoute(request(`${WORKER_ORIGIN}/emojis/123.webp`), WORKER_ORIGIN)).toBe('ignore');

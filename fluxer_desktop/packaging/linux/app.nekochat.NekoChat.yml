@@ -1,12 +1,12 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-id: app.fluxer.Fluxer
+id: app.nekochat.NekoChat
 runtime: org.freedesktop.Platform
 runtime-version: '25.08'
 sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
 base-version: '25.08'
 branch: stable
-command: app.fluxer.Fluxer
+command: app.nekochat.NekoChat
 separate-locales: false
 finish-args:
   - --share=ipc
@@ -34,19 +34,19 @@ modules:
   - name: fluxer
     buildsystem: simple
     build-commands:
-      - install -Dm755 app.fluxer.Fluxer.sh ${FLATPAK_DEST}/bin/${FLATPAK_ID}
+      - install -Dm755 app.nekochat.NekoChat.sh ${FLATPAK_DEST}/bin/${FLATPAK_ID}
       - mkdir -p ${FLATPAK_DEST}/fluxer
       - cp -a app/. ${FLATPAK_DEST}/fluxer/
       - patch-electron-desktop-filename ${FLATPAK_DEST}/fluxer/resources/app.asar
-      - install -Dm644 app.fluxer.Fluxer.desktop ${FLATPAK_DEST}/share/applications/${FLATPAK_ID}.desktop
-      - install -Dm644 app.fluxer.Fluxer.metainfo.xml ${FLATPAK_DEST}/share/metainfo/${FLATPAK_ID}.metainfo.xml
-      - install -Dm644 app.fluxer.Fluxer.svg ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg
+      - install -Dm644 app.nekochat.NekoChat.desktop ${FLATPAK_DEST}/share/applications/${FLATPAK_ID}.desktop
+      - install -Dm644 app.nekochat.NekoChat.metainfo.xml ${FLATPAK_DEST}/share/metainfo/${FLATPAK_ID}.metainfo.xml
+      - install -Dm644 app.nekochat.NekoChat.svg ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg
     sources:
       - type: file
-        path: app.fluxer.Fluxer.sh
+        path: app.nekochat.NekoChat.sh
       - type: file
-        path: app.fluxer.Fluxer.desktop
+        path: app.nekochat.NekoChat.desktop
       - type: file
-        path: app.fluxer.Fluxer.metainfo.xml
+        path: app.nekochat.NekoChat.metainfo.xml
       - type: file
-        path: app.fluxer.Fluxer.svg
+        path: app.nekochat.NekoChat.svg

@@ -18,20 +18,20 @@ import type {
 import {installRuntimeBootstrap} from '@app/features/platform/state/__fixtures__/RuntimeBootstrapFixture';
 import {beforeEach, describe, expect, test, vi} from 'vitest';
 
-const CURRENT_INSTANCE_KEY = 'https://fluxer.app/api';
-const MOVED_API_ENDPOINT = 'https://api.fluxer.app';
+const CURRENT_INSTANCE_KEY = 'https://nekochat.example/api';
+const MOVED_API_ENDPOINT = 'https://api.nekochat.example';
 const FOREIGN_API_ENDPOINT = 'https://self.hosted.example/api';
 
 const DEPLOYED_SWAP_CAPTURED: Record<string, string> = {
 	token: 'raw.token',
 	userId: '4242',
-	runtimeConfig: '{"apiEndpoint":"https://fluxer.app/api"}',
+	runtimeConfig: '{"apiEndpoint":"https://nekochat.example/api"}',
 	AccountManager: '{"accounts":[]}',
 	mobxTheme: '{"theme":"dark"}',
 	'mobx-persist:Keybind': '{"binds":[]}',
 	persistedSidebar: '{"width":300}',
 	'fluxer:ui:sidebar-width': '300',
-	'fluxer:auth:active-account-key': 'https://fluxer.app/api::1',
+	'fluxer:auth:active-account-key': 'https://nekochat.example/api::1',
 };
 
 const DEPLOYED_SWAP_IGNORED: Record<string, string> = {
@@ -172,7 +172,7 @@ describe('reading a deployed v2 database', () => {
 		await seed([
 			storedRecord('1', {
 				storageKey: `${CURRENT_INSTANCE_KEY}::1`,
-				instance: instanceSnapshot('https://operator:hunter2@fluxer.app/api?tenant=1'),
+				instance: instanceSnapshot('https://operator:hunter2@nekochat.example/api?tenant=1'),
 			}),
 		]);
 		const {default: accountStorage} = await loadAccountStorage();
@@ -419,7 +419,7 @@ describe('migrateAccountStorageKeys', () => {
 		const {default: accountStorage} = await loadAccountStorage();
 
 		const outcome = await accountStorage.migrateAccountStorageKeys(
-			rekeyContext('2', instanceSnapshot('https://operator:hunter2@fluxer.app/api?tenant=1')),
+			rekeyContext('2', instanceSnapshot('https://operator:hunter2@nekochat.example/api?tenant=1')),
 		);
 
 		expect(outcome.written).toBe(0);

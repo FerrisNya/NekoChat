@@ -38,7 +38,7 @@ use tempfile::TempDir;
 use walkdir::WalkDir;
 use zip::write::SimpleFileOptions;
 
-const PACKAGE_ORIGIN_BASE: &str = "https://pkgs.fluxer.com";
+const PACKAGE_ORIGIN_BASE: &str = "https://pkgs.nekochat-site.example";
 const PACKAGE_ORIGIN_BASE_ENV: &str = "PKGS_DOWNLOAD_BASE_URL";
 const PNPM_VERSION: &str = "12.4.2";
 const RUST_TOOLCHAIN: &str = "1.98.1";
@@ -2699,14 +2699,14 @@ fn verify_bundle_id_step() -> Result<()> {
     ]))?;
 
     let expected = if build_channel == "canary" {
-        "app.fluxer.canary"
+        "app.nekochat.canary"
     } else {
-        "app.fluxer"
+        "app.nekochat"
     };
     let expected_profile = if build_channel == "canary" {
-        "3G5837T29K.app.fluxer.canary"
+        "XXXXXXXXXX.app.nekochat.canary"
     } else {
-        "3G5837T29K.app.fluxer"
+        "XXXXXXXXXX.app.nekochat"
     };
     println!("Bundle id in zip: {bid} (expected: {expected})");
     ensure!(bid == expected, "Unexpected bundle id: {bid}");
@@ -2946,17 +2946,17 @@ struct VelopackAssetIndexEntry {
 
 fn windows_package_config(build_channel: &str, arch: &str) -> Result<WindowsPackageConfig> {
     let (pack_id, pack_title, artifact_prefix, icon_dir) = match build_channel {
-        "stable" => ("fluxer_desktop", "Fluxer", "Fluxer", "icons-stable"),
+        "stable" => ("nekochat_desktop", "NekoChat", "NekoChat", "icons-stable"),
         "canary" => (
-            "fluxer_desktop_canary",
-            "Fluxer Canary",
-            "Fluxer-Canary",
+            "nekochat_desktop_canary",
+            "NekoChat Canary",
+            "NekoChat-Canary",
             "icons-canary",
         ),
         "development" => (
-            "fluxer_desktop_development",
-            "Fluxer Development",
-            "Fluxer-Development",
+            "nekochat_desktop_development",
+            "NekoChat Development",
+            "NekoChat-Development",
             "icons-development",
         ),
         other => bail!(
@@ -3038,7 +3038,7 @@ fn pack_and_validate_windows_velopack(
         "--packTitle",
         config.pack_title,
         "--packAuthors",
-        "Fluxer Platform AB",
+        "NekoChat",
         "--shortcuts",
         "Desktop,StartMenu",
         "--runtime",
@@ -7982,7 +7982,7 @@ mod tests {
 
         assert_eq!(
             releases["releases"][0]["updateTo"]["url"],
-            "https://pkgs.fluxer.com/desktop/canary/darwin/arm64/Fluxer-2026.520.1-arm64.zip"
+            "https://pkgs.nekochat-site.example/desktop/canary/darwin/arm64/Fluxer-2026.520.1-arm64.zip"
         );
         assert!(temp.path().join("releases.json").exists());
     }
@@ -8081,19 +8081,19 @@ mod tests {
     #[test]
     fn windows_package_config_tracks_channel_and_arch() {
         let stable = windows_package_config("stable", "x64").unwrap();
-        assert_eq!(stable.pack_id, "fluxer_desktop");
+        assert_eq!(stable.pack_id, "nekochat_desktop");
         assert_eq!(stable.runtime, "win-x64");
         assert_eq!(stable.main_exe, "Fluxer.exe");
 
         let canary = windows_package_config("canary", "arm64").unwrap();
-        assert_eq!(canary.pack_id, "fluxer_desktop_canary");
+        assert_eq!(canary.pack_id, "nekochat_desktop_canary");
         assert_eq!(canary.runtime, "win-arm64");
         assert_eq!(canary.main_exe, "Fluxer Canary.exe");
 
         let development = windows_package_config("development", "x64").unwrap();
-        assert_eq!(development.pack_id, "fluxer_desktop_development");
-        assert_eq!(development.pack_title, "Fluxer Development");
-        assert_eq!(development.artifact_prefix, "Fluxer-Development");
+        assert_eq!(development.pack_id, "nekochat_desktop_development");
+        assert_eq!(development.pack_title, "NekoChat Development");
+        assert_eq!(development.artifact_prefix, "NekoChat-Development");
         assert_eq!(development.icon_dir, "icons-development");
         assert_eq!(development.main_exe, "Fluxer Development.exe");
 
@@ -8261,7 +8261,7 @@ mod tests {
                 assert_eq!(
                     entry.url,
                     format!(
-                        "https://pkgs.fluxer.com/desktop/canary/modules/{}/{}/package.br",
+                        "https://pkgs.nekochat-site.example/desktop/canary/modules/{}/{}/package.br",
                         module.module, module.sha256
                     )
                 );
@@ -8290,7 +8290,7 @@ mod tests {
         let mut builder = DesktopReleaseAssetBuilder::new(
             "canary",
             LAYOUT_VERSION,
-            "Fluxer-Canary",
+            "NekoChat-Canary",
             &release_assets,
         );
         add_desktop_module_release_assets(&mut builder, &payload_root.join("canary")).unwrap();
@@ -8306,7 +8306,7 @@ mod tests {
                 };
                 (
                     format!("desktop/canary/{platform}/{arch}/modules.json"),
-                    format!("Fluxer-Canary-{LAYOUT_VERSION}-{token}-{arch}-modules.json"),
+                    format!("NekoChat-Canary-{LAYOUT_VERSION}-{token}-{arch}-modules.json"),
                 )
             })
             .collect::<Vec<_>>();
@@ -8317,7 +8317,7 @@ mod tests {
                     module.module, module.sha256
                 ),
                 format!(
-                    "Fluxer-Canary-{LAYOUT_VERSION}-module-{}-{}.br",
+                    "NekoChat-Canary-{LAYOUT_VERSION}-module-{}-{}.br",
                     module.module, module.sha256
                 ),
             ));
@@ -8370,7 +8370,7 @@ mod tests {
         let mut builder = DesktopReleaseAssetBuilder::new(
             "canary",
             LAYOUT_VERSION,
-            "Fluxer-Canary",
+            "NekoChat-Canary",
             &release_assets,
         );
         assert!(
@@ -8395,7 +8395,7 @@ mod tests {
         let mut builder = DesktopReleaseAssetBuilder::new(
             "canary",
             LAYOUT_VERSION,
-            "Fluxer-Canary",
+            "NekoChat-Canary",
             &release_assets,
         );
         assert!(

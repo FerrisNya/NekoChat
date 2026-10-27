@@ -31,6 +31,6 @@ jobs:
     uses: ./.github/workflows/_build-image.yaml
     secrets: inherit
     with:
-      image: fluxer-unfurl
+      image: nekochat-unfurl
       dockerfile: fluxer_unfurl/Dockerfile
       build-version: ${{ inputs['build-version'] }}

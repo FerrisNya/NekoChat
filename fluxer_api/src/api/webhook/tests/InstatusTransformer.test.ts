@@ -6,7 +6,7 @@ import {InstatusWebhook} from '@fluxer/schema/src/domains/webhook/InstatusWebhoo
 import {describe, expect, it} from 'vitest';
 
 function createMeta(): InstatusWebhook['meta'] {
-	return {unsubscribe: 'https://fluxerstatus.com/unsubscribe?id=1&token=abc', documentation: ''};
+	return {unsubscribe: 'https://status.nekochat.example/unsubscribe?id=1&token=abc', documentation: ''};
 }
 
 describe('Instatus transformer', () => {

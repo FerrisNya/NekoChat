@@ -3,7 +3,7 @@
 import type {RuntimeConfigSnapshot} from '@app/features/app/state/RuntimeConfig';
 import {isDesktop} from '@app/features/ui/utils/NativeUtils';
 
-export const DESKTOP_PASSKEY_RELYING_PARTIES: ReadonlyArray<string> = Object.freeze(['fluxer.app']);
+export const DESKTOP_PASSKEY_RELYING_PARTIES: ReadonlyArray<string> = Object.freeze(['nekochat.example']);
 
 function hostFromEndpoint(endpoint: string | undefined): string | null {
 	if (endpoint == null || endpoint.length === 0) {

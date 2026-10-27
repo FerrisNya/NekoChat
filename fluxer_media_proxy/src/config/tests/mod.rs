@@ -30,7 +30,7 @@ fn with_shared_runtime_env(release: &[(&str, &str)]) -> Vec<(String, String)> {
     [
         ("FLUXER_ENV", "production"),
         ("FLUXER_MEDIA_PROXY_SECRET_KEY", "shared-runtime-secret"),
-        ("FLUXER_S3_ENDPOINT", "https://ewr1.vultrobjects.com"),
+        ("FLUXER_S3_ENDPOINT", "https://s3.nekochat-storage.example"),
         ("FLUXER_S3_REGION", "ewr1"),
         ("FLUXER_S3_ACCESS_KEY_ID", "AKIAIOSFODNN7EXAMPLE"),
         (
@@ -132,7 +132,7 @@ fn production_media_proxy_release_env_loads() {
         ("FLUXER_MEDIA_PROXY_CORS_MODE", "enforce"),
         (
             "FLUXER_MEDIA_PROXY_CORS_ALLOWED_ORIGINS",
-            "https://web.fluxer.app,https://web.canary.fluxer.app",
+            "https://web.nekochat.example,https://web.canary.nekochat.example",
         ),
     ]))
     .unwrap();
@@ -140,7 +140,10 @@ fn production_media_proxy_release_env_loads() {
     assert_eq!(DeploymentMode::Mp, cfg.mode);
     assert_eq!(PolicyMode::Enforce, cfg.cors.mode);
     assert_eq!(
-        vec!["https://web.fluxer.app", "https://web.canary.fluxer.app"],
+        vec![
+            "https://web.nekochat.example",
+            "https://web.canary.nekochat.example"
+        ],
         allowed_origins(&cfg)
     );
     assert!(cfg.read_only);
@@ -173,7 +176,7 @@ fn production_static_proxy_release_env_loads() {
         ("FLUXER_MEDIA_PROXY_CORS_MODE", "enforce"),
         (
             "FLUXER_MEDIA_PROXY_CORS_ALLOWED_ORIGINS",
-            "https://web.fluxer.app,https://web.canary.fluxer.app",
+            "https://web.nekochat.example,https://web.canary.nekochat.example",
         ),
     ]))
     .unwrap();

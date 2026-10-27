@@ -9,9 +9,9 @@ export interface ContactEmails {
 }
 
 const HOSTED_CONTACT_EMAILS: ContactEmails = {
-	appealsEmail: 'appeals@fluxer.com',
-	safetyEmail: 'safety@fluxer.com',
-	supportEmail: 'support@fluxer.com',
+	appealsEmail: 'appeals@nekochat-site.example',
+	safetyEmail: 'safety@nekochat-site.example',
+	supportEmail: 'support@nekochat-site.example',
 };
 
 const SELF_HOSTED_CONTACT_EMAILS: ContactEmails = {

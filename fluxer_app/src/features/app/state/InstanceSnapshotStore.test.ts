@@ -336,8 +336,8 @@ describe('resolveDiscoveryApiEndpoint', () => {
 
 	test('maps an official display host onto the client API endpoint for the running channel outside a browser page', () => {
 		const expected = OFFICIAL_CLIENT_API_ENDPOINTS[runningChannel()];
-		expect(resolveDiscoveryApiEndpoint('fluxer.app')).toBe(expected);
-		expect(resolveDiscoveryApiEndpoint('https://web.fluxer.app')).toBe(expected);
+		expect(resolveDiscoveryApiEndpoint('nekochat.example')).toBe(expected);
+		expect(resolveDiscoveryApiEndpoint('https://web.nekochat.example')).toBe(expected);
 	});
 
 	test.each(['', '/api', 'https://user:pw@example.test', 'ws://example.test'])('rejects %s', (input) => {
@@ -345,20 +345,20 @@ describe('resolveDiscoveryApiEndpoint', () => {
 	});
 
 	test.each([
-		['https://web.fluxer.app', 'https://web.fluxer.app/api'],
-		['https://web.canary.fluxer.app', 'https://web.canary.fluxer.app/api'],
-		['https://fluxer.com', 'https://fluxer.com/api'],
-		['https://canary.fluxer.com', 'https://canary.fluxer.com/api'],
+		['https://web.nekochat.example', 'https://web.nekochat.example/api'],
+		['https://web.canary.nekochat.example', 'https://web.canary.nekochat.example/api'],
+		['https://nekochat-site.example', 'https://nekochat-site.example/api'],
+		['https://canary.nekochat-site.example', 'https://canary.nekochat-site.example/api'],
 	])('an official page at %s resolves the official instance through its own %s', (origin, expected) => {
 		stubBrowserDocument(origin);
-		for (const input of [origin, 'fluxer.app', 'https://web.fluxer.app', 'api.fluxer.app', 'fluxer.com']) {
+		for (const input of [origin, 'nekochat.example', 'https://web.nekochat.example', 'api.nekochat.example', 'nekochat-site.example']) {
 			expect(resolveDiscoveryApiEndpoint(input)).toBe(expected);
 		}
 	});
 
 	test('a page on another origin reaches the official instance through its client API endpoint', () => {
 		stubBrowserDocument('https://chat.example.test');
-		expect(resolveDiscoveryApiEndpoint('fluxer.app')).toBe(OFFICIAL_CLIENT_API_ENDPOINTS[runningChannel()]);
+		expect(resolveDiscoveryApiEndpoint('nekochat.example')).toBe(OFFICIAL_CLIENT_API_ENDPOINTS[runningChannel()]);
 		expect(resolveDiscoveryApiEndpoint('https://chat.example.test')).toBe('https://chat.example.test');
 		expect(resolveDiscoveryApiEndpoint('other.example.test')).toBe('https://other.example.test');
 	});
@@ -373,16 +373,16 @@ describe('resolveDiscoveryApiEndpoint', () => {
 	test('the desktop local app resolves the official instance through the endpoint its discovery declares', () => {
 		stubBrowserDocument('fluxer-app://app', {servesOwnApi: true});
 		const expected = OFFICIAL_CLIENT_API_ENDPOINTS[runningChannel()];
-		expect(resolveDiscoveryApiEndpoint('https://web.fluxer.app')).toBe(expected);
-		expect(resolveDiscoveryApiEndpoint('https://fluxer.com')).toBe(expected);
+		expect(resolveDiscoveryApiEndpoint('https://web.nekochat.example')).toBe(expected);
+		expect(resolveDiscoveryApiEndpoint('https://nekochat-site.example')).toBe(expected);
 	});
 
 	test.each([
-		['https://fluxer.com/api', OFFICIAL_CLIENT_API_ENDPOINTS.stable],
-		['https://canary.fluxer.com/api', OFFICIAL_CLIENT_API_ENDPOINTS.canary],
-		['https://canary.fluxer.com/api/', OFFICIAL_CLIENT_API_ENDPOINTS.canary],
-		['https://web.fluxer.app/api', OFFICIAL_CLIENT_API_ENDPOINTS.stable],
-		['https://web.canary.fluxer.app/api', OFFICIAL_CLIENT_API_ENDPOINTS.canary],
+		['https://nekochat-site.example/api', OFFICIAL_CLIENT_API_ENDPOINTS.stable],
+		['https://canary.nekochat-site.example/api', OFFICIAL_CLIENT_API_ENDPOINTS.canary],
+		['https://canary.nekochat-site.example/api/', OFFICIAL_CLIENT_API_ENDPOINTS.canary],
+		['https://web.nekochat.example/api', OFFICIAL_CLIENT_API_ENDPOINTS.stable],
+		['https://web.canary.nekochat.example/api', OFFICIAL_CLIENT_API_ENDPOINTS.canary],
 	])('the desktop local app reaches the account stored at %s through %s', (stored, expected) => {
 		stubBrowserDocument('fluxer-app://app', {servesOwnApi: true});
 		expect(resolveDiscoveryApiEndpoint(stored)).toBe(expected);
@@ -391,17 +391,17 @@ describe('resolveDiscoveryApiEndpoint', () => {
 
 	test('a page on another origin reaches an account stored on the migrated official domain through the official instance', () => {
 		stubBrowserDocument('https://chat.example.test', {servesOwnApi: true});
-		expect(resolveDiscoveryApiEndpoint('https://fluxer.com/api')).toBe(OFFICIAL_CLIENT_API_ENDPOINTS.stable);
-		expect(storedInstanceKey('https://canary.fluxer.com/api')).toBe(OFFICIAL_CLIENT_API_ENDPOINTS.canary);
+		expect(resolveDiscoveryApiEndpoint('https://nekochat-site.example/api')).toBe(OFFICIAL_CLIENT_API_ENDPOINTS.stable);
+		expect(storedInstanceKey('https://canary.nekochat-site.example/api')).toBe(OFFICIAL_CLIENT_API_ENDPOINTS.canary);
 		expect(storedInstanceKey('https://chat.example.test/api')).toBe('https://chat.example.test/api');
 		expect(storedInstanceKey('https://other.example.test/api/')).toBe('https://other.example.test/api');
 	});
 
 	test.each([
-		'https://fluxer.com',
-		'https://canary.fluxer.com',
-		'https://web.fluxer.app',
-		'https://web.canary.fluxer.app',
+		'https://nekochat-site.example',
+		'https://canary.nekochat-site.example',
+		'https://web.nekochat.example',
+		'https://web.canary.nekochat.example',
 	])('the official page at %s keeps the account it stored on its own same-origin API', (origin) => {
 		stubBrowserDocument(origin, {servesOwnApi: true});
 		expect(resolveDiscoveryApiEndpoint(`${origin}/api`)).toBe(`${origin}/api`);
@@ -410,7 +410,7 @@ describe('resolveDiscoveryApiEndpoint', () => {
 
 	test('an endpoint that names no instance has no stored instance key', () => {
 		expect(storedInstanceKey('')).toBeNull();
-		expect(storedInstanceKey('https://user:pw@canary.fluxer.com/api')).toBeNull();
+		expect(storedInstanceKey('https://user:pw@canary.nekochat-site.example/api')).toBeNull();
 	});
 });
 
@@ -432,7 +432,7 @@ describe('InstanceSnapshotStore.resolve on an official web page', () => {
 
 	function serveLikeProduction(canonicalWebOrigin: string): ReturnType<typeof vi.fn> {
 		return vi.fn(async (url: string) => {
-			if (url.endsWith('.fluxer.app/.well-known/fluxer')) {
+			if (url.endsWith('.nekochat.example/.well-known/fluxer')) {
 				return new Response('<!doctype html><html></html>', {
 					status: 200,
 					headers: {'content-type': 'text/html; charset=utf-8'},
@@ -443,7 +443,7 @@ describe('InstanceSnapshotStore.resolve on an official web page', () => {
 	}
 
 	test('the legacy web origin discovers the instance on its own origin and keeps its API same-origin', async () => {
-		const canonical = 'https://web.canary.fluxer.app';
+		const canonical = 'https://web.canary.nekochat.example';
 		stubBrowserDocument(canonical);
 		const fetchMock = serveLikeProduction(canonical);
 		vi.stubGlobal('fetch', fetchMock);
@@ -457,16 +457,16 @@ describe('InstanceSnapshotStore.resolve on an official web page', () => {
 	});
 
 	test('a same-origin host takes over the client API and web app endpoints, as the app-proxy rewrite did', async () => {
-		stubBrowserDocument('https://canary.fluxer.com', {servesOwnApi: true});
-		const fetchMock = serveLikeProduction('https://web.canary.fluxer.app');
+		stubBrowserDocument('https://canary.nekochat-site.example', {servesOwnApi: true});
+		const fetchMock = serveLikeProduction('https://web.canary.nekochat.example');
 		vi.stubGlobal('fetch', fetchMock);
-		const resolution = await InstanceSnapshotStore.resolve({input: 'https://canary.fluxer.com', signal: null});
-		expect(fetchMock.mock.calls[0]?.[0]).toBe('https://canary.fluxer.com/.well-known/fluxer');
-		expect(resolution.snapshot.apiEndpoint).toBe('https://canary.fluxer.com/api');
-		expect(resolution.snapshot.webAppEndpoint).toBe('https://canary.fluxer.com');
+		const resolution = await InstanceSnapshotStore.resolve({input: 'https://canary.nekochat-site.example', signal: null});
+		expect(fetchMock.mock.calls[0]?.[0]).toBe('https://canary.nekochat-site.example/.well-known/fluxer');
+		expect(resolution.snapshot.apiEndpoint).toBe('https://canary.nekochat-site.example/api');
+		expect(resolution.snapshot.webAppEndpoint).toBe('https://canary.nekochat-site.example');
 		expect(resolution.snapshot.apiPublicEndpoint).toBe('https://api.example.test');
 		expect(resolution.snapshot.gatewayEndpoint).toBe('wss://gateway.example.test');
-		expect(resolution.instanceKey).toBe('https://canary.fluxer.com/api');
+		expect(resolution.instanceKey).toBe('https://canary.nekochat-site.example/api');
 	});
 
 	test('a self-hosted alias host that serves its own API adopts its origin', async () => {
@@ -503,9 +503,9 @@ describe('InstanceSnapshotStore.resolve on an official web page', () => {
 	});
 
 	test('a host that is not marked as serving its own API still refuses a foreign API declaration', async () => {
-		stubBrowserDocument('https://fluxer.com');
-		vi.stubGlobal('fetch', serveLikeProduction('https://web.fluxer.app'));
-		await expect(InstanceSnapshotStore.resolve({input: 'https://fluxer.com', signal: null})).rejects.toThrow(
+		stubBrowserDocument('https://nekochat-site.example');
+		vi.stubGlobal('fetch', serveLikeProduction('https://web.nekochat.example'));
+		await expect(InstanceSnapshotStore.resolve({input: 'https://nekochat-site.example', signal: null})).rejects.toThrow(
 			InstanceDiscoveryUnreachableError,
 		);
 	});
@@ -522,15 +522,15 @@ describe('InstanceSnapshotStore.resolve on an official web page', () => {
 	});
 
 	test('a web user on the migrated domain restores the account stored on its same-origin API', async () => {
-		stubBrowserDocument('https://fluxer.com', {servesOwnApi: true});
-		const fetchMock = serveLikeProduction('https://web.fluxer.app');
+		stubBrowserDocument('https://nekochat-site.example', {servesOwnApi: true});
+		const fetchMock = serveLikeProduction('https://web.nekochat.example');
 		vi.stubGlobal('fetch', fetchMock);
-		const resolution = await InstanceSnapshotStore.resolve({input: 'https://fluxer.com/api', signal: null});
-		expect(fetchMock.mock.calls[0]?.[0]).toBe('https://fluxer.com/.well-known/fluxer');
-		expect(resolution.snapshot.apiEndpoint).toBe('https://fluxer.com/api');
-		expect(resolution.snapshot.webAppEndpoint).toBe('https://fluxer.com');
-		expect(resolution.instanceKey).toBe('https://fluxer.com/api');
-		expect(resolution.instanceKey).toBe(storedInstanceKey('https://fluxer.com/api'));
+		const resolution = await InstanceSnapshotStore.resolve({input: 'https://nekochat-site.example/api', signal: null});
+		expect(fetchMock.mock.calls[0]?.[0]).toBe('https://nekochat-site.example/.well-known/fluxer');
+		expect(resolution.snapshot.apiEndpoint).toBe('https://nekochat-site.example/api');
+		expect(resolution.snapshot.webAppEndpoint).toBe('https://nekochat-site.example');
+		expect(resolution.instanceKey).toBe('https://nekochat-site.example/api');
+		expect(resolution.instanceKey).toBe(storedInstanceKey('https://nekochat-site.example/api'));
 	});
 });
 
@@ -716,8 +716,8 @@ describe('InstanceSnapshotStore.resolve in the desktop local app', () => {
 	}
 
 	test.each([
-		['https://canary.fluxer.com', 'https://web.canary.fluxer.app'],
-		['https://fluxer.com', 'https://web.fluxer.app'],
+		['https://canary.nekochat-site.example', 'https://web.canary.nekochat.example'],
+		['https://nekochat-site.example', 'https://web.nekochat.example'],
 	])('an account stored on %s resolves and is keyed as the official instance at %s', async (migrated, official) => {
 		const inputs = stubDesktopRuntime(new Map([[`${official}/api`, officialDocument(official)]]));
 

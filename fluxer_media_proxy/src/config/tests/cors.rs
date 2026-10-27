@@ -25,7 +25,7 @@ fn rejects_an_unknown_cors_mode() {
     for raw in ["strict", "true", "1"] {
         let err = Config::load_from_iter(env_with(&[
             ("FLUXER_MEDIA_PROXY_CORS_MODE", raw),
-            (ORIGINS_KEY, "https://web.fluxer.app"),
+            (ORIGINS_KEY, "https://web.nekochat.example"),
         ]))
         .unwrap_err();
         assert_eq!(
@@ -39,14 +39,23 @@ fn rejects_an_unknown_cors_mode() {
 #[test]
 fn allowed_origins_are_normalised_to_their_browser_serialisation() {
     for (raw, expected) in [
-        ("https://Web.Fluxer.App", vec!["https://web.fluxer.app"]),
-        ("https://web.fluxer.app/", vec!["https://web.fluxer.app"]),
-        ("https://web.fluxer.app:443", vec!["https://web.fluxer.app"]),
+        (
+            "https://Web.NekoChat.EXAMPLE",
+            vec!["https://web.nekochat.example"],
+        ),
+        (
+            "https://web.nekochat.example/",
+            vec!["https://web.nekochat.example"],
+        ),
+        (
+            "https://web.nekochat.example:443",
+            vec!["https://web.nekochat.example"],
+        ),
         ("http://localhost:8088", vec!["http://localhost:8088"]),
         ("fluxer-app://app", vec!["fluxer-app://app"]),
         (
-            "https://web.fluxer.app,fluxer-app://app,fluxer-app://app",
-            vec!["https://web.fluxer.app", "fluxer-app://app"],
+            "https://web.nekochat.example,fluxer-app://app,fluxer-app://app",
+            vec!["https://web.nekochat.example", "fluxer-app://app"],
         ),
         ("http://127.0.0.1:8088", vec!["http://127.0.0.1:8088"]),
         ("http://[::1]:8088", vec!["http://[::1]:8088"]),
@@ -73,30 +82,30 @@ fn rejects_an_allowed_origin_that_is_not_a_bare_http_origin() {
     for entry in [
         "*",
         "null",
-        "web.fluxer.app",
-        "ftp://web.fluxer.app",
+        "web.nekochat.example",
+        "ftp://web.nekochat.example",
         "file:///tmp/x",
         "fluxer-app://app/",
         "fluxer-app://evil",
         "fluxer-app://app:443",
         "FLUXER-APP://APP",
         "other-app://app",
-        "https://user@web.fluxer.app",
-        "https://user:pw@web.fluxer.app",
-        "https://web.fluxer.app/app",
-        "https://web.fluxer.app?x=1",
-        "https://web.fluxer.app#f",
-        "https://*.fluxer.app",
-        "https://{web}.fluxer.app",
+        "https://user@web.nekochat.example",
+        "https://user:pw@web.nekochat.example",
+        "https://web.nekochat.example/app",
+        "https://web.nekochat.example?x=1",
+        "https://web.nekochat.example#f",
+        "https://*.nekochat.example",
+        "https://{web}.nekochat.example",
         "https://*",
-        "https://web.*.fluxer.app",
+        "https://web.*.nekochat.example",
         "https://~",
         "https://$",
         "https://a..b",
-        "https://.fluxer.app",
-        "https://web.fluxer.app.",
+        "https://.nekochat.example",
+        "https://web.nekochat.example.",
         "https://bücher.example",
-        "https://w\u{435}b.fluxer.app",
+        "https://w\u{435}b.nekochat.example",
     ] {
         let err = enforce_with_origins(entry).unwrap_err();
         assert_eq!(
@@ -105,7 +114,7 @@ fn rejects_an_allowed_origin_that_is_not_a_bare_http_origin() {
         );
     }
 
-    let err = enforce_with_origins("https://{web,canary}.fluxer.app").unwrap_err();
+    let err = enforce_with_origins("https://{web,canary}.nekochat.example").unwrap_err();
     assert_eq!(
         format!("{ORIGINS_KEY} contains an invalid origin: https://{{web"),
         err.to_string()
@@ -115,9 +124,10 @@ fn rejects_an_allowed_origin_that_is_not_a_bare_http_origin() {
 #[test]
 fn an_invalid_entry_fails_even_beside_a_valid_one() {
     let err =
-        enforce_with_origins("https://web.fluxer.app, https://web.fluxer.app/app").unwrap_err();
+        enforce_with_origins("https://web.nekochat.example, https://web.nekochat.example/app")
+            .unwrap_err();
     assert_eq!(
-        format!("{ORIGINS_KEY} contains an invalid origin: https://web.fluxer.app/app"),
+        format!("{ORIGINS_KEY} contains an invalid origin: https://web.nekochat.example/app"),
         err.to_string()
     );
 }
@@ -153,19 +163,23 @@ fn off_mode_keeps_a_staged_allowlist_and_still_rejects_an_invalid_one() {
         ("FLUXER_MEDIA_PROXY_CORS_MODE", "off"),
         (
             ORIGINS_KEY,
-            "https://web.fluxer.app,https://web.canary.fluxer.app",
+            "https://web.nekochat.example,https://web.canary.nekochat.example",
         ),
     ]))
     .unwrap();
     assert_eq!(PolicyMode::Off, cfg.cors.mode);
     assert_eq!(
-        vec!["https://web.fluxer.app", "https://web.canary.fluxer.app"],
+        vec![
+            "https://web.nekochat.example",
+            "https://web.canary.nekochat.example"
+        ],
         allowed_origins(&cfg)
     );
 
-    let cfg = Config::load_from_iter(env_with(&[(ORIGINS_KEY, "https://web.fluxer.app")])).unwrap();
+    let cfg =
+        Config::load_from_iter(env_with(&[(ORIGINS_KEY, "https://web.nekochat.example")])).unwrap();
     assert_eq!(PolicyMode::Off, cfg.cors.mode);
-    assert_eq!(vec!["https://web.fluxer.app"], allowed_origins(&cfg));
+    assert_eq!(vec!["https://web.nekochat.example"], allowed_origins(&cfg));
 
     let err = Config::load_from_iter(env_with(&[
         ("FLUXER_MEDIA_PROXY_CORS_MODE", "off"),
@@ -196,8 +210,8 @@ fn relay_mode_ignores_both_cors_keys() {
     let relay_secret = general_purpose::STANDARD.encode([5u8; 32]);
     for (cors_mode, origins) in [
         ("enforce", "not an origin"),
-        ("enforce", "https://*.fluxer.app"),
-        ("strict", "https://web.fluxer.app"),
+        ("enforce", "https://*.nekochat.example"),
+        ("strict", "https://web.nekochat.example"),
     ] {
         let mut env: Vec<(&str, &str)> = env_with(&[
             ("FLUXER_MEDIA_PROXY_MODE", "relay"),
@@ -231,10 +245,10 @@ fn upload_mode_still_applies_the_cors_keys() {
         env
     };
 
-    let cfg = Config::load_from_iter(upload_env("https://web.fluxer.app")).unwrap();
+    let cfg = Config::load_from_iter(upload_env("https://web.nekochat.example")).unwrap();
     assert_eq!(DeploymentMode::Upload, cfg.mode);
     assert_eq!(PolicyMode::Enforce, cfg.cors.mode);
-    assert_eq!(vec!["https://web.fluxer.app"], allowed_origins(&cfg));
+    assert_eq!(vec!["https://web.nekochat.example"], allowed_origins(&cfg));
 
     let err = Config::load_from_iter(upload_env("not an origin")).unwrap_err();
     assert_eq!(

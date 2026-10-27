@@ -92,10 +92,10 @@ function reportRoutesLeftOut(target: GenerateTarget, stats: OpenAPIGenerationSta
 async function buildTargetSpec(basePath: string, target: GenerateTarget): Promise<WritableOpenAPISpec> {
 	const generator = new OpenAPIGenerator({
 		basePath,
-		title: 'Fluxer API',
+		title: 'NekoChat API',
 		version: '1.0.0',
 		description: API_DESCRIPTION,
-		serverUrl: 'https://api.fluxer.app/v1',
+		serverUrl: 'https://api.nekochat.example/v1',
 		routeScope: target,
 		schemaTarget: target === 'admin' ? 'openapi-3.0' : 'draft-2020-12',
 	});

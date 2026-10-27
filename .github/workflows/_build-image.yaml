@@ -5,7 +5,7 @@ on:
   workflow_call:
     inputs:
       image:
-        description: "Image name under ghcr.io/<owner>/ (for example fluxer-api)"
+        description: "Image name under ghcr.io/<owner>/ (for example nekochat-api)"
         type: string
         required: true
       dockerfile:
@@ -56,7 +56,7 @@ jobs:
         with:
           client-id: ${{ vars.FLUXER_CI_APP_ID }}
           private-key: ${{ secrets.FLUXER_CI_APP_KEY }}
-          owner: fluxerapp
+          owner: FerrisNya
           repositories: fluxer
           permission-contents: read
       - name: set variables
@@ -155,7 +155,7 @@ jobs:
         with:
           client-id: ${{ vars.FLUXER_CI_APP_ID }}
           private-key: ${{ secrets.FLUXER_CI_APP_KEY }}
-          owner: fluxerapp
+          owner: FerrisNya
           repositories: fluxer
           permission-contents: write
       - name: Publish GitHub release

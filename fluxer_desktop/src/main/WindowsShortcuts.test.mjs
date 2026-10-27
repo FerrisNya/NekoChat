@@ -23,7 +23,7 @@ const transformedSource = esbuild.transformSync(source, {
 const APPDATA = 'C:\\Users\\csh\\AppData\\Roaming';
 const USERPROFILE = 'C:\\Users\\csh';
 const PROGRAMS_DIR = path.win32.join(APPDATA, 'Microsoft', 'Windows', 'Start Menu', 'Programs');
-const AUTHOR_DIR = path.win32.join(PROGRAMS_DIR, 'Fluxer Platform AB');
+const AUTHOR_DIR = path.win32.join(PROGRAMS_DIR, 'NekoChat');
 const ROOT_SHORTCUT = path.win32.join(PROGRAMS_DIR, 'Fluxer Canary.lnk');
 const AUTHOR_SHORTCUT = path.win32.join(AUTHOR_DIR, 'Fluxer Canary.lnk');
 const ROOT_APP_DIR = 'C:\\Users\\csh\\AppData\\Local\\fluxer_desktop_canary';
@@ -113,11 +113,11 @@ function loadWindowsShortcuts(initialFiles) {
 			}
 			if (specifier === '@electron/common/DesktopIdentity') {
 				return {
-					DESKTOP_APP_NAME: 'Fluxer Canary',
-					WINDOWS_APP_USER_MODEL_ID: 'Fluxer.Fluxer.Canary',
+					DESKTOP_APP_NAME: 'NekoChat Canary',
+					WINDOWS_APP_USER_MODEL_ID: 'NekoChat.NekoChat.Canary',
 					WINDOWS_LEGACY_APP_USER_MODEL_IDS: [LEGACY_APP_USER_MODEL_ID],
-					WINDOWS_SHORTCUT_AUTHOR: 'Fluxer Platform AB',
-					WINDOWS_TOAST_ACTIVATOR_CLSID: '{9CEDB5C0-3552-43B0-A279-2232E0CDF74C}',
+					WINDOWS_SHORTCUT_AUTHOR: 'NekoChat',
+					WINDOWS_TOAST_ACTIVATOR_CLSID: '{C8D88078-7B7F-4B81-959E-A6D718B3AE66}',
 				};
 			}
 			return require(specifier);
@@ -166,7 +166,7 @@ describe('Windows Start Menu shortcut repair', () => {
 		const rewritten = harness.createdShortcuts.filter((options) => options.lnkPath === ROOT_SHORTCUT);
 		assert.equal(rewritten.length, 1);
 		assert.equal(rewritten[0].target, CURRENT_EXE);
-		assert.equal(rewritten[0].appUserModelId, 'Fluxer.Fluxer.Canary');
+		assert.equal(rewritten[0].appUserModelId, 'NekoChat.NekoChat.Canary');
 		assert.equal(harness.files.has(AUTHOR_SHORTCUT), false);
 	});
 
@@ -178,7 +178,7 @@ describe('Windows Start Menu shortcut repair', () => {
 		const rewritten = harness.createdShortcuts.filter((options) => options.lnkPath === AUTHOR_SHORTCUT);
 		assert.equal(rewritten.length, 1);
 		assert.equal(rewritten[0].target, CURRENT_EXE);
-		assert.equal(rewritten[0].appUserModelId, 'Fluxer.Fluxer.Canary');
-		assert.equal(rewritten[0].toastActivatorClsid, '{9CEDB5C0-3552-43B0-A279-2232E0CDF74C}');
+		assert.equal(rewritten[0].appUserModelId, 'NekoChat.NekoChat.Canary');
+		assert.equal(rewritten[0].toastActivatorClsid, '{C8D88078-7B7F-4B81-959E-A6D718B3AE66}');
 	});
 });

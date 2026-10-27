@@ -11,7 +11,7 @@ import {parseAcceptLanguage} from '@fluxer/i18n/src/locale/resolution/AcceptLang
 import type {Context} from 'hono';
 import {createMiddleware} from 'hono/factory';
 
-const CANARY_ORIGINS = new Set(['https://canary.fluxer.com', 'https://web.canary.fluxer.app']);
+const CANARY_ORIGINS = new Set(['https://canary.nekochat-site.example', 'https://web.canary.nekochat.example']);
 const UA_MAX_CHARS = 512;
 
 export interface ActivityRequestContext {

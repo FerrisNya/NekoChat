@@ -107,7 +107,7 @@ const REPORT_FLOW_SURFACES: ReadonlyArray<ReportFlowSurface> = ['in_app', 'dsa']
 const REPORT_FLOW_ID_PATTERN = /^[a-z0-9_]{1,48}$/;
 const MAX_WALK_SCREENS = 10;
 const CRISIS_LINES_URL = 'https://befrienders.org';
-const COPYRIGHT_HELP_URL = 'https://fluxer.app/help/copyright';
+const COPYRIGHT_HELP_URL = 'https://nekochat.example/help/copyright';
 const HOSTED_REPORT_FLOW_INSTANCE: ReportFlowInstance = {selfHosted: false, guidelinesLinked: true};
 const REPORT_FLOW_CHECKED_INSTANCES: ReadonlyArray<ReportFlowInstance> = [
 	HOSTED_REPORT_FLOW_INSTANCE,

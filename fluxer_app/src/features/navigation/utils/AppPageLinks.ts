@@ -33,7 +33,7 @@ const APP_PAGES: ReadonlyArray<AppPageDefinition> = [
 	{id: 'direct_messages', path: Routes.ME, icon: ChatsCircleIcon, appHostOnly: false},
 ];
 
-const OFFICIAL_WEB_APP_HOSTS = ['web.fluxer.app', 'web.canary.fluxer.app'];
+const OFFICIAL_WEB_APP_HOSTS = ['web.nekochat.example', 'web.canary.nekochat.example'];
 
 function normalizePath(pathname: string): string {
 	const trimmed = pathname.length > 1 ? pathname.replace(/\/+$/, '') : pathname;

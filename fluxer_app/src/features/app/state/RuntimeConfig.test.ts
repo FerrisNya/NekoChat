@@ -352,14 +352,14 @@ describe('resolveAndPrepareSnapshot', () => {
 
 describe('describeAPIEndpoint', () => {
 	test.each([
-		['https://api.fluxer.app', 'fluxer.app'],
-		['https://web.fluxer.app', 'fluxer.app'],
-		['https://api.canary.fluxer.app', 'fluxer.app'],
+		['https://api.nekochat.example', 'nekochat.example'],
+		['https://web.nekochat.example', 'nekochat.example'],
+		['https://api.canary.nekochat.example', 'nekochat.example'],
 		['https://self.example/api', 'self.example/api'],
 		['https://self.example/api/', 'self.example/api'],
 		['self.example', 'self.example'],
 		['http://localhost:8080/api', 'http://localhost:8080/api'],
-		['https://fluxer.app:8443/api', 'fluxer.app:8443/api'],
+		['https://nekochat.example:8443/api', 'nekochat.example:8443/api'],
 		['/api', '/api'],
 		['not a url at all', 'not a url at all'],
 	])('%s displays as %s', (endpoint, expected) => {

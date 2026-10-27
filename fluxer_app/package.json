@@ -3,8 +3,8 @@
 	"version": "0.0.0",
 	"private": true,
 	"description": "Fluxer is a free and open source instant messaging and VoIP chat app built for friends, groups, and communities.",
-	"homepage": "https://fluxer.app",
-	"author": "Fluxer Platform AB <support@fluxer.com>",
+	"homepage": "https://nekochat.example",
+	"author": "NekoChat contributors <support@nekochat-site.example>",
 	"sideEffects": [
 		"*.css",
 		"**/*.css",

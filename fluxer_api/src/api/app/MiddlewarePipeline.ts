@@ -90,7 +90,7 @@ export function configureMiddleware(routes: HonoApp, options: MiddlewarePipeline
 	if (nodeEnv === 'production') {
 		routes.use('*', async (ctx, next) => {
 			const host = ctx.req.header('host');
-			if (ctx.req.method !== 'GET' && (host === 'web.fluxer.app' || host === 'web.canary.fluxer.app')) {
+			if (ctx.req.method !== 'GET' && (host === 'web.nekochat.example' || host === 'web.canary.nekochat.example')) {
 				const origin = ctx.req.header('origin');
 				if (!origin || origin !== `https://${host}`) {
 					throw new InvalidApiOriginError();

@@ -9,10 +9,10 @@ export type WebPushOriginKind = 'legacy' | 'target';
 export type WebPushOriginReplacement = 'installed' | 'browser';
 
 const WEB_PUSH_ORIGIN_KINDS: ReadonlyMap<string, WebPushOriginKind> = new Map([
-	['https://web.fluxer.app', 'legacy'],
-	['https://web.canary.fluxer.app', 'legacy'],
-	['https://fluxer.com', 'target'],
-	['https://canary.fluxer.com', 'target'],
+	['https://web.nekochat.example', 'legacy'],
+	['https://web.canary.nekochat.example', 'legacy'],
+	['https://nekochat-site.example', 'target'],
+	['https://canary.nekochat-site.example', 'target'],
 ]);
 
 const PUSH_ORIGIN_REPLACED_PREFIX = 'push_origin_replaced:';

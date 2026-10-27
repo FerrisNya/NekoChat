@@ -4,12 +4,12 @@ import RuntimeConfig from '@app/features/app/state/RuntimeConfig';
 import * as CodeLinkUtils from '@app/features/messaging/utils/CodeLinkUtils';
 
 const OFFICIAL_GIFT_URL_BASES = Object.freeze([
-	'https://fluxer.app/gift',
-	'https://canary.fluxer.app/gift',
-	'https://web.fluxer.app/gift',
-	'https://web.canary.fluxer.app/gift',
-	'https://fluxer.com/gift',
-	'https://canary.fluxer.com/gift',
+	'https://nekochat.example/gift',
+	'https://canary.nekochat.example/gift',
+	'https://web.nekochat.example/gift',
+	'https://web.canary.nekochat.example/gift',
+	'https://nekochat-site.example/gift',
+	'https://canary.nekochat-site.example/gift',
 	'https://fluxer.gift',
 	'https://fluxer.gift/gift',
 ]);

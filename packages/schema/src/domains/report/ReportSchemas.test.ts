@@ -8,7 +8,7 @@ const legacyBodies: Array<Record<string, unknown>> = [
 		ticket: 'ticket-message',
 		report_type: 'message',
 		category: 'harassment',
-		message_link: 'https://web.fluxer.app/channels/1/2/3',
+		message_link: 'https://web.nekochat.example/channels/1/2/3',
 		reported_user_tag: 'target#0001',
 		reporter_full_legal_name: 'John Doe',
 		reporter_country_of_residence: 'DE',
@@ -55,7 +55,7 @@ const flowBodies: Array<Record<string, unknown>> = [
 		...flowFields,
 		ticket: 'ticket-message',
 		report_type: 'message',
-		message_link: 'https://web.fluxer.app/channels/1/2/3',
+		message_link: 'https://web.nekochat.example/channels/1/2/3',
 		reporter_full_legal_name: 'John Doe',
 		steps: [
 			{screen_id: 'root_message', option_id: 'abuse'},

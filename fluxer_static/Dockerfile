@@ -12,7 +12,7 @@ ARG BUILD_VERSION=""
 ARG SOURCE_SHA=""
 ARG SOURCE_DATE=""
 
-LABEL org.opencontainers.image.title="fluxer-static"
+LABEL org.opencontainers.image.title="nekochat-static"
 LABEL org.opencontainers.image.description="Self-hostable static asset bundle for Fluxer"
 LABEL org.opencontainers.image.licenses="AGPL-3.0-or-later AND CC-BY-SA-4.0 AND CC-BY-4.0"
 LABEL org.opencontainers.image.vendor="Fluxer"

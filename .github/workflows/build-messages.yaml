@@ -31,6 +31,6 @@ jobs:
     uses: ./.github/workflows/_build-image.yaml
     secrets: inherit
     with:
-      image: fluxer-messages
+      image: nekochat-messages
       dockerfile: fluxer_messages/Dockerfile
       build-version: ${{ inputs['build-version'] }}

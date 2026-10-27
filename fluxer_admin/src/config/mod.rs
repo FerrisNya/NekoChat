@@ -6,7 +6,7 @@ use fluxer_common::config::{
 };
 
 const DEFAULT_ADMIN_OAUTH_CLIENT_ID: &str = "1234567890123456789";
-const DEFAULT_REPORTS_BUCKET_ORIGIN: &str = "https://fluxer-reports.ewr1.vultrobjects.com";
+const DEFAULT_REPORTS_BUCKET_ORIGIN: &str = "https://fluxer-reports.s3.nekochat-storage.example";
 
 #[derive(Clone, Debug)]
 pub struct AdminConfig {
@@ -39,7 +39,7 @@ impl AdminConfig {
         let base_path = normalize_base_path(&read_env("FLUXER_ADMIN_BASE_PATH", ""));
         let admin_endpoint = normalize_public_endpoint_from_env(&trim_trailing_slash(&read_env(
             "FLUXER_ADMIN_ENDPOINT",
-            "https://admin.fluxer.app",
+            "https://admin.nekochat.example",
         )));
         let oauth_redirect_uri = normalize_public_endpoint_from_env(&read_env(
             "FLUXER_ADMIN_OAUTH_REDIRECT_URI",
@@ -60,11 +60,11 @@ impl AdminConfig {
             base_path,
             api_endpoint: trim_trailing_slash(&read_env(
                 "FLUXER_API_ENDPOINT",
-                "https://api.fluxer.app",
+                "https://api.nekochat.example",
             )),
             media_endpoint: normalize_public_endpoint_from_env(&trim_trailing_slash(&read_env(
                 "FLUXER_MEDIA_ENDPOINT",
-                "https://media.fluxer.app",
+                "https://media.nekochat.example",
             ))),
             static_cdn_endpoint: normalize_public_endpoint_from_env(&trim_trailing_slash(
                 &read_env("FLUXER_STATIC_CDN_ENDPOINT", ""),
@@ -74,7 +74,7 @@ impl AdminConfig {
             admin_endpoint,
             web_app_endpoint: normalize_public_endpoint_from_env(&trim_trailing_slash(&read_env(
                 "FLUXER_APP_ENDPOINT",
-                "https://app.fluxer.app",
+                "https://app.nekochat.example",
             ))),
             oauth_client_id: read_env(
                 "FLUXER_ADMIN_OAUTH_CLIENT_ID",
@@ -300,16 +300,16 @@ mod tests {
     fn bucket_origin_matches_the_addressing_of_presigned_urls() {
         let cases = [
             (
-                "https://ewr1.vultrobjects.com",
+                "https://s3.nekochat-storage.example",
                 false,
                 "fluxer-reports",
-                "https://fluxer-reports.ewr1.vultrobjects.com",
+                "https://fluxer-reports.s3.nekochat-storage.example",
             ),
             (
-                "https://ewr1.vultrobjects.com/",
+                "https://s3.nekochat-storage.example/",
                 true,
                 "fluxer-reports",
-                "https://ewr1.vultrobjects.com",
+                "https://s3.nekochat-storage.example",
             ),
             (
                 "http://seaweedfs:8333",
@@ -419,11 +419,11 @@ mod tests {
         };
         assert_eq!(
             host(
-                Some("https://fluxer-uploads.ewr1.vultrobjects.com"),
+                Some("https://fluxer-uploads.s3.nekochat-storage.example"),
                 Some("https://internal.example")
             )
             .as_deref(),
-            Some("https://ewr1.vultrobjects.com/")
+            Some("https://s3.nekochat-storage.example/")
         );
         assert_eq!(
             host(
@@ -453,10 +453,10 @@ mod tests {
     #[test]
     fn the_reports_bucket_origin_follows_the_object_store_settings() {
         let hosted = config_from_env(&[
-            ("FLUXER_S3_ENDPOINT", "https://ewr1.vultrobjects.com"),
+            ("FLUXER_S3_ENDPOINT", "https://s3.nekochat-storage.example"),
             (
                 "FLUXER_S3_PUBLIC_ENDPOINT",
-                "https://fluxer-uploads.ewr1.vultrobjects.com",
+                "https://fluxer-uploads.s3.nekochat-storage.example",
             ),
         ]);
         assert_eq!(hosted.reports_bucket_origin, DEFAULT_REPORTS_BUCKET_ORIGIN);

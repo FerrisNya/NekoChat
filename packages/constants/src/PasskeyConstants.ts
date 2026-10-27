@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-export const PASSKEY_MIGRATION_RP_ID = 'fluxer.com';
+export const PASSKEY_MIGRATION_RP_ID = 'nekochat-site.example';
 
 export const PASSKEY_BRIDGE_PATH = '/passkey-bridge';
 

@@ -428,7 +428,7 @@ async function removeSandboxLocalLinuxAutostartEntry(): Promise<void> {
 }
 
 function getFlatpakAutostartCommandline(): Array<string> {
-	const command = process.env.FLUXER_FLATPAK_COMMAND?.trim() || 'fluxer';
+	const command = process.env.FLUXER_FLATPAK_COMMAND?.trim() || 'nekochat';
 	return [command, AUTOSTART_LAUNCH_ARG];
 }
 
