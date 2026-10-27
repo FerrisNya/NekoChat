@@ -4,9 +4,9 @@ Replace Fluxer's centralized messaging/upload backend with a hybrid P2P + federa
 
 ## Phase 0: Groundwork (1–2 weeks)
 1. ✅ **Rebrand the identifiers.** Packages, bundle ID, update/push endpoints, Docker image names. See [rebrand-placeholders.md](rebrand-placeholders.md). Internal code names are deferred to Phase 9.
-2. **Lock in the main choices:** transport (Iroh or rust-libp2p), identity (Ed25519 keys, cross-signed devices), group encryption (OpenMLS), local storage (SQLite).
+2. ✅ **Lock in the main choices:** Iroh, Ed25519 root key plus signed device keys, OpenMLS, SQLite (Postgres optional on instances). See [decisions.md](decisions.md).
 3. ✅ **Map the cut lines.** See [cut-lines.md](cut-lines.md). The Decision column is still to be filled in.
-4. **Write a protocol spec** in `spec/`: identity records, contact requests, message envelopes, blobs, community authority, discovery records, all with versioned wire formats.
+4. 📝 **Write a protocol spec**: drafted in [protocol/](protocol/README.md), covering identity, transport, contacts and mailboxes, messaging, blobs, communities, and discovery. Needs review; its open questions are listed in the README.
 
 **Done when** the spec is reviewed and the repo builds under the NekoChat name.
 
