@@ -22,7 +22,7 @@ LABEL org.opencontainers.image.source="https://github.com/fluxerapp/fluxer"
 LABEL org.opencontainers.image.version="${BUILD_VERSION}"
 LABEL org.opencontainers.image.revision="${SOURCE_SHA}"
 LABEL org.opencontainers.image.created="${SOURCE_DATE}"
-LABEL app.fluxer.build-version="${BUILD_VERSION}"
+LABEL app.nekochat.build-version="${BUILD_VERSION}"
 
 COPY fluxer_static/Caddyfile /etc/caddy/Caddyfile
 COPY --chown=65532:65532 fluxer_static/LICENSE fluxer_static/THIRD_PARTY_LICENSES.md /srv/fluxer-static/

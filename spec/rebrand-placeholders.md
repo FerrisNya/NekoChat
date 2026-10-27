@@ -33,7 +33,7 @@ You can map several placeholders to one real domain later.
 | Deep-link scheme | `nekochat://` (`nekochat-development://` for dev builds) |
 | Windows | Velopack IDs `nekochat_desktop[_canary\|_development]`, AppUserModelIDs `NekoChat.NekoChat[.Canary\|.Development]`, freshly generated toast-activator CLSIDs, shortcut/author `NekoChat` |
 | Linux packages | `nekochat`, `nekochat-canary`, `nekochat-development`; user-data dirs `nekochat`, `nekochatcanary`, `nekochatdevelopment` |
-| Container images | `ghcr.io/ferrisnya/nekochat-*` (`nekochat-api`, `nekochat-gateway`, … in CI, compose, Helm, the image-set tool and Dockerfile title labels) |
+| Container images | `ghcr.io/ferrisnya/nekochat-*` (`nekochat-api`, `nekochat-gateway`, … in CI, compose, Helm, the image-set tool, and the Dockerfile `org.opencontainers.image.title` and `app.nekochat.build-version` labels) |
 | Release tags | image-set releases are `nekochat-release@<version>` |
 | Helm chart | chart name `nekochat` (folder and template helpers still `fluxer`) |
 | API docs | OpenAPI title `NekoChat API` |

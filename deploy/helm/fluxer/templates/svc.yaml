@@ -19,11 +19,11 @@
 {{- if eq $name "unfurl" }}
 {{- $shardEnv = append $shardEnv (dict "name" "FLUXER_MEDIA_PROXY_ENDPOINT" "value" "http://media-proxy:8080") }}
 {{- end }}
-{{- include "fluxer.app" (dict "root" $ "name" $name "component" "svc" "w" $router "image" (printf "fluxer-%s" $name) "port" 8090 "containerName" "router"
+{{- include "fluxer.app" (dict "root" $ "name" $name "component" "svc" "w" $router "image" (printf "nekochat-%s" $name) "port" 8090 "containerName" "router"
   "env" (append $common (dict "name" "FLUXER_SVC_MODE" "value" "router"))
   "probes" $probes
   "waitFor" (include "fluxer.appWaitFor" (dict "root" $ "usesNats" true) | fromJsonArray)) }}
-{{- include "fluxer.app" (dict "root" $ "name" (printf "%s-shard" $name) "component" "svc" "w" $shard "image" (printf "fluxer-%s" $name) "port" 8090 "containerName" "shard"
+{{- include "fluxer.app" (dict "root" $ "name" (printf "%s-shard" $name) "component" "svc" "w" $shard "image" (printf "nekochat-%s" $name) "port" 8090 "containerName" "shard"
   "kind" "StatefulSet" "serviceName" (printf "%s-shard" $name) "headless" true
   "env" $shardEnv
   "probes" $probes

@@ -157,7 +157,7 @@ LABEL org.opencontainers.image.source="https://github.com/FerrisNya/NekoChat"
 LABEL org.opencontainers.image.version="${BUILD_VERSION}"
 LABEL org.opencontainers.image.revision="${SOURCE_SHA}"
 LABEL org.opencontainers.image.created="${SOURCE_DATE}"
-LABEL app.fluxer.build-version="${BUILD_VERSION}"
+LABEL app.nekochat.build-version="${BUILD_VERSION}"
 
 WORKDIR /srv/app
 
