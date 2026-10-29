@@ -34,6 +34,7 @@ Replace Fluxer's centralized messaging/upload backend with a hybrid P2P + federa
 1. `neko-node --instance`: public web UI hosting, account login that unlocks the user's keys, mailbox/relay service for members. Postgres optional.
 2. **Federation:** instance-to-instance over HTTPS/QUIC, signed server keys, defederation and block lists.
 3. Browser client uses the instance as its home node.
+4. **Sign-in and linked accounts:** password, passkey and external providers (Google, Discord, Facebook, GitHub, …) for instance accounts, with the root key wrapped per method; instance-attested and self-proved linked accounts ([protocol/01](protocol/01-identity.md#instance-sign-in)).
 
 **Done when** users on instance A, instance B and a light node can all DM each other.
 
@@ -47,6 +48,7 @@ Replace Fluxer's centralized messaging/upload backend with a hybrid P2P + federa
 ## Phase 6: Discovery (2–3 weeks)
 1. Instances announce to a default directory and gossip known instances; P2P nodes enter the DHT only on opt-in.
 2. Discovery UI that respects opt-out and defederation.
+3. **Optional ways to be found:** by searchable linked account, by area (rounded on the device, expiring, no distances), and "people nearby" on the same local network ([protocol/07](protocol/07-discovery-and-federation.md#finding-people-by-linked-account)).
 
 ## Phase 7: Desktop and voice (3–4 weeks)
 1. Embed `neko_node` in the desktop app as a native addon; point the module updater and Velopack at NekoChat's release feeds.

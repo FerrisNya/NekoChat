@@ -10,13 +10,13 @@ The [decisions](../decisions.md) it builds on: Iroh for transport, Ed25519 root 
 
 | Document | Covers |
 |---|---|
-| [01-identity.md](01-identity.md) | User IDs, root and device keys, the identity log, profiles, handles, recovery |
+| [01-identity.md](01-identity.md) | User IDs, root and device keys, the identity log, profiles, handles, recovery, instance sign-in (including Google, Discord and other providers), linked accounts |
 | [02-transport.md](02-transport.md) | Iroh connections, framing, the session handshake, the list of requests |
 | [03-contacts-and-mailboxes.md](03-contacts-and-mailboxes.md) | Reachability records, contact requests, consent, mailboxes, delivery tokens, blocking |
 | [04-messaging.md](04-messaging.md) | Envelopes, MLS groups, message content, ordering, edits, ephemeral events |
 | [05-blobs.md](05-blobs.md) | Encrypted file transfer, attachment descriptors, retention |
 | [06-communities.md](06-communities.md) | Home nodes, the community log, permissions, invites, encrypted channels, migration |
-| [07-discovery-and-federation.md](07-discovery-and-federation.md) | Instance records, directories, gossip, opt-out, defederation |
+| [07-discovery-and-federation.md](07-discovery-and-federation.md) | Instance records, directories, gossip, opt-out, defederation, finding people by linked account or area, people nearby on the same network |
 
 ## The pieces
 
@@ -145,3 +145,5 @@ These are the questions this draft leaves open. Each document's own Open questio
 6. **Recovery window length.** The draft gives a recovery key 72 hours to override a root-key change. ([01](01-identity.md))
 7. **Permission model.** Communities reuse Fluxer's permission bits. The exact list is fixed when Phase 5 ports them. ([06](06-communities.md))
 8. **Message IDs in the web app.** The app assumes 64-bit snowflake IDs in about 52 files. 16-byte neko-ids need a client-side change ([cut-lines §11](../cut-lines.md)). ([04](04-messaging.md))
+9. **Passkey coverage.** Protecting the root key for accounts that sign in with Google or Discord relies on the WebAuthn `prf` extension, which not every browser supports yet. ([01](01-identity.md))
+10. **Fake clients in area search.** Per-client rate limits are weak against someone running many clients. Directories could require a token from the searcher's instance, which would leave light-node users out. ([07](07-discovery-and-federation.md))

@@ -80,7 +80,7 @@ Access depends on what the caller has proved:
 
 | Caller | Allowed |
 |---|---|
-| **Anonymous** | `hello`, `identity.get`, `reach.get`, `mailbox.deposit` (contact requests only), `instance.info` |
+| **Anonymous** | `hello`, `identity.get`, `reach.get`, `mailbox.deposit` (contact requests only), `instance.info`, and `nearby.get` from local-network peers only |
 | **Identified stranger** (valid user, not a contact) | The above, plus `mailbox.deposit` with a valid delivery token |
 | **Contact** | The above, plus `deliver`, `profile.get`, `keypackage.get`, `presence.subscribe` |
 | **Community member** (on the community's home node) | `community.*` requests for that community, within their permissions |
@@ -100,7 +100,7 @@ Each document defines its own methods:
 | `deliver`, `keypackage.get`, `presence.subscribe`, `device.sync` | [04](04-messaging.md) |
 | `community.*` | [06](06-communities.md) |
 | `account.blob.pin`, `account.blob.unpin` (own instance only) | [05](05-blobs.md) |
-| `instance.info`, `discovery.peers` | [07](07-discovery-and-federation.md) |
+| `instance.info`, `discovery.peers`, `nearby.get` | [07](07-discovery-and-federation.md) |
 
 `identity.get`:
 
